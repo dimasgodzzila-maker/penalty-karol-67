@@ -13,7 +13,7 @@ h1{font-size:26px;margin:25px 0 4px;text-align:center}.sub{text-align:center;col
 .card{background:linear-gradient(150deg,#15382b,#0d241d);border:1px solid #315340;border-radius:20px;padding:15px;margin:12px 0;box-shadow:0 12px 28px #0003}
 .field{color:var(--muted);font-size:13px;font-weight:700;margin:3px 0 9px;text-transform:uppercase;letter-spacing:.7px}
 button,input{font:inherit}button{border:0;border-radius:13px;padding:13px 12px;background:#254b38;color:white;font-weight:800;font-size:15px;cursor:pointer}button.primary{background:var(--lime);color:#142417}button:disabled{opacity:.4}
-input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;color:white;padding:13px;margin:5px 0 10px;font-size:16px}
+input,select{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;color:white;padding:13px;margin:5px 0 10px;font-size:16px}
 .row{display:flex;gap:8px}.row>*{flex:1}.hint{color:var(--muted);font-size:13px;line-height:1.45}.status{padding:10px;border-radius:12px;background:#0b2119;color:var(--lime);font-weight:700;text-align:center;min-height:42px;overflow-wrap:anywhere}
 .score{display:flex;justify-content:space-around;text-align:center}.score b{display:block;font-size:27px;color:var(--lime)}.score small{color:var(--muted)}
 .pitch{height:330px;position:relative;overflow:hidden;border-radius:14px;border:3px solid #a8d98a;margin:12px 0;background:linear-gradient(#171d42 0 31%,#235d34 31% 100%);box-shadow:inset 0 0 0 3px #07150d,0 8px 18px #0008;isolation:isolate}
@@ -23,6 +23,7 @@ input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;
 .sprite{position:absolute;background-repeat:no-repeat;background-size:400% 100%;image-rendering:pixelated;filter:drop-shadow(0 5px 2px #0008);background-color:transparent}
 .keeper{width:112px;height:112px;top:29%;left:50%;transform:translateX(-50%);background-image:url("keeper_sprites.png");background-position:0% 50%;z-index:4}
 .player{width:138px;height:138px;left:7%;bottom:2%;background-image:url("player_sprites.png");background-position:0% 50%;z-index:5}
+.player.team-kit{background-size:400% 100%;background-repeat:no-repeat}
 .ball{position:absolute;bottom:22%;left:51%;transform:translateX(-50%);font-size:30px;z-index:6;filter:drop-shadow(0 3px 2px #0008)}
 .pitch-line{position:absolute;z-index:1;left:0;right:0;bottom:21%;height:3px;background:#e5f0d8;opacity:.9}
 .pitch-box{position:absolute;z-index:1;left:12%;right:12%;top:56%;height:18%;border:3px solid #e5f0d8;border-bottom:0;opacity:.9}
@@ -66,6 +67,12 @@ input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;
 .menu-note{text-align:center;color:#c5e6c1;font-size:10px;letter-spacing:1.4px}
 .menu-footer{font-size:10px;letter-spacing:2px;color:#769c7b}
 
+.solo-difficulties button{padding:11px 5px;font-size:12px;border:1px solid #426b4e}
+.team-preview{display:flex;align-items:center;gap:10px;background:#0b2119;border:1px solid #315340;border-radius:12px;padding:8px 10px;margin:-3px 0 10px;color:#dcebdc;font-weight:800;font-size:13px}.team-preview img{width:58px;height:36px;object-fit:cover;border:1px solid #ffffff55;border-radius:5px;image-rendering:auto}.inline-team-flag{width:28px;height:18px;object-fit:cover;vertical-align:-3px;border-radius:3px;border:1px solid #ffffff55;margin-right:5px}
+#petHub .card{margin:10px 0;padding:12px}
+#petHub small{display:block;text-align:center;color:var(--muted);margin:8px 0 4px}
+#petHub [data-pet].active{background:var(--lime);color:#142417}
+.solo-difficulties button.active{background:var(--lime);color:#142417;border-color:var(--lime)}
 @media(max-width:390px){.pitch{height:285px}.player{width:118px;height:118px}.keeper{width:94px;height:94px}.goal{left:17%;width:66%}}
 </style>
 </head>
@@ -80,8 +87,10 @@ input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;
   <div class="menu-brand"><div class="crown">♛</div><div>ПЕНАЛЬТИ</div><strong>КОРОЛЬ <i>67</i></strong><small>THE PENALTY KING</small></div>
   <div class="menu-player" aria-hidden="true"><div class="menu-goal"></div><div class="menu-keeper">🧤</div><div class="menu-striker">⚽</div></div>
   <div class="menu-actions">
-    <button id="playFriend" class="menu-button menu-primary">ИГРАТЬ С ДРУГОМ <span>➜</span></button>
-    <div class="menu-note">СОЗДАЙ КОМНАТУ ИЛИ ВВЕДИ КОД</div>
+    <button id="playSolo" class="menu-button menu-primary">ОДИНОЧНАЯ ИГРА <span>⚽</span></button>
+    <button id="playFriend" class="menu-button">ИГРАТЬ С ДРУГОМ <span>➜</span></button>
+    <button id="openPetHub" class="menu-button">МОНЕТЫ И ПИТОМЦЫ <span>★</span></button>
+    <div class="menu-note">PENALTY KING 67 • PIXEL EDITION</div>
   </div>
   <div class="menu-footer">PENALTY KING 67 • PIXEL EDITION</div>
 </section>
@@ -91,9 +100,46 @@ input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;
  <section class="card" id="lobby">
   <button id="backToMenu" style="padding:8px 11px;margin-bottom:12px">← ГЛАВНОЕ МЕНЮ</button>
   <div class="field">Твоё имя</div><input id="playerName" maxlength="16" placeholder="Например, Дима">
+  <div class="field">Твоя команда</div><select id="onlineTeam"><optgroup label="Сборные"><option>🇺🇦 Украина</option><option>🇦🇷 Аргентина</option><option>🇧🇷 Бразилия</option><option>🇫🇷 Франция</option><option>🇵🇹 Португалия</option><option>🇪🇸 Испания</option><option>🏴 Англия</option><option>🇩🇪 Германия</option><option>🇮🇹 Италия</option><option>🇳🇱 Нидерланды</option></optgroup></select><div class="team-preview"><img id="onlineTeamFlag" src="ukraine.png" alt="Флаг сборной"><span id="onlineTeamLabel">Украина</span></div>
   <div class="row"><button class="primary" id="createRoom">Создать комнату</button><button id="joinToggle">Ввести код</button></div>
   <div id="joinArea" class="hidden"><div class="field" style="margin-top:14px">Код комнаты</div><input id="roomCode" maxlength="6" placeholder="ABC123" autocapitalize="characters"><button id="joinRoom" class="primary" style="width:100%">Присоединиться</button></div>
   <div class="status" id="lobbyStatus" style="margin-top:12px">Подключаемся к серверу…</div>
+ </section>
+ <section class="card hidden" id="soloSetup">
+  <button id="soloBack" style="padding:8px 11px;margin-bottom:12px">← ГЛАВНОЕ МЕНЮ</button>
+  <h1 style="margin:4px 0 8px">ОДИНОЧНАЯ ИГРА</h1>
+  <p class="sub">Пять пенальти против компьютерного вратаря</p>
+  <div class="field">Твой игровой ник</div><input id="soloPlayerName" maxlength="16" placeholder="Например, Dima67" autocomplete="nickname">
+  <div class="field">Выбери свою команду</div>
+  <select id="soloTeam"><optgroup label="Сборные"><option>🇺🇦 Украина</option><option>🇦🇷 Аргентина</option><option>🇧🇷 Бразилия</option><option>🇫🇷 Франция</option><option>🇵🇹 Португалия</option><option>🇪🇸 Испания</option><option>🏴 Англия</option><option>🇩🇪 Германия</option><option>🇮🇹 Италия</option><option>🇳🇱 Нидерланды</option></optgroup></select><div class="team-preview"><img id="soloTeamFlag" src="ukraine.png" alt="Флаг твоей сборной"><span id="soloTeamLabel">Украина</span></div>
+  <div class="field">Команда соперника</div>
+  <select id="soloOpponent"><optgroup label="Сборные"><option>🇺🇦 Украина</option><option>🇦🇷 Аргентина</option><option>🇧🇷 Бразилия</option><option>🇫🇷 Франция</option><option>🇵🇹 Португалия</option><option>🇪🇸 Испания</option><option>🏴 Англия</option><option>🇩🇪 Германия</option><option>🇮🇹 Италия</option><option>🇳🇱 Нидерланды</option></optgroup></select><div class="team-preview"><img id="soloOpponentFlag" src="argentina.png" alt="Флаг сборной соперника"><span id="soloOpponentLabel">Аргентина</span></div>
+  <div class="field">Сложность соперника</div>
+  <div class="row solo-difficulties">
+   <button type="button" data-difficulty="easy" class="active">ЛЁГКИЙ</button>
+   <button type="button" data-difficulty="medium">СРЕДНИЙ</button>
+   <button type="button" data-difficulty="hard">СЛОЖНЫЙ</button>
+  </div>
+  <p class="hint" id="difficultyHint">Вратарь чаще ошибается и реже угадывает направление.</p>
+  <button id="startSolo" class="primary" style="width:100%;margin-top:8px">НАЧАТЬ МАТЧ</button>
+ </section>
+ <section class="card hidden" id="petHub">
+  <button id="petHubBack" style="padding:8px 11px;margin-bottom:12px">← ГЛАВНОЕ МЕНЮ</button>
+  <h1 style="margin:4px 0 8px">МОНЕТЫ И ПИТОМЦЫ</h1>
+  <div class="status" id="coinBalance">🪙 0 монет</div>
+  <div class="card" style="text-align:center">
+   <div id="petEmoji" style="font-size:64px">🐶</div>
+   <b id="petName">Бобик</b>
+   <p class="hint" id="petMood">Твой верный футбольный талисман!</p>
+   <div class="row"><div><small>🍖 Сытость</small><div class="status" id="petFoodStat">100%</div></div><div><small>💧 Вода</small><div class="status" id="petWaterStat">100%</div></div></div>
+  </div>
+  <div class="field">Выбери питомца</div>
+  <div class="row"><button data-pet="dog">🐶 Пёс</button><button data-pet="cat">🐱 Кот</button><button data-pet="fox">🦊 Лис</button></div>
+  <div class="field" style="margin-top:14px">Магазин</div>
+  <div class="row"><button id="buyFood">🍖 Корм · 5 🪙</button><button id="buyWater">💧 Вода · 3 🪙</button></div>
+  <p class="hint">За каждый сыгранный соло-матч получаешь монеты. За голы и победы дают бонусы. Монеты сохраняются на этом устройстве.</p>
+  <div class="field">Мотивация дня</div>
+  <div class="status" id="dailyGoal">Забей 3 гола в соло-матче и получи бонус!</div>
  </section>
  <section class="card hidden" id="waiting">
   <div class="field">Комната создана</div><div style="font-size:32px;font-weight:1000;letter-spacing:5px;text-align:center;color:var(--lime)" id="roomCodeView">------</div>
@@ -102,6 +148,7 @@ input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;
   <div class="status" id="waitingStatus" style="margin-top:12px">Ждём второго игрока…</div>
  </section>
  <section class="card hidden" id="match">
+  <button id="soloExit" class="hidden" style="padding:8px 11px;margin-bottom:10px">← ВЫЙТИ В МЕНЮ</button>
   <div class="score"><div><b id="score1">0</b><small id="name1">Игрок 1</small></div><div><b id="turnView">1/10</b><small>ХОД</small></div><div><b id="score2">0</b><small id="name2">Игрок 2</small></div></div>
   <div class="pitch"><div class="goal"></div><div class="pitch-box"></div><div class="pitch-line"></div><div class="keeper sprite" id="keeper" aria-label="Вратарь"></div><div class="player sprite" id="player" aria-label="Футболист"></div><div class="ball" id="ball">⚽</div><div class="pitch-label">PENALTY KING 67</div></div>
   <div class="status" id="roleStatus">Загружаем матч…</div>
@@ -177,17 +224,70 @@ async function toggleMusic(){
 }
 $('musicToggle').addEventListener('click',toggleMusic);
 let uid=null,roomId=null,roomListener=null,currentRoom=null,busy=false,selectedDir="center",lastAnimatedTurn=-1,lastSoundTurn=-1;
+let soloMode=false,soloDifficulty="easy",soloTurn=0,soloScore=0,soloHistory=[],soloBusy=false;
 const show=(id,on=true)=>$(id).classList.toggle("hidden",!on);
 const setStatus=t=>{$("lobbyStatus").textContent=t};
-const cleanName=()=>($("playerName").value.trim()||"Игрок").slice(0,16);
+const petDefaults={coins:0,pet:"dog",food:100,water:100,lastDaily:"",dailyBonusClaimed:false};
+let petState={...petDefaults};
+try{petState={...petDefaults,...JSON.parse(localStorage.getItem("pk67_pet_state")||"{}")};}catch{}
+function savePetState(){try{localStorage.setItem("pk67_pet_state",JSON.stringify(petState));}catch{}}
+const petInfo={dog:{emoji:"🐶",name:"Бобик"},cat:{emoji:"🐱",name:"Пиксель"},fox:{emoji:"🦊",name:"Фокс"}};
+function renderPetHub(){
+ $("coinBalance").textContent="🪙 "+petState.coins+" монет";
+ const pet=petInfo[petState.pet]||petInfo.dog;
+ $("petEmoji").textContent=pet.emoji;$("petName").textContent=pet.name;
+ $("petFoodStat").textContent=petState.food+"%";$("petWaterStat").textContent=petState.water+"%";
+ $("petMood").textContent=petState.food<25||petState.water<25?"Питомец проголодался или хочет пить. Угости его!":"Питомец счастлив быть твоим талисманом!";
+ document.querySelectorAll("[data-pet]").forEach(b=>b.classList.toggle("active",b.dataset.pet===petState.pet));
+ const today=new Date().toISOString().slice(0,10);
+ $("dailyGoal").textContent=petState.dailyBonusClaimed&&petState.lastDaily===today?"Бонус дня уже получен. Возвращайся завтра!":"Забей 3 гола в одном соло-матче и получи +10 монет!";
+}
+function openPetHub(){mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",false);show("soloSetup",false);show("waiting",false);show("match",false);show("petHub",true);renderPetHub();}
+function awardSoloCoins(goals,won){
+ let reward=10+goals*5+(won?15:0),bonus=0;
+ const today=new Date().toISOString().slice(0,10);
+ if(goals>=3&&!(petState.dailyBonusClaimed&&petState.lastDaily===today)){bonus=10;petState.dailyBonusClaimed=true;petState.lastDaily=today;}
+ petState.coins+=reward+bonus;savePetState();
+ $("matchMessage").textContent+="  🪙 +"+(reward+bonus);
+}
+
+const savedNick=(()=>{try{return localStorage.getItem("pk67_nickname")||"";}catch{return "";}})();
+$("playerName").value=savedNick;
+$("soloPlayerName").value=savedNick;
+function currentNick(){const solo=$("soloPlayerName").value.trim(),online=$("playerName").value.trim();return (solo||online||savedNick||"Игрок").slice(0,16);}
+function saveNick(value){const nick=String(value||"").trim().slice(0,16);try{localStorage.setItem("pk67_nickname",nick);}catch{};$("playerName").value=nick;$("soloPlayerName").value=nick;}
+$("playerName").addEventListener("input",e=>saveNick(e.target.value));
+$("soloPlayerName").addEventListener("input",e=>saveNick(e.target.value));
+const cleanName=()=>currentNick();
+const teamFlagMap=[['Украина','ukraine'],['Аргентина','argentina'],['Бразилия','brazil'],['Франция','france'],['Португалия','portugal'],['Испания','spain'],['Англия','england'],['Германия','germany'],['Италия','italy'],['Нидерланды','netherlands']];
+function teamFlagFile(team){const t=String(team||'');return (teamFlagMap.find(([name])=>t.includes(name))||teamFlagMap[0])[1];}
+function teamSpriteFile(team){const t=String(team||'');return 'team_players/'+(teamFlagMap.find(([name])=>t.includes(name))||teamFlagMap[0])[1]+'.png';}
+function setPlayerKit(team){const p=$('player');if(!p)return;p.style.backgroundImage=`url(\"${teamSpriteFile(team)}\")`;p.classList.add('team-kit');p.style.backgroundPosition='0% 50%';}
+function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function teamLabel(name,team){return `<img class="inline-team-flag" src="${teamFlagFile(team)}.png" alt="">${escapeHtml(team||"Сборная") } · ${escapeHtml(name||"Игрок")}`;}
+function updateTeamPreview(selectId,imgId,labelId){const team=$(selectId).value;$(imgId).src=`${teamFlagFile(team)}.png`;$(labelId).textContent=team.replace(/^[^ ]+\s*/, '');}
+['onlineTeam','soloTeam','soloOpponent'].forEach((id)=>$(id).addEventListener('change',()=>{const map={onlineTeam:['onlineTeamFlag','onlineTeamLabel'],soloTeam:['soloTeamFlag','soloTeamLabel'],soloOpponent:['soloOpponentFlag','soloOpponentLabel']}[id];updateTeamPreview(id,...map);}));
+['onlineTeam','soloTeam','soloOpponent'].forEach(id=>{const map={onlineTeam:['onlineTeamFlag','onlineTeamLabel'],soloTeam:['soloTeamFlag','soloTeamLabel'],soloOpponent:['soloOpponentFlag','soloOpponentLabel']}[id];updateTeamPreview(id,...map);});
 const makeCode=()=>Math.random().toString(36).slice(2,8).toUpperCase();
 const splash=$("splash"),mainMenu=$("mainMenu"),gameWrap=$("gameWrap");
 function showMainMenu(){splash.classList.add("hidden");mainMenu.classList.remove("hidden");gameWrap.classList.add("hidden");}
-function openFriendLobby(){mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",true);show("waiting",false);show("match",false);}
+function openFriendLobby(){show("petHub",false);mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",true);show("waiting",false);show("match",false);}
 const splashTimer=setTimeout(showMainMenu,2800);
 splash.addEventListener("click",()=>{clearTimeout(splashTimer);showMainMenu()});
 $("playFriend").addEventListener("click",openFriendLobby);
-$("backToMenu").addEventListener("click",()=>{if(roomListener){roomListener();roomListener=null;}roomId=null;currentRoom=null;showMainMenu()});
+function openSoloSetup(){show("petHub",false);mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",false);show("waiting",false);show("match",false);show("soloSetup",true);}
+$("playSolo").addEventListener("click",openSoloSetup);
+$("openPetHub").addEventListener("click",openPetHub);
+$("petHubBack").addEventListener("click",()=>{show("petHub",false);showMainMenu();});
+document.querySelectorAll("[data-pet]").forEach(b=>b.addEventListener("click",()=>{petState.pet=b.dataset.pet;savePetState();renderPetHub();}));
+$("buyFood").addEventListener("click",()=>{if(petState.coins<5){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(petState.food>=100){$("petMood").textContent="Питомец уже сыт!";return;}petState.coins-=5;petState.food=Math.min(100,petState.food+35);savePetState();renderPetHub();});
+$("buyWater").addEventListener("click",()=>{if(petState.coins<3){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(petState.water>=100){$("petMood").textContent="У питомца уже полная миска воды!";return;}petState.coins-=3;petState.water=Math.min(100,petState.water+40);savePetState();renderPetHub();});
+$("soloBack").addEventListener("click",showMainMenu);
+$("soloExit").addEventListener("click",()=>{soloMode=false;show("soloExit",false);show("match",false);show("soloSetup",false);showMainMenu();});
+const difficultyHints={easy:"Вратарь часто ошибается и редко угадывает направление.",medium:"Вратарь быстрее реагирует и иногда читает твои удары.",hard:"Вратарь хорошо читает повторяющиеся направления и чаще спасает."};
+document.querySelectorAll("[data-difficulty]").forEach(b=>b.addEventListener("click",()=>{soloDifficulty=b.dataset.difficulty;document.querySelectorAll("[data-difficulty]").forEach(x=>x.classList.toggle("active",x===b));$("difficultyHint").textContent=difficultyHints[soloDifficulty];}));
+$("startSolo").addEventListener("click",startSoloMatch);
+$("backToMenu").addEventListener("click",()=>{if(roomListener){roomListener();roomListener=null;}roomId=null;currentRoom=null;soloMode=false;show("soloSetup",false);showMainMenu()});
 
 function playGoalReaction(isScorer){
  // Audio effects use the same WebAudio context as the phonk beat.
@@ -247,7 +347,8 @@ function renderRoom(){
  const order=r.playerOrder||ids,g=r.game||{},scores=g.scores||{};
  animatePenalty(g);
  const p1=players[order[0]],p2=players[order[1]],turn=Number(g.turn||0);
- $("name1").textContent=p1?.name||"Игрок 1";$("name2").textContent=p2?.name||"Игрок 2";
+ setPlayerKit((players[order[turn%2]]||{}).team);
+ $("name1").innerHTML=teamLabel(p1?.name||"Игрок 1",p1?.team);$("name2").innerHTML=teamLabel(p2?.name||"Игрок 2",p2?.team);
  $("score1").textContent=scores[order[0]]||0;$("score2").textContent=scores[order[1]]||0;
  $("turnView").textContent=Math.min(turn+1,10)+"/10";
  if(g.finished){$("roleStatus").textContent="Матч завершён";$("matchMessage").textContent=(scores[order[0]]||0)+" : "+(scores[order[1]]||0);show("actionArea",false);return}
@@ -264,7 +365,7 @@ async function createRoom(){
  if(!uid){setStatus("Авторизация ещё загружается. Подожди пару секунд.");return}
  const id=makeCode(),name=cleanName();
  const roomData={players:{},playerOrder:[uid],createdAt:Date.now(),game:{turn:0,scores:{},pending:{}}};
- roomData.players[uid]={name,joinedAt:Date.now()};roomData.game.scores[uid]=0;
+ roomData.players[uid]={name,team:$("onlineTeam").value,joinedAt:Date.now()};roomData.game.scores[uid]=0;
  try{
   setStatus("Создаём комнату…");
   await set(ref(db,"rooms/"+id),roomData);
@@ -283,13 +384,61 @@ async function joinRoom(){
   if(ids.length>=2){setStatus("Комната уже заполнена.");return}
   const order=[...(r.playerOrder||ids),uid];
   const changes={};
-  changes["players/"+uid]={name:cleanName(),joinedAt:Date.now()};
+  changes["players/"+uid]={name:cleanName(),team:$("onlineTeam").value,joinedAt:Date.now()};
   changes["playerOrder"]=order;
   changes["game/scores/"+uid]=0;
   await update(roomRef,changes);roomId=id;show("lobby",false);watchRoom(id);
  }catch(e){setStatus("Не удалось войти: "+(e.code||e.message));}
 }
+function startSoloMatch(){
+ soloMode=true;soloTurn=0;soloScore=0;soloHistory=[];soloBusy=false;roomId=null;currentRoom=null;
+ show("soloSetup",false);show("lobby",false);show("waiting",false);show("match",true);show("soloExit",true);show("actionArea",true);
+ $("name1").innerHTML=teamLabel(cleanName(),$("soloTeam").value);$("name2").innerHTML=teamLabel("Компьютер",$("soloOpponent").value);$("score1").textContent="0";$("score2").textContent="0";$("turnView").textContent="1/5";
+ $("roleStatus").textContent="Ты бьёшь. Выбери направление и силу удара!";$("actionTitle").textContent="Куда направишь удар?";$("sendAction").textContent="УДАРИТЬ";$("matchMessage").textContent="Пять пенальти. Покажи класс!";$("sendAction").disabled=false;
+ setPlayerKit($("soloTeam").value);resetSprites();
+}
+function resetSprites(){const p=$("player"),k=$("keeper"),b=$("ball");p.className="player sprite";k.className="keeper sprite";b.className="ball";p.style.backgroundPosition="0% 50%";k.style.backgroundPosition="0% 50%";b.style.left="51%";b.style.bottom="22%";}
+function chooseKeeperDirection(){
+ const dirs=["left","center","right"];
+ if(soloDifficulty==="easy")return dirs[Math.floor(Math.random()*3)];
+ if(soloDifficulty==="medium"){
+  if(soloHistory.length&&Math.random()<0.38)return soloHistory[Math.floor(Math.random()*soloHistory.length)];
+  return dirs[Math.floor(Math.random()*3)];
+ }
+ if(soloHistory.length){const counts={left:0,center:0,right:0};soloHistory.forEach(d=>counts[d]++);const max=Math.max(...Object.values(counts));const common=dirs.filter(d=>counts[d]===max);if(Math.random()<0.66)return common[Math.floor(Math.random()*common.length)];}
+ return dirs[Math.floor(Math.random()*3)];
+}
+function soloShot(){
+ if(!soloMode||soloBusy||soloTurn>=5)return;
+ soloBusy=true;$("sendAction").disabled=true;
+ const shotDir=selectedDir,power=Number($("power").value),keeperDir=chooseKeeperDirection();
+ const skill={easy:0.16,medium:0.38,hard:0.62}[soloDifficulty];
+ const powerBonus=(power-30)/70*0.12;
+ const guessed=shotDir===keeperDir;
+ const saved=guessed&&Math.random()<(skill+0.18-powerBonus);
+ const goal=!saved;
+ soloHistory.push(shotDir);
+ const player=$("player"),keeper=$("keeper"),ball=$("ball");resetSprites();void player.offsetWidth;
+ player.classList.add("kick");keeper.classList.add(keeperDir==="left"?"dive-left":keeperDir==="right"?"dive-right":"catch");ball.classList.add("fly-"+shotDir);
+ setTimeout(()=>{
+  soloTurn++;if(goal)soloScore++;
+  $("score1").textContent=String(soloScore);$("score2").textContent=String(soloTurn-soloScore);$("turnView").textContent=Math.min(soloTurn+1,5)+"/5";
+  playGoalReaction(goal);
+  $("matchMessage").textContent=goal?"ГОООЛ! SIUUU! Вратарь не достал мяч.":"СЕЙВ! Вратарь угадал твой удар.";
+  $("roleStatus").textContent=goal?"Отличный удар! Следующий пенальти.":"Компьютер отбил удар. Попробуй изменить направление.";
+  resetSprites();
+  if(soloTurn>=5){
+   $("turnView").textContent="5/5";$("actionArea").classList.add("hidden");
+   const won=soloScore>=3;
+   const result=soloScore>=4?"ПОБЕДА! Ты настоящий король пенальти!":soloScore>=3?"ХОРОШАЯ ИГРА! Матч окончен.":"ПОРАЖЕНИЕ. Тренируй удары и попробуй снова.";
+   $("roleStatus").textContent=result;$("matchMessage").textContent="ИТОГ: ТЫ "+soloScore+" : "+(5-soloScore)+" КОМПЬЮТЕР";
+   awardSoloCoins(soloScore,won);
+  }else{$("actionArea").classList.remove("hidden");$("sendAction").disabled=false;}
+  soloBusy=false;
+ },720);
+}
 async function submitAction(){
+ if(soloMode){soloShot();return;}
  if(!roomId||!currentRoom||busy)return;
  const r=currentRoom,g=r.game||{},turn=Number(g.turn||0),order=r.playerOrder||[];
  if(turn>=10||g.finished)return;
