@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#071b16">
+<title>ПЕНАЛЬТИ КОРОЛЬ 67</title>
+<style>
+:root{--bg:#071b16;--panel:#102a22;--lime:#b7f34a;--white:#f4f7ef;--muted:#a8b8ae;--red:#ff625d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#174b36 0,#071b16 55%);color:var(--white);font-family:system-ui,-apple-system,Arial,sans-serif;min-height:100vh}
+.wrap{max-width:520px;margin:auto;padding:18px 16px 30px}.top{display:flex;justify-content:space-between;align-items:center}.logo{font-weight:1000;letter-spacing:1px;font-size:21px;line-height:1.05}.logo span{color:var(--lime)}.coins{background:#17372b;border:1px solid #315643;border-radius:30px;padding:8px 12px;color:var(--lime);font-weight:800}
+h1{font-size:26px;margin:25px 0 4px;text-align:center} .sub{text-align:center;color:var(--muted);margin:0 0 18px}
+.card{background:linear-gradient(150deg,#15382b,#0d241d);border:1px solid #315340;border-radius:20px;padding:15px;margin:12px 0;box-shadow:0 12px 28px #0003}
+.field{color:var(--muted);font-size:13px;font-weight:700;margin:3px 0 9px;text-transform:uppercase;letter-spacing:.7px}
+.teams{display:grid;grid-template-columns:1fr 1fr;gap:10px}.team{border:1px solid #3b5d49;border-radius:14px;padding:12px;background:#10291f;color:var(--white);font-weight:800}.team.active{border-color:var(--lime);box-shadow:inset 0 0 0 1px var(--lime);color:var(--lime)}
+.mode{display:flex;gap:8px}.mode button{flex:1}
+button{border:0;border-radius:13px;padding:13px 12px;background:#254b38;color:white;font-weight:800;font-size:15px;cursor:pointer}button.primary{background:var(--lime);color:#142417}button:disabled{opacity:.4}
+.pitch{height:230px;position:relative;overflow:hidden;border-radius:16px;background:linear-gradient(#277c45,#12512f);border:2px solid #83c77b;margin:12px 0}
+.pitch:before{content:"";position:absolute;left:8%;right:8%;top:12px;height:120px;border:2px solid #d7f0cf;border-bottom:0;opacity:.85}
+.goal{position:absolute;top:10px;left:25%;width:50%;height:65px;border:5px solid #fff;border-bottom:0;border-radius:5px 5px 0 0;background:repeating-linear-gradient(90deg,transparent 0 17px,#ffffff35 18px 19px),repeating-linear-gradient(0deg,transparent 0 17px,#ffffff35 18px 19px)}
+.keeper{position:absolute;top:62px;left:50%;transform:translateX(-50%);font-size:43px;filter:drop-shadow(0 3px 2px #0005);transition:left .25s}
+.ball{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:30px;transition:all .45s ease}
+.pitch-label{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:2px;color:#d9f5d5;font-weight:800}
+.directions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.directions button{background:#1c3e2d;border:1px solid #426b4e}.directions button.active{background:var(--lime);color:#142417;border-color:var(--lime)}
+.power{width:100%;accent-color:var(--lime);margin:5px 0 12px}.row{display:flex;justify-content:space-between;color:var(--muted);font-size:13px}
+.score{display:flex;justify-content:space-around;text-align:center}.score b{display:block;font-size:27px;color:var(--lime)}.score small{color:var(--muted)}
+.message{text-align:center;min-height:25px;font-weight:800;color:var(--lime);padding:8px 0}.bottom{color:#71877a;text-align:center;font-size:11px;margin-top:20px}
+@media(min-width:450px){.wrap{padding-top:28px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="top"><div class="logo">⚽ ПЕНАЛЬТИ<br><span>КОРОЛЬ 67</span></div><div class="coins">🟡 <span id="coins">100</span></div></div>
+ <h1>БЕЙ И ЗАБИВАЙ!</h1><p class="sub">Твоя серия пенальти начинается сейчас</p>
+ <div class="card">
+  <div class="field">Выбери команду</div>
+  <div class="teams" id="teams"><button class="team active">🇺🇦 Украина</button><button class="team">🇧🇷 Бразилия</button><button class="team">🇫🇷 Франция</button><button class="team">🇦🇷 Аргентина</button></div>
+ </div>
+ <div class="card">
+  <div class="field">Режим игры</div><div class="mode"><button class="primary" id="botMode">🤖 Против бота</button><button id="localMode">👥 На одном телефоне</button></div>
+ </div>
+ <div class="card">
+  <div class="score"><div><b id="goals">0</b><small>ГОЛЫ</small></div><div><b id="attempt">1/5</b><small>УДАРЫ</small></div><div><b id="saves">0</b><small>СЕЙВЫ</small></div></div>
+  <div class="pitch"><div class="goal"></div><div class="keeper" id="keeper">🧤</div><div class="ball" id="ball">⚽</div><div class="pitch-label">PENALTY KING 67</div></div>
+  <div class="field">Выбери направление удара</div>
+  <div class="directions"><button data-dir="left">↖ ЛЕВО</button><button data-dir="center" class="active">⬆ ЦЕНТР</button><button data-dir="right">↗ ПРАВО</button></div>
+  <div class="row"><span>Сила удара</span><b><span id="powerVal">70</span>%</b></div><input class="power" id="power" type="range" min="30" max="100" value="70">
+  <button class="primary" id="shoot" style="width:100%">⚽ УДАРИТЬ</button>
+  <div class="message" id="message">Выбери направление и бей!</div>
+  <button id="restart" style="width:100%;display:none">Начать новую серию</button>
+ </div>
+ <div class="bottom">ДЕМО-ВЕРСИЯ • ПЕНАЛЬТИ КОРОЛЬ 67</div>
+</div>
+<script>
+let dir='center',mode='bot',round=1,goals=0,saves=0,coins=100,locked=false;
+const $=id=>document.getElementById(id);
+document.querySelectorAll('.team').forEach(b=>b.onclick=()=>{document.querySelectorAll('.team').forEach(x=>x.classList.remove('active'));b.classList.add('active')});
+document.querySelectorAll('[data-dir]').forEach(b=>b.onclick=()=>{if(locked)return;document.querySelectorAll('[data-dir]').forEach(x=>x.classList.remove('active'));b.classList.add('active');dir=b.dataset.dir});
+$('power').oninput=()=> $('powerVal').textContent=$('power').value;
+$('botMode').onclick=()=>{mode='bot';$('botMode').className='primary';$('localMode').className=''};
+$('localMode').onclick=()=>{mode='local';$('localMode').className='primary';$('botMode').className=''};
+function update(){$('goals').textContent=goals;$('saves').textContent=saves;$('attempt').textContent=round+'/5';$('coins').textContent=coins}
+function shoot(){
+ if(locked||round>5)return;locked=true;
+ const keeper=['left','center','right'][Math.floor(Math.random()*3)];
+ const power=+$('power').value;
+ const scored=keeper!==dir && Math.random()<(power/100*.9+.08);
+ $('keeper').style.left=keeper==='left'?'32%':keeper==='right'?'68%':'50%';
+ $('ball').style.left=dir==='left'?'32%':dir==='right'?'68%':'50%';
+ $('ball').style.bottom='145px';$('ball').style.fontSize='20px';
+ setTimeout(()=>{
+  if(scored){goals++;coins+=10;$('message').textContent='ГООООЛ! Отличный удар!';}
+  else{saves++;$('message').textContent='Вратарь отбил! Попробуй ещё.';}
+  round++;update();
+  if(round>5){$('message').textContent='Серия окончена! Твой результат: '+goals+' из 5';$('shoot').disabled=true;$('restart').style.display='block';}
+  $('ball').style.bottom='24px';$('ball').style.fontSize='30px';locked=false;
+ },520);
+}
+$('shoot').onclick=shoot;
+$('restart').onclick=()=>{round=1;goals=0;saves=0;locked=false;$('shoot').disabled=false;$('restart').style.display='none';$('keeper').style.left='50%';$('message').textContent='Новая серия! Забей пять пенальти.';update()};
+update();
+</script>
+</body></html>
