@@ -16,21 +16,68 @@ button,input{font:inherit}button{border:0;border-radius:13px;padding:13px 12px;b
 input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;color:white;padding:13px;margin:5px 0 10px;font-size:16px}
 .row{display:flex;gap:8px}.row>*{flex:1}.hint{color:var(--muted);font-size:13px;line-height:1.45}.status{padding:10px;border-radius:12px;background:#0b2119;color:var(--lime);font-weight:700;text-align:center;min-height:42px;overflow-wrap:anywhere}
 .score{display:flex;justify-content:space-around;text-align:center}.score b{display:block;font-size:27px;color:var(--lime)}.score small{color:var(--muted)}
-.pitch{height:210px;position:relative;overflow:hidden;border-radius:16px;background:linear-gradient(#277c45,#12512f);border:2px solid #83c77b;margin:12px 0}
+.pitch{height:270px;position:relative;overflow:hidden;border-radius:16px;background:linear-gradient(#277c45,#12512f);border:2px solid #83c77b;margin:12px 0}
 .pitch:before{content:"";position:absolute;left:8%;right:8%;top:12px;height:120px;border:2px solid #d7f0cf;border-bottom:0;opacity:.85}
-.goal{position:absolute;top:10px;left:25%;width:50%;height:65px;border:5px solid #fff;border-bottom:0;border-radius:5px 5px 0 0;background:repeating-linear-gradient(90deg,transparent 0 17px,#ffffff35 18px 19px),repeating-linear-gradient(0deg,transparent 0 17px,#ffffff35 18px 19px)}
-.keeper{position:absolute;top:62px;left:50%;transform:translateX(-50%);font-size:43px}.ball{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:30px}
+.goal{position:absolute;top:10px;left:23%;width:54%;height:105px;border:5px solid #fff;border-bottom:0;border-radius:5px 5px 0 0;background:repeating-linear-gradient(90deg,transparent 0 17px,#ffffff35 18px 19px),repeating-linear-gradient(0deg,transparent 0 17px,#ffffff35 18px 19px)}
+.sprite{position:absolute;background-repeat:no-repeat;background-size:400% 100%;image-rendering:pixelated;filter:drop-shadow(0 5px 2px #0006)}
+.keeper{width:104px;height:104px;top:54px;left:50%;transform:translateX(-50%);background-image:url("keeper_sprites.png");background-position:0% 50%;z-index:3}
+.player{width:126px;height:126px;left:8%;bottom:4px;background-image:url("player_sprites.png");background-position:0% 50%;z-index:4}
+.ball{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:30px;z-index:5}
+.player.kick{animation:kick .42s steps(3,end)}
+.keeper.dive-left{background-position:33.333% 50%;animation:dive .48s ease-out}
+.keeper.dive-right{background-position:66.666% 50%;animation:dive .48s ease-out}
+.keeper.catch{background-position:100% 50%}
+@keyframes kick{0%{background-position:0% 50%;transform:translateX(0)}55%{background-position:66.666% 50%;transform:translateX(14px)}100%{background-position:100% 50%;transform:translateX(18px)}}
+@keyframes dive{to{transform:translateX(-50%) translateY(10px) scale(.94)}}
 .pitch-label{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:2px;color:#d9f5d5;font-weight:800}
 .directions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.directions button{background:#1c3e2d;border:1px solid #426b4e}.directions button.active{background:var(--lime);color:#142417;border-color:var(--lime)}
 .power{width:100%;accent-color:var(--lime);margin:5px 0 12px}.message{text-align:center;min-height:25px;font-weight:800;color:var(--lime);padding:8px 0}
 .hidden{display:none!important}.bottom{color:#71877a;text-align:center;font-size:11px;margin-top:20px}
+
+.splash{position:fixed;inset:0;z-index:1000;background:#100606;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}
+.splash img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+.splash-skip{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#f4d5b2;font-size:11px;letter-spacing:1px;text-shadow:0 2px 4px #000;opacity:.72}
+.main-menu{position:fixed;inset:0;z-index:10;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:calc(18px + env(safe-area-inset-top)) 20px calc(18px + env(safe-area-inset-bottom));background:radial-gradient(ellipse at 50% 42%,#246d3d 0,#0d3528 48%,#061710 100%);color:#f6f5e9}
+.main-menu:before{content:"";position:absolute;inset:0;opacity:.16;background:repeating-linear-gradient(0deg,transparent 0 23px,#9be36a 24px 25px),repeating-linear-gradient(90deg,transparent 0 23px,#9be36a 24px 25px);pointer-events:none}
+.menu-top,.menu-brand,.menu-player,.menu-actions,.menu-footer{position:relative;z-index:1}
+.menu-top{width:100%;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:900;letter-spacing:1.2px;color:#c5e6c1}
+.menu-online{border:1px solid #8bd85a;border-radius:30px;padding:8px 11px;color:#b7f34a;background:#0b241b}
+.menu-brand{text-align:center;margin-top:12px;font-weight:1000;font-size:clamp(34px,10vw,52px);line-height:.94;letter-spacing:1px;text-shadow:3px 4px 0 #07150e,5px 6px 0 #000}
+.menu-brand strong{display:block;color:#e9f4dc}.menu-brand i{font-style:normal;color:#ff5546}.menu-brand small{display:block;font-size:10px;letter-spacing:5px;color:#b7f34a;margin-top:13px;text-shadow:none}.crown{font-size:36px;color:#ffd34d;line-height:1;margin-bottom:7px;text-shadow:2px 3px #693d0b}
+.menu-player{width:min(92vw,430px);height:min(40vh,310px);min-height:210px;margin:auto 0;display:flex;align-items:flex-end;justify-content:center;background:linear-gradient(#153d35 0 52%,#277c45 52% 100%);border:3px solid #a3d77b;box-shadow:0 0 0 5px #07180f,0 12px 30px #0008;overflow:hidden;clip-path:polygon(5% 0,95% 0,100% 100%,0 100%)}
+.menu-player:before{content:"";position:absolute;inset:15px 9% 25%;border:2px solid #d5efce;border-bottom:0;opacity:.7}
+.menu-player:after{content:"";position:absolute;left:0;right:0;bottom:20%;height:2px;background:#d5efce;opacity:.8}
+.menu-goal{position:absolute;top:12%;left:25%;width:50%;height:45%;border:5px solid #f4f4e9;border-bottom:0;background:repeating-linear-gradient(90deg,transparent 0 18px,#ffffff45 19px 20px),repeating-linear-gradient(0deg,transparent 0 18px,#ffffff45 19px 20px)}
+.menu-keeper{position:absolute;top:24%;font-size:clamp(55px,16vw,82px);filter:drop-shadow(0 5px 2px #0008)}
+.menu-striker{position:absolute;bottom:8%;left:22%;font-size:clamp(64px,18vw,94px);filter:drop-shadow(0 6px 2px #0009)}
+.menu-actions{width:min(100%,430px);display:grid;gap:12px;margin-bottom:10px}
+.menu-button{width:100%;padding:18px 16px;border:3px solid #e7ffb8;border-radius:12px;background:linear-gradient(#c6ff55,#7fc92c);color:#142313;font-size:17px;font-weight:1000;letter-spacing:.5px;box-shadow:0 6px 0 #315b1e,0 10px 20px #0007;text-shadow:0 1px #fff8}
+.menu-button span{float:right;font-size:22px;line-height:18px}
+.menu-note{text-align:center;color:#c5e6c1;font-size:10px;letter-spacing:1.4px}
+.menu-footer{font-size:10px;letter-spacing:2px;color:#769c7b}
+
 </style>
 </head>
 <body>
-<div class="wrap">
+<div id="splash" class="splash" aria-label="Загрузка игры">
+  <img src="loading_screen.png" alt="ПЕНАЛЬТИ КОРОЛЬ 67 — экран загрузки">
+  <div class="splash-skip">Нажми, чтобы пропустить</div>
+</div>
+<section id="mainMenu" class="main-menu hidden">
+  <div class="menu-top"><span>⚽ PIXEL FOOTBALL</span><span class="menu-online">ONLINE 1×1</span></div>
+  <div class="menu-brand"><div class="crown">♛</div><div>ПЕНАЛЬТИ</div><strong>КОРОЛЬ <i>67</i></strong><small>THE PENALTY KING</small></div>
+  <div class="menu-player" aria-hidden="true"><div class="menu-goal"></div><div class="menu-keeper">🧤</div><div class="menu-striker">⚽</div></div>
+  <div class="menu-actions">
+    <button id="playFriend" class="menu-button menu-primary">ИГРАТЬ С ДРУГОМ <span>➜</span></button>
+    <div class="menu-note">СОЗДАЙ КОМНАТУ ИЛИ ВВЕДИ КОД</div>
+  </div>
+  <div class="menu-footer">PENALTY KING 67 • PIXEL EDITION</div>
+</section>
+<div class="wrap hidden" id="gameWrap">
  <div class="top"><div class="logo">⚽ ПЕНАЛЬТИ<br><span>КОРОЛЬ 67</span></div><div class="pill">ONLINE 1×1</div></div>
  <h1>ИГРА С ДРУГОМ</h1><p class="sub">Создай комнату или введи код друга</p>
  <section class="card" id="lobby">
+  <button id="backToMenu" style="padding:8px 11px;margin-bottom:12px">← ГЛАВНОЕ МЕНЮ</button>
   <div class="field">Твоё имя</div><input id="playerName" maxlength="16" placeholder="Например, Дима">
   <div class="row"><button class="primary" id="createRoom">Создать комнату</button><button id="joinToggle">Ввести код</button></div>
   <div id="joinArea" class="hidden"><div class="field" style="margin-top:14px">Код комнаты</div><input id="roomCode" maxlength="6" placeholder="ABC123" autocapitalize="characters"><button id="joinRoom" class="primary" style="width:100%">Присоединиться</button></div>
@@ -44,7 +91,7 @@ input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;
  </section>
  <section class="card hidden" id="match">
   <div class="score"><div><b id="score1">0</b><small id="name1">Игрок 1</small></div><div><b id="turnView">1/10</b><small>ХОД</small></div><div><b id="score2">0</b><small id="name2">Игрок 2</small></div></div>
-  <div class="pitch"><div class="goal"></div><div class="keeper" id="keeper">🧤</div><div class="ball" id="ball">⚽</div><div class="pitch-label">PENALTY KING 67</div></div>
+  <div class="pitch"><div class="goal"></div><div class="keeper sprite" id="keeper" aria-label="Вратарь"></div><div class="player sprite" id="player" aria-label="Футболист"></div><div class="ball" id="ball">⚽</div><div class="pitch-label">PENALTY KING 67</div></div>
   <div class="status" id="roleStatus">Загружаем матч…</div>
   <div id="actionArea" class="hidden">
    <div class="field" style="margin-top:12px" id="actionTitle">Выбери направление</div>
@@ -77,6 +124,13 @@ const show=(id,on=true)=>$(id).classList.toggle("hidden",!on);
 const setStatus=t=>{$("lobbyStatus").textContent=t};
 const cleanName=()=>($("playerName").value.trim()||"Игрок").slice(0,16);
 const makeCode=()=>Math.random().toString(36).slice(2,8).toUpperCase();
+const splash=$("splash"),mainMenu=$("mainMenu"),gameWrap=$("gameWrap");
+function showMainMenu(){splash.classList.add("hidden");mainMenu.classList.remove("hidden");gameWrap.classList.add("hidden");}
+function openFriendLobby(){mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",true);show("waiting",false);show("match",false);}
+const splashTimer=setTimeout(showMainMenu,2800);
+splash.addEventListener("click",()=>{clearTimeout(splashTimer);showMainMenu()});
+$("playFriend").addEventListener("click",openFriendLobby);
+$("backToMenu").addEventListener("click",()=>{if(roomListener){roomListener();roomListener=null;}roomId=null;currentRoom=null;showMainMenu()});
 
 function watchRoom(id){
  if(roomListener)roomListener();
