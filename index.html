@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#071b16">
 <title>ПЕНАЛЬТИ КОРОЛЬ 67</title>
 <style>
-:root{--bg:#071b16;--panel:#102a22;--lime:#b7f34a;--white:#f4f7ef;--muted:#a8b8ae;--red:#ff625d}
+:root{--bg:#071b16;--panel:#102a22;--lime:#b7f34a;--white:#f4f7ef;--muted:#a8b8ae}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#174b36 0,#071b16 55%);color:var(--white);font-family:system-ui,-apple-system,Arial,sans-serif;min-height:100vh}
 .wrap{max-width:520px;margin:auto;padding:18px 16px 30px}.top{display:flex;justify-content:space-between;align-items:center}.logo{font-weight:1000;letter-spacing:1px;font-size:21px;line-height:1.05}.logo span{color:var(--lime)}.pill{background:#17372b;border:1px solid #315643;border-radius:30px;padding:8px 12px;color:var(--lime);font-weight:800}
 h1{font-size:26px;margin:25px 0 4px;text-align:center}.sub{text-align:center;color:var(--muted);margin:0 0 18px}
@@ -14,12 +14,12 @@ h1{font-size:26px;margin:25px 0 4px;text-align:center}.sub{text-align:center;col
 .field{color:var(--muted);font-size:13px;font-weight:700;margin:3px 0 9px;text-transform:uppercase;letter-spacing:.7px}
 button,input{font:inherit}button{border:0;border-radius:13px;padding:13px 12px;background:#254b38;color:white;font-weight:800;font-size:15px;cursor:pointer}button.primary{background:var(--lime);color:#142417}button:disabled{opacity:.4}
 input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;color:white;padding:13px;margin:5px 0 10px;font-size:16px}
-.row{display:flex;gap:8px}.row>*{flex:1}.hint{color:var(--muted);font-size:13px;line-height:1.45}.status{padding:10px;border-radius:12px;background:#0b2119;color:var(--lime);font-weight:700;text-align:center;min-height:42px}
+.row{display:flex;gap:8px}.row>*{flex:1}.hint{color:var(--muted);font-size:13px;line-height:1.45}.status{padding:10px;border-radius:12px;background:#0b2119;color:var(--lime);font-weight:700;text-align:center;min-height:42px;overflow-wrap:anywhere}
 .score{display:flex;justify-content:space-around;text-align:center}.score b{display:block;font-size:27px;color:var(--lime)}.score small{color:var(--muted)}
 .pitch{height:210px;position:relative;overflow:hidden;border-radius:16px;background:linear-gradient(#277c45,#12512f);border:2px solid #83c77b;margin:12px 0}
 .pitch:before{content:"";position:absolute;left:8%;right:8%;top:12px;height:120px;border:2px solid #d7f0cf;border-bottom:0;opacity:.85}
 .goal{position:absolute;top:10px;left:25%;width:50%;height:65px;border:5px solid #fff;border-bottom:0;border-radius:5px 5px 0 0;background:repeating-linear-gradient(90deg,transparent 0 17px,#ffffff35 18px 19px),repeating-linear-gradient(0deg,transparent 0 17px,#ffffff35 18px 19px)}
-.keeper{position:absolute;top:62px;left:50%;transform:translateX(-50%);font-size:43px}.ball{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:30px;transition:all .4s}
+.keeper{position:absolute;top:62px;left:50%;transform:translateX(-50%);font-size:43px}.ball{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:30px}
 .pitch-label{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:2px;color:#d9f5d5;font-weight:800}
 .directions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.directions button{background:#1c3e2d;border:1px solid #426b4e}.directions button.active{background:var(--lime);color:#142417;border-color:var(--lime)}
 .power{width:100%;accent-color:var(--lime);margin:5px 0 12px}.message{text-align:center;min-height:25px;font-weight:800;color:var(--lime);padding:8px 0}
@@ -30,21 +30,18 @@ input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;
 <div class="wrap">
  <div class="top"><div class="logo">⚽ ПЕНАЛЬТИ<br><span>КОРОЛЬ 67</span></div><div class="pill">ONLINE 1×1</div></div>
  <h1>ИГРА С ДРУГОМ</h1><p class="sub">Создай комнату или введи код друга</p>
-
  <section class="card" id="lobby">
   <div class="field">Твоё имя</div><input id="playerName" maxlength="16" placeholder="Например, Дима">
   <div class="row"><button class="primary" id="createRoom">Создать комнату</button><button id="joinToggle">Ввести код</button></div>
   <div id="joinArea" class="hidden"><div class="field" style="margin-top:14px">Код комнаты</div><input id="roomCode" maxlength="6" placeholder="ABC123" autocapitalize="characters"><button id="joinRoom" class="primary" style="width:100%">Присоединиться</button></div>
   <div class="status" id="lobbyStatus" style="margin-top:12px">Подключаемся к серверу…</div>
  </section>
-
  <section class="card hidden" id="waiting">
   <div class="field">Комната создана</div><div style="font-size:32px;font-weight:1000;letter-spacing:5px;text-align:center;color:var(--lime)" id="roomCodeView">------</div>
   <p class="hint" style="text-align:center">Отправь этот код другу. Когда он подключится, матч начнётся.</p>
   <button id="copyCode" class="primary" style="width:100%">Скопировать код</button>
   <div class="status" id="waitingStatus" style="margin-top:12px">Ждём второго игрока…</div>
  </section>
-
  <section class="card hidden" id="match">
   <div class="score"><div><b id="score1">0</b><small id="name1">Игрок 1</small></div><div><b id="turnView">1/10</b><small>ХОД</small></div><div><b id="score2">0</b><small id="name2">Игрок 2</small></div></div>
   <div class="pitch"><div class="goal"></div><div class="keeper" id="keeper">🧤</div><div class="ball" id="ball">⚽</div><div class="pitch-label">PENALTY KING 67</div></div>
@@ -59,86 +56,93 @@ input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;
  </section>
  <div class="bottom">ПЕНАЛЬТИ КОРОЛЬ 67 • ONLINE TEST</div>
 </div>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
 import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
-import { getDatabase, ref, get, set, update, onValue, runTransaction, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
+import { getDatabase, ref, get, set, update, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDIOsuJ0uCRNY57QI5pLToo8KC1JgZnGms",
-  authDomain: "penalty-karol-67.firebaseapp.com",
-  databaseURL: "https://penalty-karol-67-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "penalty-karol-67",
-  storageBucket: "penalty-karol-67.firebasestorage.app",
-  messagingSenderId: "199540524058",
-  appId: "1:199540524058:web:d2d4e728aabe01720afda3"
+ apiKey:"AIzaSyDIOsuJ0uCRNY57QI5pLToo8KC1JgZnGms",
+ authDomain:"penalty-karol-67.firebaseapp.com",
+ databaseURL:"https://penalty-karol-67-default-rtdb.europe-west1.firebasedatabase.app",
+ projectId:"penalty-karol-67",
+ storageBucket:"penalty-karol-67.firebasestorage.app",
+ messagingSenderId:"199540524058",
+ appId:"1:199540524058:web:d2d4e728aabe01720afda3"
 };
-const app=initializeApp(firebaseConfig), auth=getAuth(app), db=getDatabase(app);
 const $=id=>document.getElementById(id);
-let uid=null, roomId=null, mySlot=null, selectedDir="center", roomListener=null, currentRoom=null, busy=false;
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app);
+let uid=null,roomId=null,roomListener=null,currentRoom=null,busy=false,selectedDir="center";
 const show=(id,on=true)=>$(id).classList.toggle("hidden",!on);
-function status(t){$("lobbyStatus").textContent=t}
-function cleanName(){return ($("playerName").value.trim()||"Игрок").slice(0,16)}
-function code(){return Math.random().toString(36).slice(2,8).toUpperCase()}
+const setStatus=t=>{$("lobbyStatus").textContent=t};
+const cleanName=()=>($("playerName").value.trim()||"Игрок").slice(0,16);
+const makeCode=()=>Math.random().toString(36).slice(2,8).toUpperCase();
+
 function watchRoom(id){
  if(roomListener)roomListener();
  roomListener=onValue(ref(db,"rooms/"+id),snap=>{
-  if(!snap.exists()){status("Комната не найдена или закрыта.");return}
-  currentRoom=snap.val(); renderRoom();
- });
+  if(!snap.exists()){setStatus("Комната не найдена.");return}
+  currentRoom=snap.val();renderRoom();
+ },err=>setStatus("Ошибка чтения комнаты: "+err.message));
 }
 function renderRoom(){
- const r=currentRoom, players=r.players||{}, ids=Object.keys(players);
+ const r=currentRoom,players=r.players||{},ids=Object.keys(players);
  if(ids.length<2){show("waiting");show("match",false);$("waitingStatus").textContent="Ждём второго игрока…";return}
  show("waiting",false);show("match");
- const p1=players[r.playerOrder?.[0]],p2=players[r.playerOrder?.[1]],g=r.game||{};
+ const order=r.playerOrder||ids,g=r.game||{},scores=g.scores||{};
+ const p1=players[order[0]],p2=players[order[1]],turn=Number(g.turn||0);
  $("name1").textContent=p1?.name||"Игрок 1";$("name2").textContent=p2?.name||"Игрок 2";
- $("score1").textContent=g.scores?.[r.playerOrder[0]]||0;$("score2").textContent=g.scores?.[r.playerOrder[1]]||0;
- const turn=Number(g.turn||0);$("turnView").textContent=Math.min(turn+1,10)+"/10";
- if(g.finished){$("roleStatus").textContent="Матч завершён";$("matchMessage").textContent=(g.scores[r.playerOrder[0]]||0)+" : "+(g.scores[r.playerOrder[1]]||0);show("actionArea",false);return}
- const kicker=r.playerOrder[turn%2], keeper=r.playerOrder[(turn+1)%2], role=uid===kicker?"kicker":uid===keeper?"keeper":"spectator";
- const pending=g.pending||{};
+ $("score1").textContent=scores[order[0]]||0;$("score2").textContent=scores[order[1]]||0;
+ $("turnView").textContent=Math.min(turn+1,10)+"/10";
+ if(g.finished){$("roleStatus").textContent="Матч завершён";$("matchMessage").textContent=(scores[order[0]]||0)+" : "+(scores[order[1]]||0);show("actionArea",false);return}
+ const kicker=order[turn%2],keeper=order[(turn+1)%2],role=uid===kicker?"kicker":uid===keeper?"keeper":"spectator",p=g.pending||{};
  if(role==="spectator"){$("roleStatus").textContent="Вы не участник этой комнаты";show("actionArea",false);return}
- const mine=role==="kicker"?pending.shotBy===uid:pending.saveBy===uid;
- const otherDone=role==="kicker"?!!pending.save:!!pending.shot;
- if(mine){$("roleStatus").textContent="Твой выбор принят. Ждём соперника…";show("actionArea",false)}
- else if(otherDone){$("roleStatus").textContent="Соперник сделал выбор. Твой ход!";show("actionArea")}
- else{$("roleStatus").textContent=role==="kicker"?"Ты бьёшь пенальти":"Ты в воротах! Выбери сторону прыжка";show("actionArea")}
+ const already=role==="kicker"?p.shotBy===uid:p.saveBy===uid;
+ if(already){$("roleStatus").textContent="Твой выбор принят. Ждём соперника…";show("actionArea",false)}
+ else{$("roleStatus").textContent=role==="kicker"?"Ты бьёшь пенальти.":"Ты в воротах. Выбери сторону!";show("actionArea")}
  $("actionTitle").textContent=role==="kicker"?"Куда бьёшь?":"Куда прыгаешь?";
  $("sendAction").textContent=role==="kicker"?"Ударить":"Выбрать прыжок";
- if(g.lastResult){$("matchMessage").textContent=g.lastResult}
+ if(g.lastResult)$("matchMessage").textContent=g.lastResult;
 }
 async function createRoom(){
- if(!uid)return status("Подключаемся, подожди секунду.");
- const id=code(),name=cleanName();
- const data={players:{[uid]:{name,joinedAt:Date.now()}},playerOrder:[uid],createdAt:Date.now(),game:{turn:0,scores:{[uid]:0},pending:{}}};
- try{await set(ref(db,"rooms/"+id),data);roomId=id;mySlot=0;show("lobby",false);$("roomCodeView").textContent=id;show("waiting");watchRoom(id)}
- catch(e){status("Не удалось создать комнату: "+e.message)}
+ if(!uid){setStatus("Авторизация ещё загружается. Подожди пару секунд.");return}
+ const id=makeCode(),name=cleanName();
+ const roomData={players:{},playerOrder:[uid],createdAt:Date.now(),game:{turn:0,scores:{},pending:{}}};
+ roomData.players[uid]={name,joinedAt:Date.now()};roomData.game.scores[uid]=0;
+ try{
+  setStatus("Создаём комнату…");
+  await set(ref(db,"rooms/"+id),roomData);
+  roomId=id;show("lobby",false);$("roomCodeView").textContent=id;show("waiting");watchRoom(id);
+ }catch(e){setStatus("Не удалось создать комнату: "+(e.code||e.message));}
 }
 async function joinRoom(){
- if(!uid)return status("Подключаемся, подожди секунду.");
- const id=$("roomCode").value.trim().toUpperCase(),snap=await get(ref(db,"rooms/"+id));
- if(!snap.exists())return status("Такой комнаты нет. Проверь код.");
- const r=snap.val(),ids=Object.keys(r.players||{});
- if(ids.includes(uid)){roomId=id;mySlot=ids.indexOf(uid);show("lobby",false);watchRoom(id);return}
- if(ids.length>=2)return status("Комната уже заполнена.");
- const order=[...r.playerOrder,uid];
- try{await update(ref(db,"rooms/"+id),{["players/"+uid]:{name:cleanName(),joinedAt:Date.now()},"playerOrder":order,"game/scores/"+uid:0});roomId=id;mySlot=1;show("lobby",false);watchRoom(id)}
- catch(e){status("Ошибка входа: "+e.message)}
+ if(!uid){setStatus("Авторизация ещё загружается.");return}
+ const id=$("roomCode").value.trim().toUpperCase();
+ if(!id){setStatus("Введи код комнаты.");return}
+ try{
+  const roomRef=ref(db,"rooms/"+id),snap=await get(roomRef);
+  if(!snap.exists()){setStatus("Такой комнаты нет. Проверь код.");return}
+  const r=snap.val(),players=r.players||{},ids=Object.keys(players);
+  if(ids.includes(uid)){roomId=id;show("lobby",false);watchRoom(id);return}
+  if(ids.length>=2){setStatus("Комната уже заполнена.");return}
+  const order=[...(r.playerOrder||ids),uid];
+  const changes={};
+  changes["players/"+uid]={name:cleanName(),joinedAt:Date.now()};
+  changes["playerOrder"]=order;
+  changes["game/scores/"+uid]=0;
+  await update(roomRef,changes);roomId=id;show("lobby",false);watchRoom(id);
+ }catch(e){setStatus("Не удалось войти: "+(e.code||e.message));}
 }
 async function submitAction(){
  if(!roomId||!currentRoom||busy)return;
  const r=currentRoom,g=r.game||{},turn=Number(g.turn||0),order=r.playerOrder||[];
  if(turn>=10||g.finished)return;
- const kicker=order[turn%2],keeper=order[(turn+1)%2],role=uid===kicker?"kicker":"keeper";
- const pending=g.pending||{};
+ const kicker=order[turn%2],keeper=order[(turn+1)%2],role=uid===kicker?"kicker":"keeper",pending=g.pending||{};
  if((role==="kicker"&&pending.shotBy===uid)||(role==="keeper"&&pending.saveBy===uid))return;
  busy=true;$("sendAction").disabled=true;
  const value={dir:selectedDir,power:Number($("power").value),by:uid};
  try{
-  const gameRef=ref(db,"rooms/"+roomId+"/game");
-  await runTransaction(gameRef,old=>{
+  await runTransaction(ref(db,"rooms/"+roomId+"/game"),old=>{
    if(!old||old.finished)return old;
    const p=old.pending||{};
    if(role==="kicker"){if(p.shotBy)return old;p.shot=value;p.shotBy=uid}
@@ -147,23 +151,21 @@ async function submitAction(){
     const goal=p.shot.dir!==p.save.dir && Math.random()<(p.shot.power/100*.9+.08);
     old.scores=old.scores||{};if(goal)old.scores[kicker]=(old.scores[kicker]||0)+1;
     old.lastResult=goal?"ГОЛ! Удар оказался точнее прыжка вратаря.":"СЕЙВ! Вратарь угадал направление.";
-    old.turn=(old.turn||0)+1;old.pending={};
-    if(old.turn>=10)old.finished=true;
+    old.turn=(old.turn||0)+1;old.pending={};if(old.turn>=10)old.finished=true;
    }else old.pending=p;
    return old;
   });
- }catch(e){$("matchMessage").textContent="Ошибка отправки: "+e.message}
+ }catch(e){$("matchMessage").textContent="Ошибка хода: "+(e.code||e.message)}
  busy=false;$("sendAction").disabled=false;renderRoom();
 }
-$("createRoom").onclick=createRoom;
-$("joinToggle").onclick=()=>show("joinArea");
-$("joinRoom").onclick=joinRoom;
-$("copyCode").onclick=async()=>{try{await navigator.clipboard.writeText(roomId);$("waitingStatus").textContent="Код скопирован! Отправь его другу."}catch{$("waitingStatus").textContent="Код комнаты: "+roomId}};
-$("sendAction").onclick=submitAction;
-document.querySelectorAll("[data-dir]").forEach(b=>b.onclick=()=>{selectedDir=b.dataset.dir;document.querySelectorAll("[data-dir]").forEach(x=>x.classList.toggle("active",x===b))});
+$("createRoom").addEventListener("click",createRoom);
+$("joinToggle").addEventListener("click",()=>show("joinArea"));
+$("joinRoom").addEventListener("click",joinRoom);
+$("copyCode").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(roomId);$("waitingStatus").textContent="Код скопирован! Отправь другу."}catch{$("waitingStatus").textContent="Код комнаты: "+roomId}});
+$("sendAction").addEventListener("click",submitAction);
+document.querySelectorAll("[data-dir]").forEach(b=>b.addEventListener("click",()=>{selectedDir=b.dataset.dir;document.querySelectorAll("[data-dir]").forEach(x=>x.classList.toggle("active",x===b))}));
 $("roomCode").addEventListener("input",e=>e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,6));
-onAuthStateChanged(auth,user=>{if(user){uid=user.uid;status("Сервер подключён. Можно создавать комнату.")}});
-signInAnonymously(auth).catch(e=>status("Ошибка авторизации: "+e.message));
+onAuthStateChanged(auth,user=>{if(user){uid=user.uid;setStatus("Сервер подключён. Можно создавать комнату.")}});
+signInAnonymously(auth).catch(e=>setStatus("Ошибка авторизации: "+(e.code||e.message)));
 </script>
-</body>
-</html>
+</body></html>
