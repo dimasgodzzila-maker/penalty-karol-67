@@ -16,24 +16,34 @@ button,input{font:inherit}button{border:0;border-radius:13px;padding:13px 12px;b
 input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;color:white;padding:13px;margin:5px 0 10px;font-size:16px}
 .row{display:flex;gap:8px}.row>*{flex:1}.hint{color:var(--muted);font-size:13px;line-height:1.45}.status{padding:10px;border-radius:12px;background:#0b2119;color:var(--lime);font-weight:700;text-align:center;min-height:42px;overflow-wrap:anywhere}
 .score{display:flex;justify-content:space-around;text-align:center}.score b{display:block;font-size:27px;color:var(--lime)}.score small{color:var(--muted)}
-.pitch{height:270px;position:relative;overflow:hidden;border-radius:16px;background:linear-gradient(#277c45,#12512f);border:2px solid #83c77b;margin:12px 0}
-.pitch:before{content:"";position:absolute;left:8%;right:8%;top:12px;height:120px;border:2px solid #d7f0cf;border-bottom:0;opacity:.85}
-.goal{position:absolute;top:10px;left:23%;width:54%;height:105px;border:5px solid #fff;border-bottom:0;border-radius:5px 5px 0 0;background:repeating-linear-gradient(90deg,transparent 0 17px,#ffffff35 18px 19px),repeating-linear-gradient(0deg,transparent 0 17px,#ffffff35 18px 19px)}
-.sprite{position:absolute;background-repeat:no-repeat;background-size:400% 100%;image-rendering:pixelated;filter:drop-shadow(0 5px 2px #0006)}
-.keeper{width:104px;height:104px;top:54px;left:50%;transform:translateX(-50%);background-image:url("keeper_sprites.png");background-position:0% 50%;z-index:3}
-.player{width:126px;height:126px;left:8%;bottom:4px;background-image:url("player_sprites.png");background-position:0% 50%;z-index:4}
-.ball{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:30px;z-index:5}
-.player.kick{animation:kick .42s steps(3,end)}
-.keeper.dive-left{background-position:33.333% 50%;animation:dive .48s ease-out}
-.keeper.dive-right{background-position:66.666% 50%;animation:dive .48s ease-out}
-.keeper.catch{background-position:100% 50%}
-@keyframes kick{0%{background-position:0% 50%;transform:translateX(0)}55%{background-position:66.666% 50%;transform:translateX(14px)}100%{background-position:100% 50%;transform:translateX(18px)}}
-@keyframes dive{to{transform:translateX(-50%) translateY(10px) scale(.94)}}
-.pitch-label{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:2px;color:#d9f5d5;font-weight:800}
+.pitch{height:330px;position:relative;overflow:hidden;border-radius:14px;border:3px solid #a8d98a;margin:12px 0;background:linear-gradient(#171d42 0 31%,#235d34 31% 100%);box-shadow:inset 0 0 0 3px #07150d,0 8px 18px #0008;isolation:isolate}
+.pitch:before{content:"";position:absolute;inset:0 0 auto;height:32%;background:repeating-linear-gradient(90deg,#26345f 0 7px,#384879 7px 12px,#202b50 12px 18px);background-size:36px 28px;opacity:.95;box-shadow:inset 0 -10px 0 #17234a}
+.pitch:after{content:"";position:absolute;left:0;right:0;top:31%;height:69%;background:repeating-linear-gradient(90deg,#347d3c 0 12.5%,#286d35 12.5% 25%);border-top:4px solid #d7edc5;z-index:-0}
+.goal{position:absolute;z-index:2;top:27%;left:19%;width:62%;height:35%;border:6px solid #f2f4e9;border-bottom:0;border-radius:4px 4px 0 0;background:repeating-linear-gradient(90deg,transparent 0 13px,#ffffff8a 14px 16px),repeating-linear-gradient(0deg,transparent 0 13px,#ffffff75 14px 16px),linear-gradient(#17213d88,#17213d44);box-shadow:0 0 0 3px #151a28,0 5px 0 #cbd8c7}
+.sprite{position:absolute;background-repeat:no-repeat;background-size:400% 100%;image-rendering:pixelated;filter:drop-shadow(0 5px 2px #0008);background-color:transparent}
+.keeper{width:112px;height:112px;top:29%;left:50%;transform:translateX(-50%);background-image:url("keeper_sprites.png");background-position:0% 50%;z-index:4}
+.player{width:138px;height:138px;left:7%;bottom:2%;background-image:url("player_sprites.png");background-position:0% 50%;z-index:5}
+.ball{position:absolute;bottom:22%;left:51%;transform:translateX(-50%);font-size:30px;z-index:6;filter:drop-shadow(0 3px 2px #0008)}
+.pitch-line{position:absolute;z-index:1;left:0;right:0;bottom:21%;height:3px;background:#e5f0d8;opacity:.9}
+.pitch-box{position:absolute;z-index:1;left:12%;right:12%;top:56%;height:18%;border:3px solid #e5f0d8;border-bottom:0;opacity:.9}
+.pitch-label{position:absolute;bottom:5px;left:0;right:0;text-align:center;font-size:10px;letter-spacing:2px;color:#e8f5d9;font-weight:900;text-shadow:1px 2px #102719;z-index:7}
+.player.kick{animation:playerKick .62s steps(1,end) forwards}
+.keeper.dive-left{background-position:33.333% 50%;animation:keeperLeft .62s ease-out forwards}
+.keeper.dive-right{background-position:66.666% 50%;animation:keeperRight .62s ease-out forwards}
+.keeper.catch{background-position:100% 50%;animation:keeperCatch .5s ease-out}
+.ball.fly-left{animation:ballLeft .62s ease-in forwards}.ball.fly-center{animation:ballCenter .62s ease-in forwards}.ball.fly-right{animation:ballRight .62s ease-in forwards}
+@keyframes playerKick{0%{background-position:0% 50%;transform:translate(0,0)}35%{background-position:33.333% 50%;transform:translate(8px,-3px)}70%{background-position:66.666% 50%;transform:translate(17px,-7px)}100%{background-position:100% 50%;transform:translate(20px,0)}}
+@keyframes keeperLeft{0%{transform:translateX(-50%) scale(1)}100%{transform:translateX(-105%) translateY(10px) rotate(-12deg) scale(.92)}}
+@keyframes keeperRight{0%{transform:translateX(-50%) scale(1)}100%{transform:translateX(5%) translateY(10px) rotate(12deg) scale(.92)}}
+@keyframes keeperCatch{0%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-14px)}100%{transform:translateX(-50%) translateY(0)}}
+@keyframes ballLeft{0%{left:51%;bottom:22%;transform:translate(0,0) scale(1)}100%{left:31%;bottom:62%;transform:translate(0,0) scale(.55)}}
+@keyframes ballCenter{0%{left:51%;bottom:22%;transform:translate(0,0) scale(1)}100%{left:51%;bottom:65%;transform:translate(0,0) scale(.55)}}
+@keyframes ballRight{0%{left:51%;bottom:22%;transform:translate(0,0) scale(1)}100%{left:71%;bottom:62%;transform:translate(0,0) scale(.55)}}
 .directions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.directions button{background:#1c3e2d;border:1px solid #426b4e}.directions button.active{background:var(--lime);color:#142417;border-color:var(--lime)}
 .power{width:100%;accent-color:var(--lime);margin:5px 0 12px}.message{text-align:center;min-height:25px;font-weight:800;color:var(--lime);padding:8px 0}
 .hidden{display:none!important}.bottom{color:#71877a;text-align:center;font-size:11px;margin-top:20px}
 
+.music-toggle{position:fixed;z-index:1200;top:calc(12px + env(safe-area-inset-top));right:12px;padding:10px 13px;border:2px solid #b7f34a;border-radius:999px;background:#102a22;color:#b7f34a;font-weight:900;font-size:12px;box-shadow:0 4px 12px #0008}.music-toggle.on{background:#b7f34a;color:#102417}
 .splash{position:fixed;inset:0;z-index:1000;background:#100606;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}
 .splash img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
 .splash-skip{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#f4d5b2;font-size:11px;letter-spacing:1px;text-shadow:0 2px 4px #000;opacity:.72}
@@ -56,9 +66,11 @@ input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;
 .menu-note{text-align:center;color:#c5e6c1;font-size:10px;letter-spacing:1.4px}
 .menu-footer{font-size:10px;letter-spacing:2px;color:#769c7b}
 
+@media(max-width:390px){.pitch{height:285px}.player{width:118px;height:118px}.keeper{width:94px;height:94px}.goal{left:17%;width:66%}}
 </style>
 </head>
 <body>
+<button id="musicToggle" class="music-toggle" type="button" aria-pressed="false">♫ ФОНК: ВЫКЛ</button>
 <div id="splash" class="splash" aria-label="Загрузка игры">
   <img src="loading_screen.png" alt="ПЕНАЛЬТИ КОРОЛЬ 67 — экран загрузки">
   <div class="splash-skip">Нажми, чтобы пропустить</div>
@@ -91,7 +103,7 @@ input{width:100%;border:1px solid #426b4e;border-radius:12px;background:#0b2119;
  </section>
  <section class="card hidden" id="match">
   <div class="score"><div><b id="score1">0</b><small id="name1">Игрок 1</small></div><div><b id="turnView">1/10</b><small>ХОД</small></div><div><b id="score2">0</b><small id="name2">Игрок 2</small></div></div>
-  <div class="pitch"><div class="goal"></div><div class="keeper sprite" id="keeper" aria-label="Вратарь"></div><div class="player sprite" id="player" aria-label="Футболист"></div><div class="ball" id="ball">⚽</div><div class="pitch-label">PENALTY KING 67</div></div>
+  <div class="pitch"><div class="goal"></div><div class="pitch-box"></div><div class="pitch-line"></div><div class="keeper sprite" id="keeper" aria-label="Вратарь"></div><div class="player sprite" id="player" aria-label="Футболист"></div><div class="ball" id="ball">⚽</div><div class="pitch-label">PENALTY KING 67</div></div>
   <div class="status" id="roleStatus">Загружаем матч…</div>
   <div id="actionArea" class="hidden">
    <div class="field" style="margin-top:12px" id="actionTitle">Выбери направление</div>
@@ -119,7 +131,52 @@ const firebaseConfig = {
 };
 const $=id=>document.getElementById(id);
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app);
-let uid=null,roomId=null,roomListener=null,currentRoom=null,busy=false,selectedDir="center";
+
+// Оригинальный Brazilian-phonk beat для PENALTY KING 67.
+// Синтезируется WebAudio, поэтому отдельный аудиофайл не нужен.
+// На iPhone запуск звука требует нажатия пользователем.
+let musicCtx=null,musicTimer=null,musicOn=false,step=0,nextBeat=0;
+const BPM=150,STEP=60/BPM/4;
+const cowbell=[0,7,3,10,5,12,3,8,0,7,5,10,3,12,7,5];
+function envGain(g,t,a,d,peak){g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(peak,t+a);g.gain.exponentialRampToValueAtTime(0.0001,t+a+d);}
+function phonkKick(t){
+ const o=musicCtx.createOscillator(),g=musicCtx.createGain();o.type='sine';o.frequency.setValueAtTime(145,t);o.frequency.exponentialRampToValueAtTime(43,t+0.16);envGain(g,t,0.004,0.2,0.85);o.connect(g);g.connect(musicCtx.destination);o.start(t);o.stop(t+0.22);
+}
+function phonkNoise(t,duration,volume,cutoff){
+ const n=Math.floor(musicCtx.sampleRate*duration),b=musicCtx.createBuffer(1,n,musicCtx.sampleRate),data=b.getChannelData(0);
+ for(let i=0;i<n;i++)data[i]=Math.random()*2-1;
+ const src=musicCtx.createBufferSource(),filter=musicCtx.createBiquadFilter(),g=musicCtx.createGain();src.buffer=b;filter.type='highpass';filter.frequency.value=cutoff;envGain(g,t,0.002,duration,volume);src.connect(filter);filter.connect(g);g.connect(musicCtx.destination);src.start(t);src.stop(t+duration);
+}
+function phonkCowbell(t,note){
+ const o=musicCtx.createOscillator(),g=musicCtx.createGain(),filter=musicCtx.createBiquadFilter();
+ o.type='square';o.frequency.value=[523,587,659,784,880,988][note%6];filter.type='bandpass';filter.frequency.value=1250;filter.Q.value=1.2;envGain(g,t,0.003,0.105,0.105);o.connect(filter);filter.connect(g);g.connect(musicCtx.destination);o.start(t);o.stop(t+0.12);
+}
+function phonkBass(t,frequency){
+ const o=musicCtx.createOscillator(),g=musicCtx.createGain(),f=musicCtx.createBiquadFilter();o.type='sawtooth';o.frequency.value=frequency;f.type='lowpass';f.frequency.setValueAtTime(180,t);f.frequency.exponentialRampToValueAtTime(75,t+0.13);envGain(g,t,0.006,0.16,0.22);o.connect(f);f.connect(g);g.connect(musicCtx.destination);o.start(t);o.stop(t+0.18);
+}
+function schedulePhonkStep(i,t){
+ const beat=i%16;
+ if([0,6,8,14].includes(beat))phonkKick(t);
+ if([4,12].includes(beat))phonkNoise(t,0.13,0.22,900);
+ if(beat%2===1)phonkNoise(t,0.035,0.045,6500);
+ if([0,3,6,7,10,12,14].includes(beat))phonkCowbell(t,cowbell[beat]);
+ if([0,6,8,14].includes(beat))phonkBass(t,[55,55,49,55][[0,6,8,14].indexOf(beat)]);
+}
+function phonkTick(){
+ if(!musicOn||!musicCtx)return;
+ const horizon=musicCtx.currentTime+0.12;
+ while(nextBeat<horizon){schedulePhonkStep(step,nextBeat);step++;nextBeat+=STEP;}
+}
+async function toggleMusic(){
+ try{
+  if(!musicCtx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw new Error('Audio не поддерживается');musicCtx=new AC();}
+  if(musicOn){musicOn=false;clearInterval(musicTimer);musicTimer=null;await musicCtx.suspend();}
+  else{await musicCtx.resume();musicOn=true;nextBeat=musicCtx.currentTime+0.04;phonkTick();musicTimer=setInterval(phonkTick,25);}
+  const b=$('musicToggle');b.textContent=musicOn?'♫ ФОНК: ВКЛ':'♫ ФОНК: ВЫКЛ';b.classList.toggle('on',musicOn);b.setAttribute('aria-pressed',String(musicOn));
+ }catch(e){const b=$('musicToggle');b.textContent='ЗВУК НЕДОСТУПЕН';b.title=e.message;}
+}
+$('musicToggle').addEventListener('click',toggleMusic);
+let uid=null,roomId=null,roomListener=null,currentRoom=null,busy=false,selectedDir="center",lastAnimatedTurn=-1,lastSoundTurn=-1;
 const show=(id,on=true)=>$(id).classList.toggle("hidden",!on);
 const setStatus=t=>{$("lobbyStatus").textContent=t};
 const cleanName=()=>($("playerName").value.trim()||"Игрок").slice(0,16);
@@ -131,6 +188,50 @@ const splashTimer=setTimeout(showMainMenu,2800);
 splash.addEventListener("click",()=>{clearTimeout(splashTimer);showMainMenu()});
 $("playFriend").addEventListener("click",openFriendLobby);
 $("backToMenu").addEventListener("click",()=>{if(roomListener){roomListener();roomListener=null;}roomId=null;currentRoom=null;showMainMenu()});
+
+function playGoalReaction(isScorer){
+ // Audio effects use the same WebAudio context as the phonk beat.
+ // iOS unlocks audio after the player taps the music button.
+ if(!musicCtx)return;
+ const ctx=musicCtx;
+ if(ctx.state!=="running")ctx.resume().catch(()=>{});
+ const t=ctx.currentTime+0.03;
+ if(isScorer){
+  // Stadium cheer + an original synthesized "Siuuu!"-style rising shout.
+  const duration=1.35,n=Math.floor(ctx.sampleRate*duration),buffer=ctx.createBuffer(1,n,ctx.sampleRate),data=buffer.getChannelData(0);
+  for(let i=0;i<n;i++){const x=i/n;data[i]=(Math.random()*2-1)*(0.30*Math.sin(Math.PI*Math.min(1,x*1.5)))*(0.65+0.35*Math.sin(i*0.018));}
+  const src=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),gain=ctx.createGain();src.buffer=buffer;filter.type="lowpass";filter.frequency.setValueAtTime(1400,t);filter.frequency.exponentialRampToValueAtTime(4200,t+0.35);gain.gain.setValueAtTime(0.001,t);gain.gain.linearRampToValueAtTime(0.42,t+0.12);gain.gain.exponentialRampToValueAtTime(0.001,t+duration);src.connect(filter);filter.connect(gain);gain.connect(ctx.destination);src.start(t);src.stop(t+duration);
+  // Original pitch-bent stadium chant, not a recording or imitation of Ronaldo's voice.
+  const o=ctx.createOscillator(),og=ctx.createGain(),f=ctx.createBiquadFilter();o.type="sawtooth";o.frequency.setValueAtTime(360,t+0.08);o.frequency.exponentialRampToValueAtTime(520,t+0.48);o.frequency.exponentialRampToValueAtTime(245,t+1.12);f.type="lowpass";f.frequency.value=1150;og.gain.setValueAtTime(0.001,t);og.gain.linearRampToValueAtTime(0.10,t+0.12);og.gain.exponentialRampToValueAtTime(0.001,t+1.18);o.connect(f);f.connect(og);og.connect(ctx.destination);o.start(t);o.stop(t+1.2);
+  if("speechSynthesis" in window && typeof SpeechSynthesisUtterance!=="undefined"){
+   try{const u=new SpeechSynthesisUtterance("Siuuu!");u.lang="en-US";u.rate=0.78;u.pitch=1.35;u.volume=0.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}catch(e){}
+  }
+ }else{
+  // Short descending minor-key disappointment sting.
+  [392,349.23,293.66,220].forEach((hz,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="triangle";o.frequency.setValueAtTime(hz,t+i*0.22);o.frequency.exponentialRampToValueAtTime(hz*0.72,t+i*0.22+0.34);g.gain.setValueAtTime(0.001,t+i*0.22);g.gain.linearRampToValueAtTime(0.17,t+i*0.22+0.035);g.gain.exponentialRampToValueAtTime(0.001,t+i*0.22+0.42);o.connect(g);g.connect(ctx.destination);o.start(t+i*0.22);o.stop(t+i*0.22+0.44);});
+  const o=ctx.createOscillator(),g=ctx.createGain();o.type="sine";o.frequency.setValueAtTime(170,t+0.1);o.frequency.exponentialRampToValueAtTime(85,t+0.9);g.gain.setValueAtTime(0.001,t);g.gain.linearRampToValueAtTime(0.16,t+0.15);g.gain.exponentialRampToValueAtTime(0.001,t+1.0);o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+1.02);
+ }
+}
+function playOutcomeForThisPlayer(g,turn){
+ if(turn<=0||turn===lastSoundTurn||!g.lastOutcome)return;
+ lastSoundTurn=turn;
+ if(g.lastOutcome!=="goal")return;
+ const order=currentRoom?.playerOrder||Object.keys(currentRoom?.players||{});
+ const scorer=order[(turn-1)%2];
+ playGoalReaction(scorer===uid);
+}
+function animatePenalty(g){
+ const turn=Number(g.turn||0);playOutcomeForThisPlayer(g,turn);if(turn===0||turn===lastAnimatedTurn||!g.lastShot||!g.lastSave)return;
+ lastAnimatedTurn=turn;
+ const player=$("player"),keeper=$("keeper"),ball=$("ball");
+ player.classList.remove("kick");keeper.classList.remove("dive-left","dive-right","catch");ball.classList.remove("fly-left","fly-center","fly-right");
+ void player.offsetWidth;
+ player.classList.add("kick");
+ const saveDir=g.lastSave.dir||"center",shotDir=g.lastShot.dir||"center";
+ keeper.classList.add(saveDir==="left"?"dive-left":saveDir==="right"?"dive-right":"catch");
+ ball.classList.add("fly-"+shotDir);
+ setTimeout(()=>{player.classList.remove("kick");ball.classList.remove("fly-left","fly-center","fly-right");keeper.classList.remove("dive-left","dive-right","catch");},950);
+}
 
 function watchRoom(id){
  if(roomListener)roomListener();
@@ -144,6 +245,7 @@ function renderRoom(){
  if(ids.length<2){show("waiting");show("match",false);$("waitingStatus").textContent="Ждём второго игрока…";return}
  show("waiting",false);show("match");
  const order=r.playerOrder||ids,g=r.game||{},scores=g.scores||{};
+ animatePenalty(g);
  const p1=players[order[0]],p2=players[order[1]],turn=Number(g.turn||0);
  $("name1").textContent=p1?.name||"Игрок 1";$("name2").textContent=p2?.name||"Игрок 2";
  $("score1").textContent=scores[order[0]]||0;$("score2").textContent=scores[order[1]]||0;
@@ -204,6 +306,7 @@ async function submitAction(){
    if(p.shot&&p.save){
     const goal=p.shot.dir!==p.save.dir && Math.random()<(p.shot.power/100*.9+.08);
     old.scores=old.scores||{};if(goal)old.scores[kicker]=(old.scores[kicker]||0)+1;
+    old.lastShot=p.shot;old.lastSave=p.save;old.lastOutcome=goal?"goal":"save";
     old.lastResult=goal?"ГОЛ! Удар оказался точнее прыжка вратаря.":"СЕЙВ! Вратарь угадал направление.";
     old.turn=(old.turn||0)+1;old.pending={};if(old.turn>=10)old.finished=true;
    }else old.pending=p;
