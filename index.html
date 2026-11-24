@@ -335,11 +335,11 @@ petState.ownedPets=["dog","leopard"];
 if(petState.pet!=="dog"&&petState.pet!=="leopard")petState.pet="dog";
 if(!petState.pets.dog)petState.pets.dog={level:1,xp:0,friendship:0,food:Number(petState.food??100),water:Number(petState.water??100)};
 if(!petState.pets.leopard)petState.pets.leopard={level:1,xp:0,friendship:0,food:100,water:100};
-// Одноразово делаем Бобика и Лео голодными; покормить можно сразу.
-if(!petState.hungryLaunchV1){
- petState.pets.dog.food=10;petState.pets.leopard.food=10;
+// Новая одноразовая миграция: гарантированно выставляем голод обоим питомцам на 5%.
+if(!petState.hungryLaunchV2){
+ petState.pets.dog.food=5;petState.pets.leopard.food=5;
  petState.pets.dog.lastFedAt=0;petState.pets.leopard.lastFedAt=0;
- petState.hungryLaunchV1=true;
+ petState.hungryLaunchV2=true;
 }
 savePetState();
 const petInfo={
