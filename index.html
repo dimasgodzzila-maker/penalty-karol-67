@@ -476,7 +476,7 @@ $("petStroke").addEventListener("click",()=>{addFriendship(2);petAction("happy")
 $("petPlay").addEventListener("click",()=>{addFriendship(5);petAction("play");});
 $("soloBack").addEventListener("click",showMainMenu);
 $("soloExit").addEventListener("click",()=>{soloMode=false;show("soloExit",false);show("match",false);show("soloSetup",false);showMainMenu();});
-const difficultyHints={easy:"Вратарь часто ошибается и редко угадывает направление.",medium:"Вратарь быстрее реагирует и иногда читает твои удары.",hard:"Вратарь хорошо читает повторяющиеся направления и чаще спасает."};
+const difficultyHints={easy:"Вратарь выбирает направление случайно и редко отбивает точные удары.",medium:"Вратарь иногда замечает повторения. Хороший баланс для обычной игры.",hard:"Вратарь чаще читает твои повторения и лучше отбивает точные удары. Меняй направления!."};
 document.querySelectorAll("[data-difficulty]").forEach(b=>b.addEventListener("click",()=>{soloDifficulty=b.dataset.difficulty;document.querySelectorAll("[data-difficulty]").forEach(x=>x.classList.toggle("active",x===b));$("difficultyHint").textContent=difficultyHints[soloDifficulty];}));
 $("startSolo").addEventListener("click",startSoloMatch);
 $("backToMenu").addEventListener("click",()=>{if(roomListener){roomListener();roomListener=null;}roomId=null;currentRoom=null;soloMode=false;show("soloSetup",false);showMainMenu()});
@@ -594,10 +594,10 @@ function chooseKeeperDirection(){
  const dirs=["left","center","right"];
  if(soloDifficulty==="easy")return dirs[Math.floor(Math.random()*3)];
  if(soloDifficulty==="medium"){
-  if(soloHistory.length&&Math.random()<0.38)return soloHistory[Math.floor(Math.random()*soloHistory.length)];
+  if(soloHistory.length&&Math.random()<0.30)return soloHistory[Math.floor(Math.random()*soloHistory.length)];
   return dirs[Math.floor(Math.random()*3)];
  }
- if(soloHistory.length){const counts={left:0,center:0,right:0};soloHistory.forEach(d=>counts[d]++);const max=Math.max(...Object.values(counts));const common=dirs.filter(d=>counts[d]===max);if(Math.random()<0.82)return common[Math.floor(Math.random()*common.length)];}
+ if(soloHistory.length){const counts={left:0,center:0,right:0};soloHistory.forEach(d=>counts[d]++);const max=Math.max(...Object.values(counts));const common=dirs.filter(d=>counts[d]===max);if(Math.random()<0.62)return common[Math.floor(Math.random()*common.length)];}
  return dirs[Math.floor(Math.random()*3)];
 }
 function showCartoonBurst(label){const pitch=document.querySelector(".pitch");if(!pitch)return;const old=pitch.querySelector(".cartoon-burst");if(old)old.remove();const el=document.createElement("div");el.className="cartoon-burst";el.textContent=label;pitch.appendChild(el);setTimeout(()=>el.remove(),780);}
@@ -605,7 +605,7 @@ function soloShot(){
  if(!soloMode||soloBusy||soloTurn>=5)return;
  soloBusy=true;$("sendAction").disabled=true;
  const shotDir=selectedDir,power=Number($("power").value),keeperDir=chooseKeeperDirection();
- const skill={easy:0.16,medium:0.38,hard:0.74}[soloDifficulty];
+ const skill={easy:0.08,medium:0.30,hard:0.55}[soloDifficulty];
  const powerBonus=(power-30)/70*0.12;
  const guessed=shotDir===keeperDir;
  const saved=guessed&&Math.random()<(skill+0.18-powerBonus);
