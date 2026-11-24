@@ -425,6 +425,74 @@ input::placeholder{color:#8faac5}
  .menu-actions{gap:8px}
  .menu-button{min-height:48px;font-size:13px}
 }
+
+/* SIDE-ON PENALTY CAMERA — pitch viewed from the side */
+.pitch{
+ position:relative;isolation:isolate;overflow:hidden;height:350px;
+ background:linear-gradient(180deg,#79c8ef 0%,#b6e5f4 35%,#53b95b 36%,#369b49 100%);
+}
+.pitch:before{
+ content:"";position:absolute;inset:0 0 62%;z-index:0;
+ background:
+  linear-gradient(180deg,#6fb9df 0 22%,#355c82 22% 32%,#d5e9f4 32% 36%,#263e61 36% 100%),
+  repeating-linear-gradient(90deg,#ffffff18 0 3px,transparent 3px 28px);
+ opacity:.95;
+}
+.pitch:after{
+ content:"";position:absolute;z-index:1;left:3%;right:3%;top:39%;bottom:4%;
+ background:
+  linear-gradient(90deg,transparent 49.6%,#ffffffa8 50%,transparent 50.4%),
+  radial-gradient(ellipse at 50% 50%,transparent 0 16%,#ffffffa0 16.2% 16.7%,transparent 17%),
+  repeating-linear-gradient(0deg,#ffffff10 0 1px,transparent 1px 36px),
+  linear-gradient(180deg,#57c65e,#319247);
+ border:3px solid #eaffed;border-radius:12px;
+ transform:perspective(500px) rotateX(9deg);transform-origin:center bottom;
+ box-shadow:inset 0 4px 18px #155b2b55;
+}
+.pitch .goal{
+ z-index:3;top:35%;left:auto;right:7%;width:19%;height:42%;
+ border:5px solid #fff;border-left-width:7px;border-bottom:0;border-radius:8px 8px 0 0;
+ background:repeating-linear-gradient(90deg,transparent 0 9px,#ffffff8a 10px 11px),repeating-linear-gradient(0deg,transparent 0 10px,#ffffff80 11px 12px),#d9f3ff22;
+ box-shadow:0 0 0 3px #244e73,0 6px 0 #b5d5e8;
+}
+.pitch .pitch-box{
+ z-index:2;left:auto;right:4%;top:40%;width:31%;height:39%;
+ border:3px solid #eaffed;border-right:0;border-bottom:0;opacity:.75;
+}
+.pitch .pitch-line{z-index:2;left:0;right:0;bottom:13%;height:3px;background:#eaffed}
+.pitch .keeper{
+ z-index:5;width:105px;height:105px;top:43%;left:75%;right:auto;
+ transform:translate(-50%,-50%);filter:drop-shadow(0 7px 3px #12375b99);
+}
+.pitch .player{
+ z-index:6;width:128px;height:128px;left:12%;bottom:4%;
+ filter:drop-shadow(0 8px 3px #12375b99);
+}
+.pitch .ball{
+ z-index:7;left:35%;bottom:24%;font-size:27px;
+ filter:drop-shadow(0 4px 3px #12375b99);
+}
+.pitch .pitch-label{z-index:8;color:#fff;text-shadow:0 2px 4px #143b25}
+.pitch .keeper:not(.dive-left):not(.dive-right):not(.catch){animation:sideKeeperIdle 2.2s ease-in-out infinite}
+@keyframes sideKeeperIdle{0%,100%{translate:0 0}50%{translate:0 -5px}}
+.pitch .keeper.dive-left{animation:sideKeeperHigh .82s ease-out forwards}
+.pitch .keeper.dive-right{animation:sideKeeperLow .82s ease-out forwards}
+.pitch .keeper.catch{animation:sideKeeperCenter .72s ease-out}
+@keyframes sideKeeperHigh{0%{transform:translate(-50%,-50%)}100%{transform:translate(-50%,-105%) rotate(-18deg) scale(.9)}}
+@keyframes sideKeeperLow{0%{transform:translate(-50%,-50%)}100%{transform:translate(-50%,5%) rotate(18deg) scale(.9)}}
+@keyframes sideKeeperCenter{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,-65%) scale(1.04)}}
+.pitch .ball.fly-left{animation:sideBallHigh .82s ease-in forwards}
+.pitch .ball.fly-center{animation:sideBallMiddle .82s ease-in forwards}
+.pitch .ball.fly-right{animation:sideBallLow .82s ease-in forwards}
+@keyframes sideBallHigh{0%{left:35%;bottom:24%;transform:scale(1)}100%{left:83%;bottom:66%;transform:scale(.58)}}
+@keyframes sideBallMiddle{0%{left:35%;bottom:24%;transform:scale(1)}100%{left:84%;bottom:47%;transform:scale(.62)}}
+@keyframes sideBallLow{0%{left:35%;bottom:24%;transform:scale(1)}100%{left:83%;bottom:29%;transform:scale(.65)}}
+@media(max-width:390px){
+ .pitch{height:305px}
+ .pitch .player{width:112px;height:112px}
+ .pitch .keeper{width:92px;height:92px}
+ .pitch .goal{right:6%;width:21%}
+}
 </style>
 </head>
 <body>
