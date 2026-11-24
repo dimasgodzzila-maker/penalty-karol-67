@@ -353,26 +353,50 @@ function addPetXp(amount){const p=petRecord(petState.pet);if(p.level>=25)return;
 function addFriendship(amount){const p=petRecord(petState.pet);p.friendship=Math.min(100,p.friendship+amount);savePetState();renderPetHub();}
 function savePetState(){try{localStorage.setItem("pk67_pet_state",JSON.stringify(petState));}catch{}}
 let petAnimationTimer=null;
-
-function playPetAnimation(id){
+let petAnimationRun=0;
+const petFrameSets={
+ idle:[1,2,3,4,5,6,7,10,13,17],
+ happy:[8,9,10],
+ feed:[11,12],
+ play:[14,15,16]
+};
+function playPetAnimation(id,action="idle"){
  const box=$("petEmoji");
  if(petAnimationTimer){clearInterval(petAnimationTimer);petAnimationTimer=null;}
- if(id!=="dog"&&id!=="leopard"){
-  box.textContent=petInfo[id]?.emoji||"🐾";
-  return;
- }
- let frame=1,failed=false;
+ const run=++petAnimationRun;
+ if(id!=="dog"&&id!=="leopard"){box.textContent=petInfo[id]?.emoji||"🐾";return;}
+ const folder=id==="leopard"?"leopard":"dog";
+ const fallback=petInfo[id]?.emoji||"🐾";
+ const frames=petFrameSets[action]||petFrameSets.idle;
  box.innerHTML='<img id="petFrame" alt="" style="width:120px;height:120px;object-fit:contain">';
- const img=$("petFrame"),folder=id==="leopard"?"leopard":"dog",fallback=petInfo[id]?.emoji||"🐾";
- const showFrame=()=>{if(!failed)img.src=`pets/${folder}/frames/frame_${String(frame).padStart(2,"0")}.png`;};
- img.onerror=()=>{
-  failed=true;
-  if(petAnimationTimer){clearInterval(petAnimationTimer);petAnimationTimer=null;}
-  box.textContent=fallback;
+ const img=$("petFrame");
+ let index=0,loops=0;
+ const show=()=>{
+  if(run!==petAnimationRun||!img.isConnected)return;
+  img.src=`pets/${folder}/frames/frame_${String(frames[index]).padStart(2,"0")}.png`;
  };
- showFrame();
- petAnimationTimer=setInterval(()=>{frame=frame%17+1;showFrame();},140);
-}function renderPetHub(){
+ img.onerror=()=>{
+  if(run!==petAnimationRun)return;
+  if(petAnimationTimer)clearInterval(petAnimationTimer);
+  petAnimationTimer=null;box.textContent=fallback;
+ };
+ show();
+ petAnimationTimer=setInterval(()=>{
+  if(run!==petAnimationRun)return;
+  index++;
+  if(index>=frames.length){
+   index=0;loops++;
+   if(action!=="idle"&&loops>=2){
+    clearInterval(petAnimationTimer);petAnimationTimer=null;
+    playPetAnimation(id,"idle");
+    return;
+   }
+  }
+  show();
+ },150);
+}
+function petAction(action){playPetAnimation(petState.pet,action);}
+function renderPetHub(){
  $("coinBalance").textContent="🪙 "+petState.coins+" монет";
  const pet=petInfo[petState.pet]||petInfo.dog, rec=petRecord(petState.pet);
  playPetAnimation(petState.pet);$("petName").textContent=pet.name;
@@ -430,10 +454,10 @@ renderPetHub();
 renderProfile();
 $("petHubBack").addEventListener("click",()=>{show("petHub",false);showMainMenu();});
 document.querySelectorAll("[data-pet]").forEach(b=>b.addEventListener("click",()=>{if(!petState.ownedPets.includes(b.dataset.pet))return;petState.pet=b.dataset.pet;savePetState();renderPetHub();}));
-$("buyFood").addEventListener("click",()=>{const p=petRecord(petState.pet);if(petState.coins<5){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.food>=100){$("petMood").textContent="Питомец уже сыт!";return;}petState.coins-=5;p.food=Math.min(100,p.food+35);p.friendship=Math.min(100,p.friendship+3);savePetState();renderPetHub();});
-$("buyWater").addEventListener("click",()=>{const p=petRecord(petState.pet);if(petState.coins<3){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.water>=100){$("petMood").textContent="У питомца уже полная миска воды!";return;}petState.coins-=3;p.water=Math.min(100,p.water+40);savePetState();renderPetHub();});
-$("petStroke").addEventListener("click",()=>addFriendship(2));
-$("petPlay").addEventListener("click",()=>addFriendship(5));
+$("buyFood").addEventListener("click",()=>{const p=petRecord(petState.pet);if(petState.coins<5){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.food>=100){$("petMood").textContent="Питомец уже сыт!";return;}petState.coins-=5;p.food=Math.min(100,p.food+35);p.friendship=Math.min(100,p.friendship+3);savePetState();renderPetHub();petAction("feed");});
+$("buyWater").addEventListener("click",()=>{const p=petRecord(petState.pet);if(petState.coins<3){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.water>=100){$("petMood").textContent="У питомца уже полная миска воды!";return;}petState.coins-=3;p.water=Math.min(100,p.water+40);savePetState();renderPetHub();petAction("happy");});
+$("petStroke").addEventListener("click",()=>{addFriendship(2);petAction("happy");});
+$("petPlay").addEventListener("click",()=>{addFriendship(5);petAction("play");});
 $("soloBack").addEventListener("click",showMainMenu);
 $("soloExit").addEventListener("click",()=>{soloMode=false;show("soloExit",false);show("match",false);show("soloSetup",false);showMainMenu();});
 const difficultyHints={easy:"Вратарь часто ошибается и редко угадывает направление.",medium:"Вратарь быстрее реагирует и иногда читает твои удары.",hard:"Вратарь хорошо читает повторяющиеся направления и чаще спасает."};
