@@ -262,8 +262,8 @@ window.gameTelegramContext = telegramApp ? { inTelegram: true, userId: telegramU
 // Синтезируется WebAudio, поэтому отдельный аудиофайл не нужен.
 // На iPhone запуск звука требует нажатия пользователем.
 let musicCtx=null,musicTimer=null,musicOn=false,step=0,nextBeat=0;
-const BPM=150,STEP=60/BPM/4;
-const cowbell=[0,7,3,10,5,12,3,8,0,7,5,10,3,12,7,5];
+const BPM=132,STEP=60/BPM/4;
+const cowbell=[0,2,4,7,3,5,2,8,0,4,7,3,5,2,8,4];
 function envGain(g,t,a,d,peak){g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(peak,t+a);g.gain.exponentialRampToValueAtTime(0.0001,t+a+d);}
 function phonkKick(t){
  const o=musicCtx.createOscillator(),g=musicCtx.createGain();o.type='sine';o.frequency.setValueAtTime(145,t);o.frequency.exponentialRampToValueAtTime(43,t+0.16);envGain(g,t,0.004,0.2,0.85);o.connect(g);g.connect(musicCtx.destination);o.start(t);o.stop(t+0.22);
@@ -282,11 +282,18 @@ function phonkBass(t,frequency){
 }
 function schedulePhonkStep(i,t){
  const beat=i%16;
- if([0,6,8,14].includes(beat))phonkKick(t);
- if([4,12].includes(beat))phonkNoise(t,0.13,0.22,900);
- if(beat%2===1)phonkNoise(t,0.035,0.045,6500);
- if([0,3,6,7,10,12,14].includes(beat))phonkCowbell(t,cowbell[beat]);
- if([0,6,8,14].includes(beat))phonkBass(t,[55,55,49,55][[0,6,8,14].indexOf(beat)]);
+ // Brazilian funk / tamborzao-inspired syncopated groove
+ if([0,3,7,10,14].includes(beat))phonkKick(t);
+ if([4,12].includes(beat))phonkNoise(t,0.16,0.24,750);
+ if([2,6,9,13,15].includes(beat))phonkNoise(t,0.045,0.055,5200);
+ if([1,5,8,11,15].includes(beat))phonkCowbell(t,cowbell[beat]);
+ if([0,3,7,10,14].includes(beat))phonkBass(t,[55,65,49,58,55][[0,3,7,10,14].indexOf(beat)]);
+ if([2,7,10,15].includes(beat)){
+  const o=musicCtx.createOscillator(),g=musicCtx.createGain();
+  o.type='sine';o.frequency.setValueAtTime([190,155,210,175][[2,7,10,15].indexOf(beat)],t);
+  o.frequency.exponentialRampToValueAtTime(65,t+0.11);
+  envGain(g,t,0.003,0.13,0.16);o.connect(g);g.connect(musicCtx.destination);o.start(t);o.stop(t+0.15);
+ }
 }
 function phonkTick(){
  if(!musicOn||!musicCtx)return;
