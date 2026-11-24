@@ -266,19 +266,38 @@ const BPM=132,STEP=60/BPM/4;
 const cowbell=[0,2,4,7,3,5,2,8,0,4,7,3,5,2,8,4];
 function envGain(g,t,a,d,peak){g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(peak,t+a);g.gain.exponentialRampToValueAtTime(0.0001,t+a+d);}
 function phonkKick(t){
- const o=musicCtx.createOscillator(),g=musicCtx.createGain();o.type='sine';o.frequency.setValueAtTime(145,t);o.frequency.exponentialRampToValueAtTime(43,t+0.16);envGain(g,t,0.004,0.2,0.85);o.connect(g);g.connect(musicCtx.destination);o.start(t);o.stop(t+0.22);
+ const o=musicCtx.createOscillator(),g=musicCtx.createGain(),f=musicCtx.createBiquadFilter();
+ o.type='sine';o.frequency.setValueAtTime(155,t);o.frequency.exponentialRampToValueAtTime(42,t+0.19);
+ f.type='lowpass';f.frequency.value=180;
+ envGain(g,t,0.004,0.24,0.95);o.connect(f);f.connect(g);g.connect(musicCtx.destination);o.start(t);o.stop(t+0.26);
+ // Soft analogue-style attack, not a chiptune click
+ phonkNoise(t,0.018,0.055,1800);
 }
 function phonkNoise(t,duration,volume,cutoff){
  const n=Math.floor(musicCtx.sampleRate*duration),b=musicCtx.createBuffer(1,n,musicCtx.sampleRate),data=b.getChannelData(0);
- for(let i=0;i<n;i++)data[i]=Math.random()*2-1;
- const src=musicCtx.createBufferSource(),filter=musicCtx.createBiquadFilter(),g=musicCtx.createGain();src.buffer=b;filter.type='highpass';filter.frequency.value=cutoff;envGain(g,t,0.002,duration,volume);src.connect(filter);filter.connect(g);g.connect(musicCtx.destination);src.start(t);src.stop(t+duration);
+ for(let i=0;i<n;i++)data[i]=(Math.random()*2-1)*(1-i/n*.35);
+ const src=musicCtx.createBufferSource(),filter=musicCtx.createBiquadFilter(),g=musicCtx.createGain();
+ src.buffer=b;filter.type='lowpass';filter.frequency.value=cutoff;filter.Q.value=.55;
+ envGain(g,t,0.003,duration,volume);src.connect(filter);filter.connect(g);g.connect(musicCtx.destination);src.start(t);src.stop(t+duration);
 }
 function phonkCowbell(t,note){
- const o=musicCtx.createOscillator(),g=musicCtx.createGain(),filter=musicCtx.createBiquadFilter();
- o.type='square';o.frequency.value=[523,587,659,784,880,988][note%6];filter.type='bandpass';filter.frequency.value=1250;filter.Q.value=1.2;envGain(g,t,0.003,0.105,0.105);o.connect(filter);filter.connect(g);g.connect(musicCtx.destination);o.start(t);o.stop(t+0.12);
+ // Smooth metallic bell made from inharmonic sine partials instead of a square-wave chip tone
+ const root=[520,585,650,780,875,980][note%6];
+ [[1,.65],[1.48,.28],[2.06,.16],[2.72,.08]].forEach(([ratio,level])=>{
+  const o=musicCtx.createOscillator(),g=musicCtx.createGain(),f=musicCtx.createBiquadFilter();
+  o.type='sine';o.frequency.setValueAtTime(root*ratio,t);
+  f.type='bandpass';f.frequency.value=root*ratio;f.Q.value=2.8;
+  envGain(g,t,.002,.19,.075*level);o.connect(f);f.connect(g);g.connect(musicCtx.destination);
+  o.start(t);o.stop(t+.21);
+ });
 }
 function phonkBass(t,frequency){
- const o=musicCtx.createOscillator(),g=musicCtx.createGain(),f=musicCtx.createBiquadFilter();o.type='sawtooth';o.frequency.value=frequency;f.type='lowpass';f.frequency.setValueAtTime(180,t);f.frequency.exponentialRampToValueAtTime(75,t+0.13);envGain(g,t,0.006,0.16,0.22);o.connect(f);f.connect(g);g.connect(musicCtx.destination);o.start(t);o.stop(t+0.18);
+ const o=musicCtx.createOscillator(),sub=musicCtx.createOscillator(),g=musicCtx.createGain(),f=musicCtx.createBiquadFilter();
+ o.type='triangle';o.frequency.setValueAtTime(frequency,t);o.frequency.exponentialRampToValueAtTime(frequency*.985,t+.15);
+ sub.type='sine';sub.frequency.value=frequency/2;
+ f.type='lowpass';f.frequency.setValueAtTime(230,t);f.frequency.exponentialRampToValueAtTime(82,t+.17);f.Q.value=.7;
+ envGain(g,t,.009,.22,.23);o.connect(f);sub.connect(f);f.connect(g);g.connect(musicCtx.destination);
+ o.start(t);sub.start(t);o.stop(t+.24);sub.stop(t+.24);
 }
 function schedulePhonkStep(i,t){
  const beat=i%16;
