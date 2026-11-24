@@ -4,10 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#071b16">
-<title>ПЕНАЛЬТИ КОРОЛЬ 67</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<title>ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ</title>
 <style>
 :root{--bg:#071b16;--panel:#102a22;--lime:#b7f34a;--white:#f4f7ef;--muted:#a8b8ae}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#174b36 0,#071b16 55%);color:var(--white);font-family:system-ui,-apple-system,Arial,sans-serif;min-height:100vh}
+*{box-sizing:border-box}body{margin:0;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);background:radial-gradient(circle at 50% 0,#174b36 0,#071b16 55%);color:var(--white);font-family:system-ui,-apple-system,Arial,sans-serif;min-height:100vh}
 .wrap{max-width:520px;margin:auto;padding:18px 16px 30px}.top{display:flex;justify-content:space-between;align-items:center}.logo{font-weight:1000;letter-spacing:1px;font-size:21px;line-height:1.05}.logo span{color:var(--lime)}.pill{background:#17372b;border:1px solid #315643;border-radius:30px;padding:8px 12px;color:var(--lime);font-weight:800}
 h1{font-size:26px;margin:25px 0 4px;text-align:center}.sub{text-align:center;color:var(--muted);margin:0 0 18px}
 .card{background:linear-gradient(150deg,#15382b,#0d241d);border:1px solid #315340;border-radius:20px;padding:15px;margin:12px 0;box-shadow:0 12px 28px #0003}
@@ -74,28 +78,69 @@ input,select{width:100%;border:1px solid #426b4e;border-radius:12px;background:#
 #petHub [data-pet].active{background:var(--lime);color:#142417}
 .solo-difficulties button.active{background:var(--lime);color:#142417;border-color:var(--lime)}
 @media(max-width:390px){.pitch{height:285px}.player{width:118px;height:118px}.keeper{width:94px;height:94px}.goal{left:17%;width:66%}}
+
+/* CARTOON 2D UPDATE V1 — visual polish and match animation layer */
+:root{--bg:#160d2b;--panel:#28194a;--lime:#c7ff55;--white:#fff8ee;--muted:#c5b9df}
+body{background:radial-gradient(ellipse at 50% -10%,#6542a4 0,#24133f 43%,#100a20 100%)}
+.card{background:linear-gradient(150deg,#39245f,#21153e);border:2px solid #7656a8;box-shadow:0 7px 0 #130b26,0 14px 28px #0005}
+button{border-radius:16px;border:2px solid #7656a8;box-shadow:0 4px 0 #160d2b;transition:transform .12s,filter .12s}
+button:active{transform:translateY(3px);box-shadow:0 1px 0 #160d2b;filter:brightness(1.1)}
+button.primary,.menu-button{border:2px solid #efffb5;box-shadow:0 5px 0 #537d20,0 9px 18px #0006}
+.menu-button{border-radius:18px;background:linear-gradient(180deg,#d7ff76,#92db39);color:#1d2a16;text-shadow:0 1px #fff9}
+.menu-button:not(.menu-primary){background:linear-gradient(180deg,#8f6de0,#6544b2);color:#fff;border-color:#cbbaff;box-shadow:0 5px 0 #382466,0 9px 18px #0006}
+.main-menu{background:radial-gradient(ellipse at 50% 38%,#7144b5 0,#35205d 48%,#160d2b 100%)}
+.main-menu:before{opacity:.12;background:radial-gradient(circle at 20% 25%,#fff 0 2px,transparent 3px),radial-gradient(circle at 75% 18%,#fff 0 2px,transparent 3px),radial-gradient(circle at 80% 70%,#fff 0 2px,transparent 3px)}
+.menu-brand{font-family:system-ui,sans-serif;text-shadow:0 3px 0 #25123e,0 6px 0 #12091f,0 0 20px #d3aaff}
+.menu-brand strong{color:#d8ff83}.menu-brand i{color:#ff786d}
+.menu-player{border:4px solid #e6d5ff;border-radius:28px;clip-path:none;background:linear-gradient(#42316e 0 48%,#46a64c 48% 100%);box-shadow:0 0 0 5px #180e2b,0 14px 30px #0009}
+.menu-player:before{border:3px solid #fff4;border-bottom:0;border-radius:18px 18px 0 0}
+.menu-keeper{animation:cartoonKeeper 1.6s ease-in-out infinite alternate;filter:drop-shadow(0 7px 0 #21143a)}
+.menu-striker{animation:cartoonStriker 1.25s ease-in-out infinite alternate;filter:drop-shadow(0 8px 0 #21143a)}
+@keyframes cartoonKeeper{from{transform:translateY(0) rotate(-4deg)}to{transform:translateY(-9px) rotate(4deg)}}
+@keyframes cartoonStriker{from{transform:translateY(0) rotate(3deg)}to{transform:translateY(-6px) rotate(-3deg)}}
+.pitch{border:4px solid #e8d7ff;border-radius:22px;background:linear-gradient(#33285c 0 31%,#43a64e 31% 100%);box-shadow:inset 0 0 0 3px #17102a,0 10px 24px #0008}
+.pitch:before{background:repeating-linear-gradient(90deg,#3d356f 0 7px,#51458c 7px 12px,#33285c 12px 18px)}
+.pitch:after{background:repeating-linear-gradient(90deg,#4caf50 0 12.5%,#419b47 12.5% 25%)}
+.goal{border-color:#fff;border-radius:10px 10px 0 0;box-shadow:0 0 0 4px #33245b,0 5px 0 #c7b5e8}
+.sprite{filter:drop-shadow(0 7px 2px #160d2b);image-rendering:auto}
+.keeper:not(.dive-left):not(.dive-right):not(.catch){animation:idleBob 1.5s ease-in-out infinite}
+.player:not(.kick){animation:playerReady 1.8s ease-in-out infinite}
+.ball{filter:drop-shadow(0 4px 2px #160d2b);animation:ballBob 1.2s ease-in-out infinite}
+@keyframes idleBob{0%,100%{margin-top:0}50%{margin-top:-5px}}
+@keyframes playerReady{0%,100%{margin-bottom:0}50%{margin-bottom:4px}}
+@keyframes ballBob{0%,100%{margin-bottom:0}50%{margin-bottom:4px}}
+.directions button{border-radius:15px;background:linear-gradient(#59428b,#34245e);border:2px solid #9d82cf}
+.directions button.active{background:linear-gradient(#d7ff76,#9cdb45);color:#1d2a16;border-color:#f2ffcb}
+.status{background:#24163f;border:1px solid #7455a7;color:#d7ff83}
+.pill{background:#33205a;border-color:#8060b5;color:#d7ff83}
+.message{color:#d7ff83;text-shadow:0 2px #261544}
+.cartoon-burst{position:absolute;inset:0;z-index:9;pointer-events:none;display:grid;place-items:center;font-size:clamp(34px,11vw,58px);font-weight:1000;color:#eaff9b;text-shadow:3px 4px #38205e,-2px -2px #38205e;animation:burstPop .75s ease-out forwards}
+@keyframes burstPop{0%{opacity:0;transform:scale(.25) rotate(-12deg)}25%{opacity:1;transform:scale(1.18) rotate(5deg)}70%{opacity:1;transform:scale(1) rotate(0)}100%{opacity:0;transform:scale(1.2) translateY(-20px)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+
 </style>
 </head>
 <body>
 <button id="musicToggle" class="music-toggle" type="button" aria-pressed="false">♫ ФОНК: ВЫКЛ</button>
 <div id="splash" class="splash" aria-label="Загрузка игры">
-  <img src="loading_screen.png" alt="ПЕНАЛЬТИ КОРОЛЬ 67 — экран загрузки">
+  <img src="loading_screen.png" alt="ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ — экран загрузки">
   <div class="splash-skip">Нажми, чтобы пропустить</div>
 </div>
 <section id="mainMenu" class="main-menu hidden">
-  <div class="menu-top"><span>⚽ PIXEL FOOTBALL</span><span class="menu-online">ONLINE 1×1</span></div>
-  <div class="menu-brand"><div class="crown">♛</div><div>ПЕНАЛЬТИ</div><strong>КОРОЛЬ <i>67</i></strong><small>THE PENALTY KING</small></div>
+  <div class="menu-top"><span>⚽ CARTOON FOOTBALL</span><span class="menu-online">ONLINE 1×1</span></div>
+  <div class="menu-brand"><div class="crown">♛</div><div>ФУТБОЛЬНАЯ</div><strong>ДИНАСТИИИИИЯ</strong><small>CARTOON FOOTBALL • MINI APP</small></div>
   <div class="menu-player" aria-hidden="true"><div class="menu-goal"></div><div class="menu-keeper">🧤</div><div class="menu-striker">⚽</div></div>
   <div class="menu-actions">
     <button id="playSolo" class="menu-button menu-primary">ОДИНОЧНАЯ ИГРА <span>⚽</span></button>
     <button id="playFriend" class="menu-button">ИГРАТЬ С ДРУГОМ <span>➜</span></button>
     <button id="openPetHub" class="menu-button">МОНЕТЫ И ПИТОМЦЫ <span>★</span></button>
-    <div class="menu-note">PENALTY KING 67 • PIXEL EDITION</div>
+    <button id="openProfile" class="menu-button">МОЙ ПРОФИЛЬ <span>♛</span></button>
+    <div class="menu-note">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ • CARTOON 2D</div>
   </div>
-  <div class="menu-footer">PENALTY KING 67 • PIXEL EDITION</div>
+  <div class="menu-footer">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ • CARTOON 2D</div>
 </section>
 <div class="wrap hidden" id="gameWrap">
- <div class="top"><div class="logo">⚽ ПЕНАЛЬТИ<br><span>КОРОЛЬ 67</span></div><div class="pill">ONLINE 1×1</div></div>
+ <div class="top"><div class="logo">⚽ ФУТБОЛЬНАЯ<br><span>ДИНАСТИИИИИЯ</span></div><div class="pill">ONLINE 1×1</div></div>
  <h1>ИГРА С ДРУГОМ</h1><p class="sub">Создай комнату или введи код друга</p>
  <section class="card" id="lobby">
   <button id="backToMenu" style="padding:8px 11px;margin-bottom:12px">← ГЛАВНОЕ МЕНЮ</button>
@@ -130,16 +175,39 @@ input,select{width:100%;border:1px solid #426b4e;border-radius:12px;background:#
   <div class="card" style="text-align:center">
    <div id="petEmoji" style="font-size:64px">🐶</div>
    <b id="petName">Бобик</b>
+   <div class="hint" id="petLevel">Уровень 1 · 0/50 XP</div>
+   <div class="status" id="petRarity" style="margin-top:8px">Редкость: редкая</div>
+   <p class="hint" id="petAbility">Способность: усиленный удар один раз за матч</p>
    <p class="hint" id="petMood">Твой верный футбольный талисман!</p>
    <div class="row"><div><small>🍖 Сытость</small><div class="status" id="petFoodStat">100%</div></div><div><small>💧 Вода</small><div class="status" id="petWaterStat">100%</div></div></div>
+   <div class="status" id="petFriendship" style="margin-top:8px">Дружба: 0/100 · Незнакомцы</div>
+   <div class="hint" id="petFriendBonus">Бонус дружбы: 0%</div>
   </div>
-  <div class="field">Выбери питомца</div>
-  <div class="row"><button data-pet="dog">🐶 Пёс</button><button data-pet="cat">🐱 Кот</button><button data-pet="fox">🦊 Лис</button></div>
-  <div class="field" style="margin-top:14px">Магазин</div>
+  <div class="field">Твоя коллекция</div>
+  <div class="row pet-collection"><button data-pet="dog">🐶 Пёс</button><button data-pet="cat">🐱 Кот</button><button data-pet="fox">🦊 Лис</button></div>
+  <div class="row pet-collection"><button data-pet="panda">🐼 Панда 🔒</button><button data-pet="wolf">🐺 Волк 🔒</button><button data-pet="eagle">🦅 Орёл 🔒</button></div>
+  <div class="field" style="margin-top:14px">Забота и дружба</div>
   <div class="row"><button id="buyFood">🍖 Корм · 5 🪙</button><button id="buyWater">💧 Вода · 3 🪙</button></div>
-  <p class="hint">За каждый сыгранный соло-матч получаешь монеты. За голы и победы дают бонусы. Монеты сохраняются на этом устройстве.</p>
+  <div class="row" style="margin-top:8px"><button id="petStroke">Погладить · +2</button><button id="petPlay">Поиграть · +5</button></div>
+  <p class="hint">Питомцы получают опыт за матчи: победа +25 XP, поражение +10 XP. Дружба не уменьшается. Прогресс этой версии пока хранится на устройстве.</p>
   <div class="field">Мотивация дня</div>
   <div class="status" id="dailyGoal">Забей 3 гола в соло-матче и получи бонус!</div>
+ </section>
+ <section class="card hidden" id="profileHub">
+  <button id="profileBack" style="padding:8px 11px;margin-bottom:12px">← ГЛАВНОЕ МЕНЮ</button>
+  <h1 style="margin:4px 0 8px">МОЙ ПРОФИЛЬ</h1>
+  <div class="card" style="text-align:center">
+   <div id="profileAvatar" style="font-size:54px">⚽</div>
+   <b id="profileName" style="font-size:20px">Игрок</b>
+   <div class="hint" id="profileTag">ID игрока: #000000</div>
+   <div class="status" id="profileTrophies" style="margin-top:10px">🏆 0 кубков</div>
+  </div>
+  <div class="field">Статистика игрока</div>
+  <div class="row"><div class="status"><b id="statMatches">0</b><br><small>Матчи</small></div><div class="status"><b id="statWins">0</b><br><small>Победы</small></div><div class="status"><b id="statLosses">0</b><br><small>Поражения</small></div></div>
+  <div class="row" style="margin-top:8px"><div class="status"><b id="statGoals">0</b><br><small>Голы</small></div><div class="status"><b id="statSaves">0</b><br><small>Сэйвы</small></div><div class="status"><b id="statCoins">0</b><br><small>Монеты заработано</small></div></div>
+  <div class="field" style="margin-top:16px">Достижения</div>
+  <div id="achievementList" class="hint">Пока нет достижений. Время забивать голы!</div>
+  <p class="hint" style="margin-top:12px">Профиль и статистика этой сборки пока сохраняются на этом устройстве. Публичная синхронизация между игроками потребует серверной части.</p>
  </section>
  <section class="card hidden" id="waiting">
   <div class="field">Комната создана</div><div style="font-size:32px;font-weight:1000;letter-spacing:5px;text-align:center;color:var(--lime)" id="roomCodeView">------</div>
@@ -150,7 +218,7 @@ input,select{width:100%;border:1px solid #426b4e;border-radius:12px;background:#
  <section class="card hidden" id="match">
   <button id="soloExit" class="hidden" style="padding:8px 11px;margin-bottom:10px">← ВЫЙТИ В МЕНЮ</button>
   <div class="score"><div><b id="score1">0</b><small id="name1">Игрок 1</small></div><div><b id="turnView">1/10</b><small>ХОД</small></div><div><b id="score2">0</b><small id="name2">Игрок 2</small></div></div>
-  <div class="pitch"><div class="goal"></div><div class="pitch-box"></div><div class="pitch-line"></div><div class="keeper sprite" id="keeper" aria-label="Вратарь"></div><div class="player sprite" id="player" aria-label="Футболист"></div><div class="ball" id="ball">⚽</div><div class="pitch-label">PENALTY KING 67</div></div>
+  <div class="pitch"><div class="goal"></div><div class="pitch-box"></div><div class="pitch-line"></div><div class="keeper sprite" id="keeper" aria-label="Вратарь"></div><div class="player sprite" id="player" aria-label="Футболист"></div><div class="ball" id="ball">⚽</div><div class="pitch-label">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ</div></div>
   <div class="status" id="roleStatus">Загружаем матч…</div>
   <div id="actionArea" class="hidden">
    <div class="field" style="margin-top:12px" id="actionTitle">Выбери направление</div>
@@ -160,9 +228,20 @@ input,select{width:100%;border:1px solid #426b4e;border-radius:12px;background:#
   </div>
   <div class="message" id="matchMessage">Удачи!</div>
  </section>
- <div class="bottom">ПЕНАЛЬТИ КОРОЛЬ 67 • ONLINE TEST</div>
+ <div class="bottom">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ • TELEGRAM MINI APP</div>
 </div>
 <script type="module">
+// Telegram Mini App bootstrap. Telegram identity is used only for UI prefill here;
+// secure account linking requires server-side validation of initData.
+const telegramApp = window.Telegram?.WebApp || null;
+const telegramUser = telegramApp?.initDataUnsafe?.user || null;
+if (telegramApp) {
+  telegramApp.ready();
+  telegramApp.expand();
+  try { telegramApp.setHeaderColor('#071b16'); telegramApp.setBackgroundColor('#071b16'); } catch {}
+  document.documentElement.classList.add('telegram-mini-app');
+}
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
 import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 import { getDatabase, ref, get, set, update, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
@@ -178,8 +257,9 @@ const firebaseConfig = {
 };
 const $=id=>document.getElementById(id);
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app);
+window.gameTelegramContext = telegramApp ? { inTelegram: true, userId: telegramUser?.id || null, initData: telegramApp.initData || "" } : { inTelegram: false, userId: null, initData: "" };
 
-// Оригинальный Brazilian-phonk beat для PENALTY KING 67.
+// Оригинальный Brazilian-phonk beat для ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ.
 // Синтезируется WebAudio, поэтому отдельный аудиофайл не нужен.
 // На iPhone запуск звука требует нажатия пользователем.
 let musicCtx=null,musicTimer=null,musicOn=false,step=0,nextBeat=0;
@@ -227,31 +307,69 @@ let uid=null,roomId=null,roomListener=null,currentRoom=null,busy=false,selectedD
 let soloMode=false,soloDifficulty="easy",soloTurn=0,soloScore=0,soloHistory=[],soloBusy=false;
 const show=(id,on=true)=>$(id).classList.toggle("hidden",!on);
 const setStatus=t=>{$("lobbyStatus").textContent=t};
-const petDefaults={coins:0,pet:"dog",food:100,water:100,lastDaily:"",dailyBonusClaimed:false};
+const petDefaults={coins:0,pet:"dog",food:100,water:100,lastDaily:"",dailyBonusClaimed:false,ownedPets:["dog","cat","fox"],pets:{}};
+const profileDefaults={gameId:String(Math.floor(100000+Math.random()*900000)),trophies:0,matches:0,wins:0,losses:0,goals:0,saves:0,totalCoins:0,bestWinStreak:0,winStreak:0,achievements:[],processedRooms:{}};
+let profile={...profileDefaults};
+try{profile={...profileDefaults,...JSON.parse(localStorage.getItem("dynasty_profile_v1")||"{}")} }catch{}
+profile.achievements=Array.isArray(profile.achievements)?profile.achievements:[];
+profile.processedRooms=profile.processedRooms&&typeof profile.processedRooms==="object"?profile.processedRooms:{};
+function saveProfile(){try{localStorage.setItem("dynasty_profile_v1",JSON.stringify(profile))}catch{}}
+const trophyMilestones=[{n:100,reward:500,title:"Первый шаг"},{n:500,reward:1500,title:"Перспективный игрок"},{n:1000,reward:3000,title:"Золотая звезда"},{n:5000,reward:7500,title:"Мастер пенальти"},{n:10000,reward:15000,title:"Футбольная легенда"}];
+const extraAchievements=[{id:"goals100",title:"Снайпер",desc:"Забить 100 голов",test:p=>p.goals>=100,reward:500},{id:"saves50",title:"Стена",desc:"Сделать 50 сейвов",test:p=>p.saves>=50,reward:500},{id:"streak10",title:"Серия чемпионов",desc:"10 побед подряд",test:p=>p.bestWinStreak>=10,reward:1000}];
+function trophyDelta(t){return t<100?{win:8,loss:1}:t<300?{win:7,loss:2}:t<600?{win:6,loss:3}:t<1000?{win:5,loss:4}:t<1500?{win:4,loss:5}:{win:3,loss:6}}
+function grantAchievement(id,title,reward){if(profile.achievements.includes(id))return;profile.achievements.push(id);petState.coins=(Number(petState.coins)||0)+reward;profile.totalCoins+=reward;}
+function checkAchievements(){for(const m of trophyMilestones){const id="trophy_"+m.n;if(profile.trophies>=m.n)grantAchievement(id,m.title,m.reward)}for(const a of extraAchievements){if(a.test(profile))grantAchievement(a.id,a.title,a.reward)}}
+function recordOnlineResult(room,players,order,scores){if(!room||profile.processedRooms[room])return;const a=Number(scores[order[0]]||0),b=Number(scores[order[1]]||0),mine=order.indexOf(uid);if(mine<0)return;const won=(mine===0?a>b:b>a),draw=a===b;profile.processedRooms[room]=true;profile.matches++;if(draw){profile.winStreak=0;}else if(won){profile.wins++;profile.winStreak++;profile.bestWinStreak=Math.max(profile.bestWinStreak,profile.winStreak);const d=trophyDelta(profile.trophies);profile.trophies+=d.win;}else{profile.losses++;profile.winStreak=0;const d=trophyDelta(profile.trophies);profile.trophies=Math.max(0,profile.trophies-d.loss);}checkAchievements();saveProfile();savePetState();renderProfile();}
+function renderProfile(){const nick=currentNick();$("profileName").textContent=nick;$("profileTag").textContent="ID игрока: #"+profile.gameId;$("profileTrophies").textContent="🏆 "+profile.trophies+" кубков";for(const [id,val] of Object.entries({statMatches:profile.matches,statWins:profile.wins,statLosses:profile.losses,statGoals:profile.goals,statSaves:profile.saves,statCoins:profile.totalCoins}))$(id).textContent=String(val);const titles=[...trophyMilestones.filter(m=>profile.achievements.includes("trophy_"+m.n)).map(m=>m.title),...extraAchievements.filter(a=>profile.achievements.includes(a.id)).map(a=>a.title)];$("achievementList").textContent=titles.length?titles.join(" · "):"Пока нет достижений. Время забивать голы!";}
+function openProfile(){mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");for(const id of ["lobby","soloSetup","waiting","match","petHub"])show(id,false);show("profileHub",true);renderProfile();}
+
 let petState={...petDefaults};
 try{petState={...petDefaults,...JSON.parse(localStorage.getItem("pk67_pet_state")||"{}")};}catch{}
+petState.ownedPets=Array.isArray(petState.ownedPets)?petState.ownedPets:["dog","cat","fox"];
+petState.pets=petState.pets&&typeof petState.pets==="object"?petState.pets:{};
+if(!petState.pets.dog)petState.pets.dog={level:1,xp:0,friendship:0,food:Number(petState.food??100),water:Number(petState.water??100)};
+for(const id of petState.ownedPets){if(!petState.pets[id])petState.pets[id]={level:1,xp:0,friendship:0,food:100,water:100};}
+const petInfo={
+ dog:{emoji:"🐶",name:"Бобик",rarity:"Редкая",ability:"Сильный удар: один усиленный удар за матч",owned:true},
+ cat:{emoji:"🐱",name:"Пиксель",rarity:"Эпическая",ability:"Второй шанс: повтор одного промаха за матч",owned:true},
+ fox:{emoji:"🦊",name:"Фокс",rarity:"Легендарная",ability:"Обман: показывает направление прыжка вратаря",owned:true},
+ panda:{emoji:"🐼",name:"Бамбук",rarity:"Эпическая",ability:"Золотой запас: удваивает монеты за матч",owned:false},
+ wolf:{emoji:"🐺",name:"Норд",rarity:"Мифическая",ability:"Абсолютная защита: гарантированно спасает один удар",owned:false},
+ eagle:{emoji:"🦅",name:"Орёл",rarity:"Обычная",ability:"Орлиный глаз: снижает риск промаха один раз за матч",owned:false}
+};
+function petRecord(id){return petState.pets[id]||(petState.pets[id]={level:1,xp:0,friendship:0,food:100,water:100});}
+function xpNeeded(level){return 50+Math.max(0,level-1)*10;}
+function friendshipStage(v){return v>=81?"Лучшие друзья":v>=61?"Хорошие друзья":v>=41?"Друзья":v>=21?"Знакомые":"Незнакомцы";}
+function friendshipBonus(v){return v>=100?5:v>=75?3:v>=50?2:v>=25?1:0;}
+function addPetXp(amount){const p=petRecord(petState.pet);if(p.level>=25)return; p.xp+=amount;while(p.level<25&&p.xp>=xpNeeded(p.level)){p.xp-=xpNeeded(p.level);p.level++;}if(p.level>=25)p.xp=0;savePetState();}
+function addFriendship(amount){const p=petRecord(petState.pet);p.friendship=Math.min(100,p.friendship+amount);savePetState();renderPetHub();}
 function savePetState(){try{localStorage.setItem("pk67_pet_state",JSON.stringify(petState));}catch{}}
-const petInfo={dog:{emoji:"🐶",name:"Бобик"},cat:{emoji:"🐱",name:"Пиксель"},fox:{emoji:"🦊",name:"Фокс"}};
 function renderPetHub(){
  $("coinBalance").textContent="🪙 "+petState.coins+" монет";
- const pet=petInfo[petState.pet]||petInfo.dog;
+ const pet=petInfo[petState.pet]||petInfo.dog, rec=petRecord(petState.pet);
  $("petEmoji").textContent=pet.emoji;$("petName").textContent=pet.name;
- $("petFoodStat").textContent=petState.food+"%";$("petWaterStat").textContent=petState.water+"%";
- $("petMood").textContent=petState.food<25||petState.water<25?"Питомец проголодался или хочет пить. Угости его!":"Питомец счастлив быть твоим талисманом!";
- document.querySelectorAll("[data-pet]").forEach(b=>b.classList.toggle("active",b.dataset.pet===petState.pet));
+ $("petLevel").textContent="Уровень "+rec.level+" · "+rec.xp+"/"+xpNeeded(rec.level)+" XP";
+ $("petRarity").textContent="Редкость: "+pet.rarity;
+ $("petAbility").textContent="Способность: "+pet.ability;
+ $("petFoodStat").textContent=rec.food+"%";$("petWaterStat").textContent=rec.water+"%";
+ $("petMood").textContent=rec.food<25||rec.water<25?"Питомец проголодался или хочет пить. Угости его!":"Питомец счастлив быть твоим талисманом!";
+ $("petFriendship").textContent="Дружба: "+rec.friendship+"/100 · "+friendshipStage(rec.friendship);
+ $("petFriendBonus").textContent="Бонус дружбы активного питомца: +"+friendshipBonus(rec.friendship)+"%";
+ document.querySelectorAll("[data-pet]").forEach(b=>{const id=b.dataset.pet,owned=petState.ownedPets.includes(id);b.disabled=!owned;b.textContent=petInfo[id].emoji+" "+(id==="dog"?"Пёс":id==="cat"?"Кот":id==="fox"?"Лис":id==="panda"?"Панда":id==="wolf"?"Волк":"Орёл")+(owned?"":" 🔒");b.classList.toggle("active",id===petState.pet);});
  const today=new Date().toISOString().slice(0,10);
  $("dailyGoal").textContent=petState.dailyBonusClaimed&&petState.lastDaily===today?"Бонус дня уже получен. Возвращайся завтра!":"Забей 3 гола в одном соло-матче и получи +10 монет!";
 }
 function openPetHub(){mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",false);show("soloSetup",false);show("waiting",false);show("match",false);show("petHub",true);renderPetHub();}
 function awardSoloCoins(goals,won){
+ addPetXp(won?25:10);if(won){const p=petRecord(petState.pet);p.friendship=Math.min(100,p.friendship+2);}
  let reward=10+goals*5+(won?15:0),bonus=0;
  const today=new Date().toISOString().slice(0,10);
  if(goals>=3&&!(petState.dailyBonusClaimed&&petState.lastDaily===today)){bonus=10;petState.dailyBonusClaimed=true;petState.lastDaily=today;}
- petState.coins+=reward+bonus;savePetState();
+ petState.coins+=reward+bonus;profile.totalCoins+=reward+bonus;saveProfile();savePetState();renderProfile();
  $("matchMessage").textContent+="  🪙 +"+(reward+bonus);
 }
 
-const savedNick=(()=>{try{return localStorage.getItem("pk67_nickname")||"";}catch{return "";}})();
+const savedNick=(()=>{try{return localStorage.getItem("pk67_nickname")||"";}catch{return "";}})() || (telegramUser?.first_name ? String(telegramUser.first_name).slice(0,16) : "");
 $("playerName").value=savedNick;
 $("soloPlayerName").value=savedNick;
 function currentNick(){const solo=$("soloPlayerName").value.trim(),online=$("playerName").value.trim();return (solo||online||savedNick||"Игрок").slice(0,16);}
@@ -278,10 +396,16 @@ $("playFriend").addEventListener("click",openFriendLobby);
 function openSoloSetup(){show("petHub",false);mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",false);show("waiting",false);show("match",false);show("soloSetup",true);}
 $("playSolo").addEventListener("click",openSoloSetup);
 $("openPetHub").addEventListener("click",openPetHub);
+$("openProfile").addEventListener("click",openProfile);
+$("profileBack").addEventListener("click",()=>{show("profileHub",false);showMainMenu();});
+renderPetHub();
+renderProfile();
 $("petHubBack").addEventListener("click",()=>{show("petHub",false);showMainMenu();});
-document.querySelectorAll("[data-pet]").forEach(b=>b.addEventListener("click",()=>{petState.pet=b.dataset.pet;savePetState();renderPetHub();}));
-$("buyFood").addEventListener("click",()=>{if(petState.coins<5){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(petState.food>=100){$("petMood").textContent="Питомец уже сыт!";return;}petState.coins-=5;petState.food=Math.min(100,petState.food+35);savePetState();renderPetHub();});
-$("buyWater").addEventListener("click",()=>{if(petState.coins<3){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(petState.water>=100){$("petMood").textContent="У питомца уже полная миска воды!";return;}petState.coins-=3;petState.water=Math.min(100,petState.water+40);savePetState();renderPetHub();});
+document.querySelectorAll("[data-pet]").forEach(b=>b.addEventListener("click",()=>{if(!petState.ownedPets.includes(b.dataset.pet))return;petState.pet=b.dataset.pet;savePetState();renderPetHub();}));
+$("buyFood").addEventListener("click",()=>{const p=petRecord(petState.pet);if(petState.coins<5){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.food>=100){$("petMood").textContent="Питомец уже сыт!";return;}petState.coins-=5;p.food=Math.min(100,p.food+35);p.friendship=Math.min(100,p.friendship+3);savePetState();renderPetHub();});
+$("buyWater").addEventListener("click",()=>{const p=petRecord(petState.pet);if(petState.coins<3){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.water>=100){$("petMood").textContent="У питомца уже полная миска воды!";return;}petState.coins-=3;p.water=Math.min(100,p.water+40);savePetState();renderPetHub();});
+$("petStroke").addEventListener("click",()=>addFriendship(2));
+$("petPlay").addEventListener("click",()=>addFriendship(5));
 $("soloBack").addEventListener("click",showMainMenu);
 $("soloExit").addEventListener("click",()=>{soloMode=false;show("soloExit",false);show("match",false);show("soloSetup",false);showMainMenu();});
 const difficultyHints={easy:"Вратарь часто ошибается и редко угадывает направление.",medium:"Вратарь быстрее реагирует и иногда читает твои удары.",hard:"Вратарь хорошо читает повторяющиеся направления и чаще спасает."};
@@ -351,7 +475,7 @@ function renderRoom(){
  $("name1").innerHTML=teamLabel(p1?.name||"Игрок 1",p1?.team);$("name2").innerHTML=teamLabel(p2?.name||"Игрок 2",p2?.team);
  $("score1").textContent=scores[order[0]]||0;$("score2").textContent=scores[order[1]]||0;
  $("turnView").textContent=Math.min(turn+1,10)+"/10";
- if(g.finished){$("roleStatus").textContent="Матч завершён";$("matchMessage").textContent=(scores[order[0]]||0)+" : "+(scores[order[1]]||0);show("actionArea",false);return}
+ if(g.finished){recordOnlineResult(roomId,players,order,scores);$("roleStatus").textContent="Матч завершён";$("matchMessage").textContent=(scores[order[0]]||0)+" : "+(scores[order[1]]||0);show("actionArea",false);return}
  const kicker=order[turn%2],keeper=order[(turn+1)%2],role=uid===kicker?"kicker":uid===keeper?"keeper":"spectator",p=g.pending||{};
  if(role==="spectator"){$("roleStatus").textContent="Вы не участник этой комнаты";show("actionArea",false);return}
  const already=role==="kicker"?p.shotBy===uid:p.saveBy===uid;
@@ -408,6 +532,7 @@ function chooseKeeperDirection(){
  if(soloHistory.length){const counts={left:0,center:0,right:0};soloHistory.forEach(d=>counts[d]++);const max=Math.max(...Object.values(counts));const common=dirs.filter(d=>counts[d]===max);if(Math.random()<0.66)return common[Math.floor(Math.random()*common.length)];}
  return dirs[Math.floor(Math.random()*3)];
 }
+function showCartoonBurst(label){const pitch=document.querySelector(".pitch");if(!pitch)return;const old=pitch.querySelector(".cartoon-burst");if(old)old.remove();const el=document.createElement("div");el.className="cartoon-burst";el.textContent=label;pitch.appendChild(el);setTimeout(()=>el.remove(),780);}
 function soloShot(){
  if(!soloMode||soloBusy||soloTurn>=5)return;
  soloBusy=true;$("sendAction").disabled=true;
@@ -423,7 +548,7 @@ function soloShot(){
  setTimeout(()=>{
   soloTurn++;if(goal)soloScore++;
   $("score1").textContent=String(soloScore);$("score2").textContent=String(soloTurn-soloScore);$("turnView").textContent=Math.min(soloTurn+1,5)+"/5";
-  playGoalReaction(goal);
+  playGoalReaction(goal);showCartoonBurst(goal?"ГОООЛ!":"СЕЙВ!");
   $("matchMessage").textContent=goal?"ГОООЛ! SIUUU! Вратарь не достал мяч.":"СЕЙВ! Вратарь угадал твой удар.";
   $("roleStatus").textContent=goal?"Отличный удар! Следующий пенальти.":"Компьютер отбил удар. Попробуй изменить направление.";
   resetSprites();
@@ -432,7 +557,7 @@ function soloShot(){
    const won=soloScore>=3;
    const result=soloScore>=4?"ПОБЕДА! Ты настоящий король пенальти!":soloScore>=3?"ХОРОШАЯ ИГРА! Матч окончен.":"ПОРАЖЕНИЕ. Тренируй удары и попробуй снова.";
    $("roleStatus").textContent=result;$("matchMessage").textContent="ИТОГ: ТЫ "+soloScore+" : "+(5-soloScore)+" КОМПЬЮТЕР";
-   awardSoloCoins(soloScore,won);
+   profile.matches++;profile.goals+=soloScore;profile.saves+=(5-soloScore);if(won){profile.wins++;profile.winStreak++;profile.bestWinStreak=Math.max(profile.bestWinStreak,profile.winStreak);}else{profile.losses++;profile.winStreak=0;}checkAchievements();saveProfile();awardSoloCoins(soloScore,won);
   }else{$("actionArea").classList.remove("hidden");$("sendAction").disabled=false;}
   soloBusy=false;
  },720);
