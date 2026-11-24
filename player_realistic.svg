@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 140" width="800" height="280">
+<defs>
+ <linearGradient id="skin" x2="0" y2="1"><stop stop-color="#f2c49d"/><stop offset="1" stop-color="#b97954"/></linearGradient>
+ <linearGradient id="shirt" x2="0" y2="1"><stop stop-color="#f8f8f4"/><stop offset="1" stop-color="#b8c8d4"/></linearGradient>
+ <linearGradient id="shorts" x2="0" y2="1"><stop stop-color="#174b86"/><stop offset="1" stop-color="#092c58"/></linearGradient>
+ <linearGradient id="sock" x2="0" y2="1"><stop stop-color="#f7f7f2"/><stop offset="1" stop-color="#bbc8d2"/></linearGradient>
+ <linearGradient id="boot" x2="0" y2="1"><stop stop-color="#ffdc48"/><stop offset="1" stop-color="#d47b16"/></linearGradient>
+ <filter id="shadow"><feGaussianBlur stdDeviation="2"/></filter>
+</defs>
+<g transform="translate(0 0)">
+ <ellipse cx="52" cy="130" rx="26" ry="5" fill="#071b22" opacity=".35" filter="url(#shadow)"/>
+ <path d="M39 91 L35 116 L47 117 L57 98 L65 116 L77 114 L70 88Z" fill="url(#sock)" stroke="#657b8d" stroke-width="1.5"/>
+ <path d="M34 113 Q30 121 38 124 L52 124 L55 118 L47 115Z M64 112 Q61 120 69 123 L84 122 L87 117 L76 113Z" fill="url(#boot)" stroke="#8c5518" stroke-width="1.5"/>
+ <path d="M40 67 L68 67 L75 96 Q60 103 32 96Z" fill="url(#shorts)" stroke="#08294d" stroke-width="2"/>
+ <path d="M43 34 Q52 29 65 35 L73 71 Q56 80 35 70Z" fill="url(#shirt)" stroke="#879aa9" stroke-width="2"/>
+ <path d="M46 39 L57 44 L69 37 L66 58 L54 63 L42 56Z" fill="#174b86"/>
+ <path d="M49 35 L56 44 L63 35" fill="none" stroke="#d6e0e7" stroke-width="3"/>
+ <path d="M40 40 L31 63 L36 68 L47 51 M68 40 L79 58 L75 64 L66 52" fill="none" stroke="url(#skin)" stroke-width="8" stroke-linecap="round"/>
+ <path d="M48 30 Q44 15 56 12 Q70 12 70 27 L65 37 L51 37Z" fill="url(#skin)" stroke="#8d5c43" stroke-width="1.5"/>
+ <path d="M46 23 Q44 9 59 8 Q73 9 72 22 L67 18 L54 19Z" fill="#34251f"/>
+ <circle cx="62" cy="25" r="1.5" fill="#28201c"/><path d="M60 31 Q64 33 67 30" fill="none" stroke="#8e5140" stroke-width="1.3"/>
+ <path d="M36 73 L49 74 L46 88 L34 88Z M62 74 L73 73 L78 88 L65 88Z" fill="#e8edf0" opacity=".9"/>
+</g>
+<g transform="translate(100 0)">
+ <ellipse cx="52" cy="130" rx="28" ry="5" fill="#071b22" opacity=".35" filter="url(#shadow)"/>
+ <path d="M39 91 L29 111 L37 116 L55 99 L66 114 L78 110 L69 88Z" fill="url(#sock)" stroke="#657b8d" stroke-width="1.5"/>
+ <path d="M28 109 Q21 116 29 122 L43 124 L48 119 L37 112Z M66 109 Q64 117 73 121 L87 119 L89 114 L77 109Z" fill="url(#boot)" stroke="#8c5518" stroke-width="1.5"/>
+ <path d="M40 67 L68 67 L75 96 Q60 103 32 96Z" fill="url(#shorts)" stroke="#08294d" stroke-width="2"/>
+ <path d="M43 34 Q52 29 65 35 L73 71 Q56 80 35 70Z" fill="url(#shirt)" stroke="#879aa9" stroke-width="2"/>
+ <path d="M43 42 L32 58 L26 54 L37 36 M68 40 L81 49 L77 57 L65 52" fill="none" stroke="url(#skin)" stroke-width="8" stroke-linecap="round"/>
+ <path d="M49 30 Q44 15 56 12 Q70 12 70 27 L65 37 L51 37Z" fill="url(#skin)" stroke="#8d5c43" stroke-width="1.5"/>
+ <path d="M46 23 Q44 9 59 8 Q73 9 72 22 L67 18 L54 19Z" fill="#34251f"/>
+ <path d="M46 39 L56 44 L69 37" fill="none" stroke="#174b86" stroke-width="5"/>
+ <circle cx="62" cy="25" r="1.5" fill="#28201c"/>
+</g>
+<g transform="translate(200 0)">
+ <ellipse cx="52" cy="130" rx="28" ry="5" fill="#071b22" opacity=".35" filter="url(#shadow)"/>
+ <path d="M40 89 L23 107 L31 114 L53 98 L69 111 L80 104 L67 86Z" fill="url(#sock)" stroke="#657b8d" stroke-width="1.5"/>
+ <path d="M22 104 Q16 112 24 119 L39 121 L43 116 L31 107Z M72 102 Q71 110 80 115 L94 111 L93 106 L81 101Z" fill="url(#boot)" stroke="#8c5518" stroke-width="1.5"/>
+ <path d="M40 66 L68 66 L75 92 Q58 99 32 93Z" fill="url(#shorts)" stroke="#08294d" stroke-width="2"/>
+ <path d="M43 34 Q52 29 65 35 L73 70 Q56 78 35 69Z" fill="url(#shirt)" stroke="#879aa9" stroke-width="2"/>
+ <path d="M39 41 L26 53 L20 47 L35 34 M69 40 L84 51 L79 58 L65 51" fill="none" stroke="url(#skin)" stroke-width="8" stroke-linecap="round"/>
+ <path d="M49 30 Q44 15 56 12 Q70 12 70 27 L65 37 L51 37Z" fill="url(#skin)" stroke="#8d5c43" stroke-width="1.5"/>
+ <path d="M46 23 Q44 9 59 8 Q73 9 72 22 L67 18 L54 19Z" fill="#34251f"/>
+ <path d="M43 40 L56 45 L69 37" fill="none" stroke="#174b86" stroke-width="5"/>
+ <circle cx="62" cy="25" r="1.5" fill="#28201c"/>
+</g>
+<g transform="translate(300 0)">
+ <ellipse cx="52" cy="130" rx="28" ry="5" fill="#071b22" opacity=".35" filter="url(#shadow)"/>
+ <path d="M39 90 L31 112 L42 116 L57 98 L66 116 L79 112 L70 87Z" fill="url(#sock)" stroke="#657b8d" stroke-width="1.5"/>
+ <path d="M29 110 Q23 118 32 123 L47 123 L50 118 L39 112Z M66 111 Q64 119 73 123 L88 121 L89 116 L77 111Z" fill="url(#boot)" stroke="#8c5518" stroke-width="1.5"/>
+ <path d="M40 67 L68 67 L75 96 Q60 103 32 96Z" fill="url(#shorts)" stroke="#08294d" stroke-width="2"/>
+ <path d="M43 34 Q52 29 65 35 L73 71 Q56 80 35 70Z" fill="url(#shirt)" stroke="#879aa9" stroke-width="2"/>
+ <path d="M40 40 L28 58 L34 64 L48 50 M68 40 L80 57 L74 64 L64 51" fill="none" stroke="url(#skin)" stroke-width="8" stroke-linecap="round"/>
+ <path d="M49 30 Q44 15 56 12 Q70 12 70 27 L65 37 L51 37Z" fill="url(#skin)" stroke="#8d5c43" stroke-width="1.5"/>
+ <path d="M46 23 Q44 9 59 8 Q73 9 72 22 L67 18 L54 19Z" fill="#34251f"/>
+ <path d="M43 40 L56 45 L69 37" fill="none" stroke="#174b86" stroke-width="5"/>
+ <circle cx="62" cy="25" r="1.5" fill="#28201c"/>
+</g></svg>
