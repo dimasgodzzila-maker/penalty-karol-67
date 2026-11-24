@@ -344,7 +344,37 @@ function friendshipBonus(v){return v>=100?5:v>=75?3:v>=50?2:v>=25?1:0;}
 function addPetXp(amount){const p=petRecord(petState.pet);if(p.level>=25)return; p.xp+=amount;while(p.level<25&&p.xp>=xpNeeded(p.level)){p.xp-=xpNeeded(p.level);p.level++;}if(p.level>=25)p.xp=0;savePetState();}
 function addFriendship(amount){const p=petRecord(petState.pet);p.friendship=Math.min(100,p.friendship+amount);savePetState();renderPetHub();}
 function savePetState(){try{localStorage.setItem("pk67_pet_state",JSON.stringify(petState));}catch{}}
-function renderPetHub(){
+let petAnimationTimer=null;
+
+function playPetAnimation(id){
+ const box=$("petEmoji");
+ if(petAnimationTimer)clearInterval(petAnimationTimer);
+
+ if(id!=="dog"){
+  box.textContent=petInfo[id]?.emoji||"🐾";
+  return;
+ }
+
+ let frame=1;
+ box.innerHTML='<img id="petFrame" style="width:120px;height:120px;object-fit:contain">';
+ const img=$("petFrame");
+
+ const showFrame=()=>{
+  img.src=`pets/dog/frames/frame_${String(frame).padStart(2,"0")}.png`;
+ };
+
+ img.onerror=()=>{
+  clearInterval(petAnimationTimer);
+  box.textContent="🐶";
+ };
+
+ showFrame();
+
+ petAnimationTimer=setInterval(()=>{
+  frame=frame%17+1;
+  showFrame();
+ },120);
+}function renderPetHub(){
  $("coinBalance").textContent="🪙 "+petState.coins+" монет";
  const pet=petInfo[petState.pet]||petInfo.dog, rec=petRecord(petState.pet);
  $("petEmoji").textContent=pet.emoji;$("petName").textContent=pet.name;
