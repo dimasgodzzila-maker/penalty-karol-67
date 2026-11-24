@@ -32,11 +32,11 @@ input,select{width:100%;border:1px solid #426b4e;border-radius:12px;background:#
 .pitch-line{position:absolute;z-index:1;left:0;right:0;bottom:21%;height:3px;background:#e5f0d8;opacity:.9}
 .pitch-box{position:absolute;z-index:1;left:12%;right:12%;top:56%;height:18%;border:3px solid #e5f0d8;border-bottom:0;opacity:.9}
 .pitch-label{position:absolute;bottom:5px;left:0;right:0;text-align:center;font-size:10px;letter-spacing:2px;color:#e8f5d9;font-weight:900;text-shadow:1px 2px #102719;z-index:7}
-.player.kick{animation:playerKick .62s steps(1,end) forwards}
-.keeper.dive-left{background-position:33.333% 50%;animation:keeperLeft .62s ease-out forwards}
-.keeper.dive-right{background-position:66.666% 50%;animation:keeperRight .62s ease-out forwards}
-.keeper.catch{background-position:100% 50%;animation:keeperCatch .5s ease-out}
-.ball.fly-left{animation:ballLeft .62s ease-in forwards}.ball.fly-center{animation:ballCenter .62s ease-in forwards}.ball.fly-right{animation:ballRight .62s ease-in forwards}
+.player.kick{animation:playerKick .82s steps(1,end) forwards}
+.keeper.dive-left{background-position:33.333% 50%;animation:keeperLeft .82s ease-out forwards}
+.keeper.dive-right{background-position:66.666% 50%;animation:keeperRight .82s ease-out forwards}
+.keeper.catch{background-position:100% 50%;animation:keeperCatch .72s ease-out}
+.ball.fly-left{animation:ballLeft .82s ease-in forwards}.ball.fly-center{animation:ballCenter .82s ease-in forwards}.ball.fly-right{animation:ballRight .82s ease-in forwards}
 @keyframes playerKick{0%{background-position:0% 50%;transform:translate(0,0)}35%{background-position:33.333% 50%;transform:translate(8px,-3px)}70%{background-position:66.666% 50%;transform:translate(17px,-7px)}100%{background-position:100% 50%;transform:translate(20px,0)}}
 @keyframes keeperLeft{0%{transform:translateX(-50%) scale(1)}100%{transform:translateX(-105%) translateY(10px) rotate(-12deg) scale(.92)}}
 @keyframes keeperRight{0%{transform:translateX(-50%) scale(1)}100%{transform:translateX(5%) translateY(10px) rotate(12deg) scale(.92)}}
@@ -83,7 +83,7 @@ input,select{width:100%;border:1px solid #426b4e;border-radius:12px;background:#
 :root{--bg:#160d2b;--panel:#28194a;--lime:#c7ff55;--white:#fff8ee;--muted:#c5b9df}
 body{background:radial-gradient(ellipse at 50% -10%,#6542a4 0,#24133f 43%,#100a20 100%)}
 .card{background:linear-gradient(150deg,#39245f,#21153e);border:2px solid #7656a8;box-shadow:0 7px 0 #130b26,0 14px 28px #0005}
-button{border-radius:16px;border:2px solid #7656a8;box-shadow:0 4px 0 #160d2b;transition:transform .12s,filter .12s}
+button{border-radius:16px;border:2px solid #7656a8;box-shadow:0 4px 0 #160d2b;transition:transform .2s,filter .2s}
 button:active{transform:translateY(3px);box-shadow:0 1px 0 #160d2b;filter:brightness(1.1)}
 button.primary,.menu-button{border:2px solid #efffb5;box-shadow:0 5px 0 #537d20,0 9px 18px #0006}
 .menu-button{border-radius:18px;background:linear-gradient(180deg,#d7ff76,#92db39);color:#1d2a16;text-shadow:0 1px #fff9}
@@ -94,8 +94,8 @@ button.primary,.menu-button{border:2px solid #efffb5;box-shadow:0 5px 0 #537d20,
 .menu-brand strong{color:#d8ff83}.menu-brand i{color:#ff786d}
 .menu-player{border:4px solid #e6d5ff;border-radius:28px;clip-path:none;background:linear-gradient(#42316e 0 48%,#46a64c 48% 100%);box-shadow:0 0 0 5px #180e2b,0 14px 30px #0009}
 .menu-player:before{border:3px solid #fff4;border-bottom:0;border-radius:18px 18px 0 0}
-.menu-keeper{animation:cartoonKeeper 1.6s ease-in-out infinite alternate;filter:drop-shadow(0 7px 0 #21143a)}
-.menu-striker{animation:cartoonStriker 1.25s ease-in-out infinite alternate;filter:drop-shadow(0 8px 0 #21143a)}
+.menu-keeper{animation:cartoonKeeper 2.4s ease-in-out infinite alternate;filter:drop-shadow(0 7px 0 #21143a)}
+.menu-striker{animation:cartoonStriker 2s ease-in-out infinite alternate;filter:drop-shadow(0 8px 0 #21143a)}
 @keyframes cartoonKeeper{from{transform:translateY(0) rotate(-4deg)}to{transform:translateY(-9px) rotate(4deg)}}
 @keyframes cartoonStriker{from{transform:translateY(0) rotate(3deg)}to{transform:translateY(-6px) rotate(-3deg)}}
 .pitch{border:4px solid #e8d7ff;border-radius:22px;background:linear-gradient(#33285c 0 31%,#43a64e 31% 100%);box-shadow:inset 0 0 0 3px #17102a,0 10px 24px #0008}
@@ -103,9 +103,9 @@ button.primary,.menu-button{border:2px solid #efffb5;box-shadow:0 5px 0 #537d20,
 .pitch:after{background:repeating-linear-gradient(90deg,#4caf50 0 12.5%,#419b47 12.5% 25%)}
 .goal{border-color:#fff;border-radius:10px 10px 0 0;box-shadow:0 0 0 4px #33245b,0 5px 0 #c7b5e8}
 .sprite{filter:drop-shadow(0 7px 2px #160d2b);image-rendering:auto}
-.keeper:not(.dive-left):not(.dive-right):not(.catch){animation:idleBob 1.5s ease-in-out infinite}
-.player:not(.kick){animation:playerReady 1.8s ease-in-out infinite}
-.ball{filter:drop-shadow(0 4px 2px #160d2b);animation:ballBob 1.2s ease-in-out infinite}
+.keeper:not(.dive-left):not(.dive-right):not(.catch){animation:idleBob 2.3s ease-in-out infinite}
+.player:not(.kick){animation:playerReady 2.6s ease-in-out infinite}
+.ball{filter:drop-shadow(0 4px 2px #160d2b);animation:ballBob 2s ease-in-out infinite}
 @keyframes idleBob{0%,100%{margin-top:0}50%{margin-top:-5px}}
 @keyframes playerReady{0%,100%{margin-bottom:0}50%{margin-bottom:4px}}
 @keyframes ballBob{0%,100%{margin-bottom:0}50%{margin-bottom:4px}}
@@ -114,7 +114,7 @@ button.primary,.menu-button{border:2px solid #efffb5;box-shadow:0 5px 0 #537d20,
 .status{background:#24163f;border:1px solid #7455a7;color:#d7ff83}
 .pill{background:#33205a;border-color:#8060b5;color:#d7ff83}
 .message{color:#d7ff83;text-shadow:0 2px #261544}
-.cartoon-burst{position:absolute;inset:0;z-index:9;pointer-events:none;display:grid;place-items:center;font-size:clamp(34px,11vw,58px);font-weight:1000;color:#eaff9b;text-shadow:3px 4px #38205e,-2px -2px #38205e;animation:burstPop .75s ease-out forwards}
+.cartoon-burst{position:absolute;inset:0;z-index:9;pointer-events:none;display:grid;place-items:center;font-size:clamp(34px,11vw,58px);font-weight:1000;color:#eaff9b;text-shadow:3px 4px #38205e,-2px -2px #38205e;animation:burstPop .95s ease-out forwards}
 @keyframes burstPop{0%{opacity:0;transform:scale(.25) rotate(-12deg)}25%{opacity:1;transform:scale(1.18) rotate(5deg)}70%{opacity:1;transform:scale(1) rotate(0)}100%{opacity:0;transform:scale(1.2) translateY(-20px)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
 
@@ -425,7 +425,7 @@ function playPetAnimation(id,action="idle"){
    }
   }
   show();
- },150);
+ },240);
 }
 let petAudioCtx=null;
 function playPetSound(id,action){
