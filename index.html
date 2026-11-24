@@ -402,7 +402,7 @@ function playPetAnimation(id,action="idle"){
  },150);
 }
 function petAction(action){playPetAnimation(petState.pet,action);}
-const FEED_COOLDOWN_MS=3*60*60*1000;
+const FEED_COOLDOWN_MS=0; // Кормление без ожидания
 function updateFoodButton(){
  const p=petRecord(petState.pet),btn=$("buyFood"),left=FEED_COOLDOWN_MS-(Date.now()-Number(p.lastFedAt||0));
  if(left>0){
