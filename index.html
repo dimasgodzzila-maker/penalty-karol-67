@@ -409,28 +409,30 @@ function playPetSound(id,action){
   petAudioCtx=petAudioCtx||new AudioCtx();
   if(petAudioCtx.state==="suspended")petAudioCtx.resume();
   const ctx=petAudioCtx,now=ctx.currentTime;
-  const gain=ctx.createGain();gain.connect(ctx.destination);
-  gain.gain.setValueAtTime(0.0001,now);
-  gain.gain.exponentialRampToValueAtTime(id==="dog"?0.13:0.10,now+0.025);
-  gain.gain.exponentialRampToValueAtTime(0.0001,now+0.42);
-  const osc=ctx.createOscillator();
-  const filter=ctx.createBiquadFilter();
-  filter.type="lowpass";filter.frequency.setValueAtTime(id==="dog"?950:520,now);
-  osc.type=id==="dog"?"triangle":"sawtooth";
-  const base=id==="dog"?145:78;
-  const playful=action==="play"||action==="happy";
-  osc.frequency.setValueAtTime(base*(playful?1.45:1),now);
-  osc.frequency.exponentialRampToValueAtTime(id==="dog"?75:42,now+0.22);
-  osc.frequency.exponentialRampToValueAtTime(id==="dog"?125:65,now+0.38);
-  osc.connect(filter);filter.connect(gain);
-  osc.start(now);osc.stop(now+0.43);
-  if(id==="dog"&&action==="feed"){
-   osc.frequency.setValueAtTime(190,now+0.12);
-  }
+  const dog=id==="dog";
+  const sounds={
+   feed:{notes:dog?[220,280,220]:[105,135,105],wave:"triangle",duration:.34},
+   water:{notes:dog?[520,660,780]:[180,230,290],wave:"sine",duration:.42},
+   stroke:{notes:dog?[660,520]:[260,210],wave:"sine",duration:.3},
+   play:{notes:dog?[390,590,780]:[120,175,230],wave:"triangle",duration:.48},
+   select:{notes:dog?[440,550]:[165,220],wave:"sine",duration:.25}
+  };
+  const sound=sounds[action]||sounds.stroke;
+  sound.notes.forEach((frequency,index)=>{
+   const at=now+index*(sound.duration/sound.notes.length);
+   const osc=ctx.createOscillator(),gain=ctx.createGain(),filter=ctx.createBiquadFilter();
+   osc.type=sound.wave;osc.frequency.setValueAtTime(frequency,at);
+   filter.type="lowpass";filter.frequency.value=dog?1500:650;
+   gain.gain.setValueAtTime(.0001,at);
+   gain.gain.exponentialRampToValueAtTime(dog?.11:.09,at+.018);
+   gain.gain.exponentialRampToValueAtTime(.0001,at+sound.duration/sound.notes.length);
+   osc.connect(filter);filter.connect(gain);gain.connect(ctx.destination);
+   osc.start(at);osc.stop(at+sound.duration/sound.notes.length+.02);
+  });
  }catch(e){}
 }
 function petAction(action){
- playPetAnimation(petState.pet,action);
+ playPetAnimation(petState.pet,action==="water"||action==="stroke"?"happy":action);
  playPetSound(petState.pet,action);
 }
 const FEED_COOLDOWN_MS=0; // Кормление без ожидания
@@ -502,8 +504,8 @@ $("petHubBack").addEventListener("click",()=>{show("petHub",false);showMainMenu(
 setInterval(updateFoodButton,30000);
 document.querySelectorAll("[data-pet]").forEach(b=>b.addEventListener("click",()=>{if(!petState.ownedPets.includes(b.dataset.pet))return;petState.pet=b.dataset.pet;savePetState();renderPetHub();}));
 $("buyFood").addEventListener("click",()=>{const p=petRecord(petState.pet);if(Date.now()-Number(p.lastFedAt||0)<FEED_COOLDOWN_MS){updateFoodButton();return;}if(petState.coins<5){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.food>=100){$("petMood").textContent="Питомец уже сыт!";return;}petState.coins-=5;p.food=Math.min(100,p.food+35);p.lastFedAt=Date.now();p.friendship=Math.min(100,p.friendship+3);savePetState();renderPetHub();petAction("feed");});
-$("buyWater").addEventListener("click",()=>{const p=petRecord(petState.pet);if(petState.coins<3){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.water>=100){$("petMood").textContent="У питомца уже полная миска воды!";return;}petState.coins-=3;p.water=Math.min(100,p.water+40);savePetState();renderPetHub();petAction("happy");});
-$("petStroke").addEventListener("click",()=>{addFriendship(2);petAction("happy");});
+$("buyWater").addEventListener("click",()=>{const p=petRecord(petState.pet);if(petState.coins<3){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.water>=100){$("petMood").textContent="У питомца уже полная миска воды!";return;}petState.coins-=3;p.water=Math.min(100,p.water+40);savePetState();renderPetHub();petAction("water");});
+$("petStroke").addEventListener("click",()=>{addFriendship(2);petAction("stroke");});
 $("petPlay").addEventListener("click",()=>{addFriendship(5);petAction("play");});
 $("soloBack").addEventListener("click",showMainMenu);
 $("soloExit").addEventListener("click",()=>{soloMode=false;show("soloExit",false);show("match",false);show("soloSetup",false);showMainMenu();});
