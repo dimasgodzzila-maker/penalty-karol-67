@@ -309,6 +309,122 @@ input::placeholder{color:#a9c9df}
  #petHub .pet-art{height:200px}
  #petHub .pet-art img{width:200px!important;height:195px!important;transform:scale(1.06)}
 }
+
+/* MODERN GAME-WIDE UI REFRESH */
+:root{
+ --bg:#101b35;--panel:#1b3154;--white:#f7fbff;--muted:#b9c9df;
+ --lime:#caff70;--modern-line:#ffffff24;
+}
+html{scroll-behavior:smooth}
+body{
+ background:radial-gradient(ellipse at 50% -15%,#477cb4 0,#1b3156 42%,#0c172d 100%);
+ color:#f7fbff;letter-spacing:.1px;
+}
+.wrap{max-width:560px;padding:22px 17px 36px}
+.top{padding:8px 3px 18px}
+.logo{font-size:18px;letter-spacing:.6px;text-shadow:0 3px 12px #07152b99}
+.pill{border:1px solid #ffffff40;background:#ffffff17;color:#e6f8ff;box-shadow:inset 0 1px #ffffff20;backdrop-filter:blur(12px)}
+h1{font-size:clamp(23px,6vw,29px);letter-spacing:-.5px;text-shadow:0 3px 12px #07152b88}
+.sub{font-size:13px;color:#d0e0f2;line-height:1.5}
+.card{
+ padding:18px;margin:14px 0;border:1px solid #ffffff2b;border-radius:25px;
+ background:linear-gradient(155deg,#294b75eF,#172e50f5);
+ box-shadow:inset 0 1px 0 #ffffff20,0 14px 32px #06132666;
+ backdrop-filter:blur(14px);
+}
+.field{font-size:11px;letter-spacing:1px;color:#c8d9ed;margin:9px 0 7px}
+button{
+ min-height:46px;padding:12px 15px;border:1px solid #a8eaff66;border-radius:15px;
+ background:linear-gradient(180deg,#3c8db9,#28628f);color:#fff;
+ font-size:14px;font-weight:850;letter-spacing:.15px;text-shadow:none;
+ box-shadow:inset 0 1px 0 #ffffff35,0 4px 0 #143858,0 8px 16px #06172d40;
+}
+button:active{transform:translateY(2px);box-shadow:inset 0 1px 0 #ffffff25,0 2px 0 #143858}
+button.primary{
+ background:linear-gradient(180deg,#e3ff9b,#b9ec5c);border-color:#f1ffd0;color:#263d19;
+ box-shadow:inset 0 1px 0 #fff,0 4px 0 #648c2e,0 8px 16px #06172d44;
+}
+button:disabled{filter:saturate(.45);opacity:.5}
+input,select{
+ min-height:48px;padding:13px 14px;border:1px solid #8bd8f080;border-radius:15px;
+ background:#102746;color:#f8fbff;box-shadow:inset 0 2px 7px #07172a66;
+}
+input:focus,select:focus{outline:2px solid #a7eaff;outline-offset:2px}
+input::placeholder{color:#8faac5}
+.row{gap:10px}
+.hint{font-size:12px;color:#c4d7eb;line-height:1.55}
+.status{
+ min-height:46px;padding:13px;border:1px solid #9be5ff55;border-radius:15px;
+ background:linear-gradient(135deg,#17385b,#102743);color:#eaffb2;
+ box-shadow:inset 0 1px 0 #ffffff15;font-size:13px;
+}
+.score{align-items:center;padding:8px 4px 14px}
+.score b{font-size:32px;color:#eaff9a;text-shadow:0 3px 12px #0005}
+.score small{font-size:11px;color:#d5e7f7;font-weight:800;letter-spacing:.5px}
+.pitch{height:350px;margin:16px 0;border-radius:25px}
+.directions{gap:10px}
+.directions button{min-height:50px;border-radius:15px}
+.directions button.active{background:linear-gradient(#e4ff9d,#b9ed5b);color:#263d19}
+.power{height:24px}
+.message{font-size:15px;min-height:34px}
+.bottom{color:#9ab2ce;letter-spacing:1px}
+.music-toggle{
+ top:calc(13px + env(safe-area-inset-top));right:13px;min-height:39px;padding:9px 13px;
+ border-radius:30px;background:#142c4ddd;color:#efffb4;border:1px solid #d8f7a788;
+ box-shadow:0 7px 20px #06172d77;backdrop-filter:blur(12px);
+}
+.music-toggle.on{background:linear-gradient(#e5ff9c,#b7e85b);color:#263d19}
+.main-menu{
+ justify-content:flex-start;gap:clamp(12px,3vh,24px);
+ padding:calc(24px + env(safe-area-inset-top)) 20px calc(22px + env(safe-area-inset-bottom));
+ background:radial-gradient(ellipse at 50% 10%,#79d7ee 0,#326f9f 34%,#1b3158 75%,#101a32 100%);
+}
+.main-menu:before{opacity:.15}
+.menu-top{font-size:10px;letter-spacing:1.4px}
+.menu-online{padding:8px 12px;border:1px solid #ffffff50;background:#ffffff20;color:#f5ffdc;box-shadow:none}
+.menu-brand{margin:0;font-size:clamp(31px,8.8vw,48px);line-height:.98}
+.crown{font-size:31px;margin-bottom:4px}
+.menu-brand small{font-size:9px;letter-spacing:3px;margin-top:10px}
+.menu-player{
+ width:min(88vw,390px);height:clamp(165px,25vh,240px);min-height:165px;flex:none;
+ border:4px solid #e2faff;border-radius:28px;
+ box-shadow:inset 0 2px 0 #fff8,0 0 0 4px #16385f,0 10px 0 #102747,0 18px 32px #06172d88;
+}
+.menu-actions{width:min(100%,410px);gap:10px;margin:0}
+.menu-button{
+ min-height:54px;padding:15px 17px;border-radius:17px;font-size:14px;
+ display:flex;align-items:center;justify-content:space-between;
+ background:linear-gradient(180deg,#e7ffac,#b5e85b);color:#263d19;
+ border:1px solid #f4ffd6;box-shadow:inset 0 1px 0 #fff,0 4px 0 #648c2e,0 8px 15px #06172d55;
+}
+.menu-button:not(.menu-primary){
+ background:linear-gradient(180deg,#8fb8ff,#527fd0);color:#fff;border-color:#c5dcff;
+ box-shadow:inset 0 1px 0 #ffffff88,0 4px 0 #31518e,0 8px 15px #06172d55;
+}
+.menu-button span{font-size:18px}
+.menu-note,.menu-footer{font-size:9px;letter-spacing:1.4px}
+.team-preview{border-radius:15px;padding:10px 12px;background:#102b4b;border:1px solid #8bd8f066}
+.solo-difficulties button{min-height:45px;font-size:11px}
+.solo-difficulties button.active{background:linear-gradient(#e5ff9b,#b8eb5a);color:#263d19}
+#petHub{border-radius:26px!important}
+#profileHub .card{background:linear-gradient(145deg,#2b527d,#1a3458)}
+#profileAvatar{filter:drop-shadow(0 5px 8px #0005)}
+#waiting #roomCodeView{font-size:36px!important;letter-spacing:7px!important}
+#match .card{padding:16px}
+#joinArea{margin-top:12px}
+@media(max-height:740px){
+ .main-menu{gap:12px;padding-top:calc(16px + env(safe-area-inset-top))}
+ .menu-brand{font-size:clamp(29px,8vw,42px)}
+ .menu-player{height:clamp(140px,22vh,190px);min-height:140px}
+ .menu-button{min-height:47px;padding:12px 15px}
+}
+@media(max-width:390px){
+ .wrap{padding-left:13px;padding-right:13px}
+ .card{padding:15px;border-radius:21px}
+ .pitch{height:305px}
+ .menu-actions{gap:8px}
+ .menu-button{min-height:48px;font-size:13px}
+}
 </style>
 </head>
 <body>
@@ -326,9 +442,9 @@ input::placeholder{color:#a9c9df}
     <button id="playFriend" class="menu-button">ИГРАТЬ С ДРУГОМ <span>➜</span></button>
     <button id="openPetHub" class="menu-button">МОНЕТЫ И ПИТОМЦЫ <span>★</span></button>
     <button id="openProfile" class="menu-button">МОЙ ПРОФИЛЬ <span>♛</span></button>
-    <div class="menu-note">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ • CARTOON 2D</div>
+    <div class="menu-note">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ • CARTOON 3D</div>
   </div>
-  <div class="menu-footer">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ • CARTOON 2D</div>
+  <div class="menu-footer">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ • CARTOON 3D</div>
 </section>
 <div class="wrap hidden" id="gameWrap">
  <div class="top"><div class="logo">⚽ ФУТБОЛЬНАЯ<br><span>ДИНАСТИИИИИЯ</span></div><div class="pill">ONLINE 1×1</div></div>
