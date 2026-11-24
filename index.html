@@ -396,6 +396,14 @@ function playPetAnimation(id,action="idle"){
  },150);
 }
 function petAction(action){playPetAnimation(petState.pet,action);}
+const FEED_COOLDOWN_MS=3*60*60*1000;
+function updateFoodButton(){
+ const p=petRecord(petState.pet),btn=$("buyFood"),left=FEED_COOLDOWN_MS-(Date.now()-Number(p.lastFedAt||0));
+ if(left>0){
+  const hours=Math.floor(left/3600000),minutes=Math.floor((left%3600000)/60000);
+  btn.disabled=true;btn.textContent="🍖 Корм через "+hours+" ч "+String(minutes).padStart(2,"0")+" мин";
+ }else{btn.disabled=false;btn.textContent="🍖 Корм · 5 🪙";}
+}
 function renderPetHub(){
  $("coinBalance").textContent="🪙 "+petState.coins+" монет";
  const pet=petInfo[petState.pet]||petInfo.dog, rec=petRecord(petState.pet);
@@ -407,6 +415,7 @@ function renderPetHub(){
  $("petMood").textContent=rec.food<25||rec.water<25?"Питомец проголодался или хочет пить. Угости его!":"Питомец счастлив быть твоим талисманом!";
  $("petFriendship").textContent="Дружба: "+rec.friendship+"/100 · "+friendshipStage(rec.friendship);
  $("petFriendBonus").textContent="Бонус дружбы активного питомца: +"+friendshipBonus(rec.friendship)+"%";
+ updateFoodButton();
  document.querySelectorAll("[data-pet]").forEach(b=>{const id=b.dataset.pet,owned=petState.ownedPets.includes(id);b.disabled=!owned;b.textContent=petInfo[id].emoji+" "+(petInfo[id].label||petInfo[id].name)+(owned?"":" 🔒");b.classList.toggle("active",id===petState.pet);});
  const today=new Date().toISOString().slice(0,10);
  $("dailyGoal").textContent=petState.dailyBonusClaimed&&petState.lastDaily===today?"Бонус дня уже получен. Возвращайся завтра!":"Забей 3 гола в одном соло-матче и получи +10 монет!";
@@ -453,8 +462,9 @@ $("profileBack").addEventListener("click",()=>{show("profileHub",false);showMain
 renderPetHub();
 renderProfile();
 $("petHubBack").addEventListener("click",()=>{show("petHub",false);showMainMenu();});
+setInterval(updateFoodButton,30000);
 document.querySelectorAll("[data-pet]").forEach(b=>b.addEventListener("click",()=>{if(!petState.ownedPets.includes(b.dataset.pet))return;petState.pet=b.dataset.pet;savePetState();renderPetHub();}));
-$("buyFood").addEventListener("click",()=>{const p=petRecord(petState.pet);if(petState.coins<5){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.food>=100){$("petMood").textContent="Питомец уже сыт!";return;}petState.coins-=5;p.food=Math.min(100,p.food+35);p.friendship=Math.min(100,p.friendship+3);savePetState();renderPetHub();petAction("feed");});
+$("buyFood").addEventListener("click",()=>{const p=petRecord(petState.pet);if(Date.now()-Number(p.lastFedAt||0)<FEED_COOLDOWN_MS){updateFoodButton();return;}if(petState.coins<5){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.food>=100){$("petMood").textContent="Питомец уже сыт!";return;}petState.coins-=5;p.food=Math.min(100,p.food+35);p.lastFedAt=Date.now();p.friendship=Math.min(100,p.friendship+3);savePetState();renderPetHub();petAction("feed");});
 $("buyWater").addEventListener("click",()=>{const p=petRecord(petState.pet);if(petState.coins<3){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.water>=100){$("petMood").textContent="У питомца уже полная миска воды!";return;}petState.coins-=3;p.water=Math.min(100,p.water+40);savePetState();renderPetHub();petAction("happy");});
 $("petStroke").addEventListener("click",()=>{addFriendship(2);petAction("happy");});
 $("petPlay").addEventListener("click",()=>{addFriendship(5);petAction("play");});
