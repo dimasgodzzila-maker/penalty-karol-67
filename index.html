@@ -184,8 +184,7 @@ button.primary,.menu-button{border:2px solid #efffb5;box-shadow:0 5px 0 #537d20,
    <div class="hint" id="petFriendBonus">Бонус дружбы: 0%</div>
   </div>
   <div class="field">Твоя коллекция</div>
-  <div class="row pet-collection"><button data-pet="dog">🐶 Пёс</button><button data-pet="cat">🐱 Кот</button><button data-pet="fox">🦊 Лис</button></div>
-  <div class="row pet-collection"><button data-pet="panda">🐼 Панда 🔒</button><button data-pet="wolf">🐺 Волк 🔒</button><button data-pet="eagle">🦅 Орёл 🔒</button></div>
+  <div class="row pet-collection"><button data-pet="dog">🐶 Пёс</button><button data-pet="leopard">🐆 Леопард</button></div>
   <div class="field" style="margin-top:14px">Забота и дружба</div>
   <div class="row"><button id="buyFood">🍖 Корм · 5 🪙</button><button id="buyWater">💧 Вода · 3 🪙</button></div>
   <div class="row" style="margin-top:8px"><button id="petStroke">Погладить · +2</button><button id="petPlay">Поиграть · +5</button></div>
@@ -307,7 +306,7 @@ let uid=null,roomId=null,roomListener=null,currentRoom=null,busy=false,selectedD
 let soloMode=false,soloDifficulty="easy",soloTurn=0,soloScore=0,soloHistory=[],soloBusy=false;
 const show=(id,on=true)=>$(id).classList.toggle("hidden",!on);
 const setStatus=t=>{$("lobbyStatus").textContent=t};
-const petDefaults={coins:0,pet:"dog",food:100,water:100,lastDaily:"",dailyBonusClaimed:false,ownedPets:["dog","cat","fox"],pets:{}};
+const petDefaults={coins:0,pet:"dog",food:100,water:100,lastDaily:"",dailyBonusClaimed:false,ownedPets:["dog","leopard"],pets:{}};
 const profileDefaults={gameId:String(Math.floor(100000+Math.random()*900000)),trophies:0,matches:0,wins:0,losses:0,goals:0,saves:0,totalCoins:0,bestWinStreak:0,winStreak:0,achievements:[],processedRooms:{}};
 let profile={...profileDefaults};
 try{profile={...profileDefaults,...JSON.parse(localStorage.getItem("dynasty_profile_v1")||"{}")} }catch{}
@@ -325,17 +324,26 @@ function openProfile(){mainMenu.classList.add("hidden");gameWrap.classList.remov
 
 let petState={...petDefaults};
 try{petState={...petDefaults,...JSON.parse(localStorage.getItem("pk67_pet_state")||"{}")};}catch{}
-petState.ownedPets=Array.isArray(petState.ownedPets)?petState.ownedPets:["dog","cat","fox"];
 petState.pets=petState.pets&&typeof petState.pets==="object"?petState.pets:{};
+// Одноразовый переход на стартовую коллекцию: Бобик и Лео. Старые записи питомцев сохраняются.
+if(!petState.launchPetsV1){
+ petState.ownedPets=["dog","leopard"];
+ if(petState.pet!=="dog"&&petState.pet!=="leopard")petState.pet="dog";
+ petState.launchPetsV1=true;
+}
+petState.ownedPets=["dog","leopard"];
+if(petState.pet!=="dog"&&petState.pet!=="leopard")petState.pet="dog";
 if(!petState.pets.dog)petState.pets.dog={level:1,xp:0,friendship:0,food:Number(petState.food??100),water:Number(petState.water??100)};
-for(const id of petState.ownedPets){if(!petState.pets[id])petState.pets[id]={level:1,xp:0,friendship:0,food:100,water:100};}
+if(!petState.pets.leopard)petState.pets.leopard={level:1,xp:0,friendship:0,food:100,water:100};
+savePetState();
 const petInfo={
- dog:{emoji:"🐶",name:"Бобик",rarity:"Редкая",ability:"Сильный удар: один усиленный удар за матч",owned:true},
- cat:{emoji:"🐱",name:"Пиксель",rarity:"Эпическая",ability:"Второй шанс: повтор одного промаха за матч",owned:true},
- fox:{emoji:"🦊",name:"Фокс",rarity:"Легендарная",ability:"Обман: показывает направление прыжка вратаря",owned:true},
- panda:{emoji:"🐼",name:"Бамбук",rarity:"Эпическая",ability:"Золотой запас: удваивает монеты за матч",owned:false},
- wolf:{emoji:"🐺",name:"Норд",rarity:"Мифическая",ability:"Абсолютная защита: гарантированно спасает один удар",owned:false},
- eagle:{emoji:"🦅",name:"Орёл",rarity:"Обычная",ability:"Орлиный глаз: снижает риск промаха один раз за матч",owned:false}
+ dog:{emoji:"🐶",label:"Пёс",name:"Бобик",rarity:"Редкая",ability:"Сильный удар: один усиленный удар за матч",owned:true},
+ leopard:{emoji:"🐆",label:"Леопард",name:"Лео",rarity:"Эпическая",ability:"Верный футбольный талисман",owned:true},
+ cat:{emoji:"🐱",label:"Кот",name:"Пиксель",rarity:"Эпическая",ability:"Второй шанс: повтор одного промаха за матч",owned:false},
+ fox:{emoji:"🦊",label:"Лис",name:"Фокс",rarity:"Легендарная",ability:"Обман: показывает направление прыжка вратаря",owned:false},
+ panda:{emoji:"🐼",label:"Панда",name:"Бамбук",rarity:"Эпическая",ability:"Золотой запас: удваивает монеты за матч",owned:false},
+ wolf:{emoji:"🐺",label:"Волк",name:"Норд",rarity:"Мифическая",ability:"Абсолютная защита: гарантированно спасает один удар",owned:false},
+ eagle:{emoji:"🦅",label:"Орёл",name:"Орёл",rarity:"Обычная",ability:"Орлиный глаз: снижает риск промаха один раз за матч",owned:false}
 };
 function petRecord(id){return petState.pets[id]||(petState.pets[id]={level:1,xp:0,friendship:0,food:100,water:100});}
 function xpNeeded(level){return 50+Math.max(0,level-1)*10;}
@@ -348,36 +356,26 @@ let petAnimationTimer=null;
 
 function playPetAnimation(id){
  const box=$("petEmoji");
- if(petAnimationTimer)clearInterval(petAnimationTimer);
-
- if(id!=="dog"){
+ if(petAnimationTimer){clearInterval(petAnimationTimer);petAnimationTimer=null;}
+ if(id!=="dog"&&id!=="leopard"){
   box.textContent=petInfo[id]?.emoji||"🐾";
   return;
  }
-
- let frame=1;
- box.innerHTML='<img id="petFrame" style="width:120px;height:120px;object-fit:contain">';
- const img=$("petFrame");
-
- const showFrame=()=>{
-  img.src=`pets/dog/frames/frame_${String(frame).padStart(2,"0")}.png`;
- };
-
+ let frame=1,failed=false;
+ box.innerHTML='<img id="petFrame" alt="" style="width:120px;height:120px;object-fit:contain">';
+ const img=$("petFrame"),folder=id==="leopard"?"leopard":"dog",fallback=petInfo[id]?.emoji||"🐾";
+ const showFrame=()=>{if(!failed)img.src=`pets/${folder}/frames/frame_${String(frame).padStart(2,"0")}.png`;};
  img.onerror=()=>{
-  clearInterval(petAnimationTimer);
-  box.textContent="🐶";
+  failed=true;
+  if(petAnimationTimer){clearInterval(petAnimationTimer);petAnimationTimer=null;}
+  box.textContent=fallback;
  };
-
  showFrame();
-
- petAnimationTimer=setInterval(()=>{
-  frame=frame%17+1;
-  showFrame();
- },120);
+ petAnimationTimer=setInterval(()=>{frame=frame%17+1;showFrame();},140);
 }function renderPetHub(){
  $("coinBalance").textContent="🪙 "+petState.coins+" монет";
  const pet=petInfo[petState.pet]||petInfo.dog, rec=petRecord(petState.pet);
- $("petEmoji").textContent=pet.emoji;$("petName").textContent=pet.name;
+ playPetAnimation(petState.pet);$("petName").textContent=pet.name;
  $("petLevel").textContent="Уровень "+rec.level+" · "+rec.xp+"/"+xpNeeded(rec.level)+" XP";
  $("petRarity").textContent="Редкость: "+pet.rarity;
  $("petAbility").textContent="Способность: "+pet.ability;
@@ -385,7 +383,7 @@ function playPetAnimation(id){
  $("petMood").textContent=rec.food<25||rec.water<25?"Питомец проголодался или хочет пить. Угости его!":"Питомец счастлив быть твоим талисманом!";
  $("petFriendship").textContent="Дружба: "+rec.friendship+"/100 · "+friendshipStage(rec.friendship);
  $("petFriendBonus").textContent="Бонус дружбы активного питомца: +"+friendshipBonus(rec.friendship)+"%";
- document.querySelectorAll("[data-pet]").forEach(b=>{const id=b.dataset.pet,owned=petState.ownedPets.includes(id);b.disabled=!owned;b.textContent=petInfo[id].emoji+" "+(id==="dog"?"Пёс":id==="cat"?"Кот":id==="fox"?"Лис":id==="panda"?"Панда":id==="wolf"?"Волк":"Орёл")+(owned?"":" 🔒");b.classList.toggle("active",id===petState.pet);});
+ document.querySelectorAll("[data-pet]").forEach(b=>{const id=b.dataset.pet,owned=petState.ownedPets.includes(id);b.disabled=!owned;b.textContent=petInfo[id].emoji+" "+(petInfo[id].label||petInfo[id].name)+(owned?"":" 🔒");b.classList.toggle("active",id===petState.pet);});
  const today=new Date().toISOString().slice(0,10);
  $("dailyGoal").textContent=petState.dailyBonusClaimed&&petState.lastDaily===today?"Бонус дня уже получен. Возвращайся завтра!":"Забей 3 гола в одном соло-матче и получи +10 монет!";
 }
