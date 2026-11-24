@@ -574,6 +574,7 @@ input::placeholder{color:#8faac5}
 .pitch .ball{will-change:left,bottom,transform}
 #match .power-heading #powerValue{color:#f1f7bd}
 
+.pitch{touch-action:none;user-select:none;-webkit-user-select:none}.swipe-hint{position:absolute;z-index:8;top:8px;left:8px;right:8px;text-align:center;padding:6px 4px;border-radius:9px;background:#102747aa;color:#fff7c2;font-size:10px;font-weight:1000;letter-spacing:.4px;pointer-events:none;text-shadow:0 1px 2px #000}
 </style>
 </head>
 <body>
@@ -695,7 +696,7 @@ input::placeholder{color:#8faac5}
  <section class="card hidden" id="match">
   <button id="soloExit" class="hidden" style="padding:8px 11px;margin-bottom:10px">← ВЫЙТИ В МЕНЮ</button>
   <div class="score"><div><b id="score1">0</b><small id="name1">Игрок 1</small></div><div><b id="turnView">1/10</b><small>ХОД</small></div><div><b id="score2">0</b><small id="name2">Игрок 2</small></div></div>
-  <div class="pitch"><div class="goal"></div><div class="pitch-box"></div><div class="pitch-line"></div><div class="keeper sprite" id="keeper" aria-label="Вратарь"></div><div class="player sprite" id="player" aria-label="Футболист"></div><div class="ball" id="ball">⚽</div><div class="pitch-label">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ</div></div>
+  <div class="pitch"><div class="goal"></div><div class="pitch-box"></div><div class="pitch-line"></div><div class="keeper sprite" id="keeper" aria-label="Вратарь"></div><div class="player sprite" id="player" aria-label="Футболист"></div><div class="ball" id="ball">⚽</div><div class="swipe-hint">СВАЙП: ← ВЛЕВО · ↑ ЦЕНТР · ВПРАВО →</div><div class="pitch-label">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ</div></div>
   <div class="status" id="roleStatus">Загружаем матч…</div>
   <div id="actionArea" class="hidden">
    <div class="field" style="margin-top:12px" id="actionTitle">Выбери направление</div>
@@ -1200,6 +1201,32 @@ $("joinToggle").addEventListener("click",()=>show("joinArea"));
 $("joinRoom").addEventListener("click",joinRoom);
 $("copyCode").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(roomId);$("waitingStatus").textContent="Код скопирован! Отправь другу."}catch{$("waitingStatus").textContent="Код комнаты: "+roomId}});
 $("sendAction").addEventListener("click",submitAction);
+let swipeStart=null;
+const swipePitch=document.querySelector(".pitch");
+swipePitch.addEventListener("pointerdown",e=>{
+ if($("actionArea").classList.contains("hidden")||$("sendAction").disabled||soloBusy||busy)return;
+ if(e.pointerType==="mouse"&&e.button!==0)return;
+ swipeStart={x:e.clientX,y:e.clientY,id:e.pointerId};
+ try{swipePitch.setPointerCapture(e.pointerId)}catch(_){}
+ e.preventDefault();
+});
+swipePitch.addEventListener("pointerup",e=>{
+ if(!swipeStart||swipeStart.id!==e.pointerId)return;
+ const dx=e.clientX-swipeStart.x,dy=e.clientY-swipeStart.y;
+ swipeStart=null;
+ const distance=Math.hypot(dx,dy);
+ if(distance<22)return;
+ let dir;
+ if(Math.abs(dx)>Math.abs(dy)*0.8)dir=dx<0?"left":"right";
+ else dir="center";
+ selectedDir=dir;
+ document.querySelectorAll("[data-dir]").forEach(b=>b.classList.toggle("active",b.dataset.dir===dir));
+ const strength=Math.max(30,Math.min(100,Math.round(30+Math.min(1,distance/(swipePitch.clientWidth*.62))*70)));
+ $("power").value=String(strength);
+ $("powerValue").textContent=strength+"%";
+ $("matchMessage").textContent="Свайп принят: "+(dir==="left"?"влево":dir==="right"?"вправо":"по центру")+" · сила "+strength+"%";
+});
+swipePitch.addEventListener("pointercancel",()=>{swipeStart=null;});
 $("power").addEventListener("input",e=>{$("powerValue").textContent=e.target.value+"%";});
 document.querySelectorAll("[data-dir]").forEach(b=>b.addEventListener("click",()=>{selectedDir=b.dataset.dir;document.querySelectorAll("[data-dir]").forEach(x=>x.classList.toggle("active",x===b))}));
 $("roomCode").addEventListener("input",e=>e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,6));
