@@ -401,7 +401,38 @@ function playPetAnimation(id,action="idle"){
   show();
  },150);
 }
-function petAction(action){playPetAnimation(petState.pet,action);}
+let petAudioCtx=null;
+function playPetSound(id,action){
+ try{
+  const AudioCtx=window.AudioContext||window.webkitAudioContext;
+  if(!AudioCtx)return;
+  petAudioCtx=petAudioCtx||new AudioCtx();
+  if(petAudioCtx.state==="suspended")petAudioCtx.resume();
+  const ctx=petAudioCtx,now=ctx.currentTime;
+  const gain=ctx.createGain();gain.connect(ctx.destination);
+  gain.gain.setValueAtTime(0.0001,now);
+  gain.gain.exponentialRampToValueAtTime(id==="dog"?0.13:0.10,now+0.025);
+  gain.gain.exponentialRampToValueAtTime(0.0001,now+0.42);
+  const osc=ctx.createOscillator();
+  const filter=ctx.createBiquadFilter();
+  filter.type="lowpass";filter.frequency.setValueAtTime(id==="dog"?950:520,now);
+  osc.type=id==="dog"?"triangle":"sawtooth";
+  const base=id==="dog"?145:78;
+  const playful=action==="play"||action==="happy";
+  osc.frequency.setValueAtTime(base*(playful?1.45:1),now);
+  osc.frequency.exponentialRampToValueAtTime(id==="dog"?75:42,now+0.22);
+  osc.frequency.exponentialRampToValueAtTime(id==="dog"?125:65,now+0.38);
+  osc.connect(filter);filter.connect(gain);
+  osc.start(now);osc.stop(now+0.43);
+  if(id==="dog"&&action==="feed"){
+   osc.frequency.setValueAtTime(190,now+0.12);
+  }
+ }catch(e){}
+}
+function petAction(action){
+ playPetAnimation(petState.pet,action);
+ playPetSound(petState.pet,action);
+}
 const FEED_COOLDOWN_MS=0; // Кормление без ожидания
 function updateFoodButton(){
  const p=petRecord(petState.pet),btn=$("buyFood"),left=FEED_COOLDOWN_MS-(Date.now()-Number(p.lastFedAt||0));
