@@ -564,6 +564,16 @@ input::placeholder{color:#8faac5}
  .pitch .goal{right:5%!important;width:25%!important}
 }
 
+
+/* MATCH GAMEPLAY FEEDBACK + POWER-BASED BALL PHYSICS */
+.power-heading{display:flex;align-items:center;justify-content:space-between}
+.power-heading .field{margin:12px 0 7px}
+#powerValue{font-size:13px;color:#eaffad;font-variant-numeric:tabular-nums}
+.power-scale{display:flex;justify-content:space-between;margin-top:-8px;color:#c4d6e5;font-size:10px;font-weight:800;letter-spacing:.4px}
+.pitch .ball.fly-left,.pitch .ball.fly-center,.pitch .ball.fly-right{animation-duration:var(--shot-duration,.82s)!important}
+.pitch .ball{will-change:left,bottom,transform}
+#match .power-heading #powerValue{color:#f1f7bd}
+
 </style>
 </head>
 <body>
@@ -690,7 +700,7 @@ input::placeholder{color:#8faac5}
   <div id="actionArea" class="hidden">
    <div class="field" style="margin-top:12px" id="actionTitle">Выбери направление</div>
    <div class="directions"><button data-dir="left">↖ ЛЕВО</button><button data-dir="center" class="active">⬆ ЦЕНТР</button><button data-dir="right">↗ ПРАВО</button></div>
-   <div class="field" style="margin-top:12px">Сила удара</div><input class="power" id="power" type="range" min="30" max="100" value="70">
+   <div class="row power-heading" style="align-items:center;justify-content:space-between"><div class="field" style="margin-top:12px">Сила удара</div><b id="powerValue">70%</b></div><input class="power" id="power" type="range" min="30" max="100" value="70"><div class="power-scale"><span>Точнее</span><span>Мощнее</span></div>
    <button class="primary" id="sendAction" style="width:100%">Подтвердить</button>
   </div>
   <div class="message" id="matchMessage">Удачи!</div>
@@ -1043,6 +1053,7 @@ function animatePenalty(g){
  const turn=Number(g.turn||0);playOutcomeForThisPlayer(g,turn);if(turn===0||turn===lastAnimatedTurn||!g.lastShot||!g.lastSave)return;
  lastAnimatedTurn=turn;
  const player=$("player"),keeper=$("keeper"),ball=$("ball");
+ const shotPower=Number(g.lastShot.power||70);ball.style.setProperty("--shot-duration",(1.08-(shotPower-30)/70*.46).toFixed(2)+"s");
  player.classList.remove("kick");keeper.classList.remove("dive-left","dive-right","catch");ball.classList.remove("fly-left","fly-center","fly-right");
  void player.offsetWidth;
  player.classList.add("kick");
@@ -1116,7 +1127,7 @@ function startSoloMatch(){
  $("roleStatus").textContent="Ты бьёшь. Выбери направление и силу удара!";$("actionTitle").textContent="Куда направишь удар?";$("sendAction").textContent="УДАРИТЬ";$("matchMessage").textContent="Пять пенальти. Покажи класс!";$("sendAction").disabled=false;
  setPlayerKit($("soloTeam").value);resetSprites();
 }
-function resetSprites(){const p=$("player"),k=$("keeper"),b=$("ball");p.className="player sprite";k.className="keeper sprite";b.className="ball";p.style.backgroundPosition="0% 50%";k.style.backgroundPosition="0% 50%";b.style.left="51%";b.style.bottom="22%";}
+function resetSprites(){const p=$("player"),k=$("keeper"),b=$("ball");p.className="player sprite";k.className="keeper sprite";b.className="ball";p.style.backgroundPosition="0% 50%";k.style.backgroundPosition="0% 50%";b.style.left="51%";b.style.bottom="22%";b.style.removeProperty("--shot-duration");}
 function chooseKeeperDirection(){
  const dirs=["left","center","right"];
  if(soloDifficulty==="easy")return dirs[Math.floor(Math.random()*3)];
@@ -1138,7 +1149,7 @@ function soloShot(){
  const saved=guessed&&Math.random()<(skill+0.18-powerBonus);
  const goal=!saved;
  soloHistory.push(shotDir);
- const player=$("player"),keeper=$("keeper"),ball=$("ball");resetSprites();void player.offsetWidth;
+ const player=$("player"),keeper=$("keeper"),ball=$("ball");resetSprites();ball.style.setProperty("--shot-duration",(1.08-(power-30)/70*.46).toFixed(2)+"s");void player.offsetWidth;
  player.classList.add("kick");keeper.classList.add(keeperDir==="left"?"dive-left":keeperDir==="right"?"dive-right":"catch");ball.classList.add("fly-"+shotDir);
  setTimeout(()=>{
   soloTurn++;if(goal)soloScore++;
@@ -1155,7 +1166,7 @@ function soloShot(){
    profile.matches++;profile.goals+=soloScore;profile.saves+=(5-soloScore);if(won){profile.wins++;profile.winStreak++;profile.bestWinStreak=Math.max(profile.bestWinStreak,profile.winStreak);}else{profile.losses++;profile.winStreak=0;}checkAchievements();saveProfile();awardSoloCoins(soloScore,won);
   }else{$("actionArea").classList.remove("hidden");$("sendAction").disabled=false;}
   soloBusy=false;
- },720);
+ },Math.round(1080-(power-30)/70*460)+180);
 }
 async function submitAction(){
  if(soloMode){soloShot();return;}
@@ -1189,6 +1200,7 @@ $("joinToggle").addEventListener("click",()=>show("joinArea"));
 $("joinRoom").addEventListener("click",joinRoom);
 $("copyCode").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(roomId);$("waitingStatus").textContent="Код скопирован! Отправь другу."}catch{$("waitingStatus").textContent="Код комнаты: "+roomId}});
 $("sendAction").addEventListener("click",submitAction);
+$("power").addEventListener("input",e=>{$("powerValue").textContent=e.target.value+"%";});
 document.querySelectorAll("[data-dir]").forEach(b=>b.addEventListener("click",()=>{selectedDir=b.dataset.dir;document.querySelectorAll("[data-dir]").forEach(x=>x.classList.toggle("active",x===b))}));
 $("roomCode").addEventListener("input",e=>e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,6));
 onAuthStateChanged(auth,user=>{if(user){uid=user.uid;setStatus("Сервер подключён. Можно создавать комнату.")}});
