@@ -575,6 +575,80 @@ input::placeholder{color:#8faac5}
 #match .power-heading #powerValue{color:#f1f7bd}
 
 .pitch{touch-action:none;user-select:none;-webkit-user-select:none}.swipe-hint{position:absolute;z-index:8;top:8px;left:8px;right:8px;text-align:center;padding:6px 4px;border-radius:9px;background:#102747aa;color:#fff7c2;font-size:10px;font-weight:1000;letter-spacing:.4px;pointer-events:none;text-shadow:0 1px 2px #000}
+
+/* ORIGINAL CAMERA + ORIGINAL PLAYER/Keeper ART, ENHANCED 12-BEAT MOTION */
+.pitch .goal{top:27%!important;left:19%!important;right:auto!important;width:62%!important;height:35%!important;border-bottom:0!important}
+.pitch .pitch-box{left:12%!important;right:12%!important;top:56%!important;width:auto!important;height:18%!important;border:3px solid #e5f0d8!important;border-bottom:0!important}
+.pitch .pitch-line{left:0!important;right:0!important;bottom:21%!important;top:auto!important;height:3px!important}
+.pitch .player{width:138px!important;height:138px!important;left:7%!important;right:auto!important;top:auto!important;bottom:2%!important;background-image:url("player_sprites.png")!important;background-size:400% 100%!important;background-position:0% 50%!important;image-rendering:auto!important;filter:drop-shadow(0 6px 3px #071b16aa)!important}
+.pitch .keeper{width:112px!important;height:112px!important;left:50%!important;right:auto!important;top:29%!important;bottom:auto!important;background-image:url("keeper_sprites.png")!important;background-size:400% 100%!important;background-position:0% 50%!important;image-rendering:auto!important;filter:drop-shadow(0 6px 3px #071b16aa)!important}
+.pitch .ball{left:51%!important;right:auto!important;bottom:22%!important;top:auto!important}
+.pitch .player.kick{animation:playerKick12 .96s ease-out forwards!important}
+.pitch .keeper.dive-left{background-position:33.333% 50%!important;animation:keeperLeft12 .88s cubic-bezier(.18,.72,.24,1) forwards!important}
+.pitch .keeper.dive-right{background-position:66.666% 50%!important;animation:keeperRight12 .88s cubic-bezier(.18,.72,.24,1) forwards!important}
+.pitch .keeper.catch{background-position:100% 50%!important;animation:keeperCatch12 .78s ease-out!important}
+@keyframes playerKick12{
+0%{background-position:0% 50%;transform:translate(0,0)}
+8%{transform:translate(2px,-1px)}
+16%{background-position:33.333% 50%;transform:translate(5px,-3px)}
+25%{transform:translate(8px,-4px)}
+33%{background-position:66.666% 50%;transform:translate(11px,-6px)}
+42%{transform:translate(14px,-7px)}
+50%{background-position:100% 50%;transform:translate(18px,-5px)}
+58%{transform:translate(20px,-2px)}
+66%{transform:translate(19px,0)}
+75%{transform:translate(16px,1px)}
+83%{transform:translate(10px,0)}
+92%{transform:translate(4px,0)}
+100%{transform:translate(0,0)}
+}
+@keyframes keeperLeft12{
+0%{transform:translateX(-50%) scale(1)}
+8%{transform:translateX(-52%) translateY(-2px)}
+16%{transform:translateX(-59%) translateY(-1px) rotate(-2deg)}
+25%{transform:translateX(-68%) translateY(2px) rotate(-5deg)}
+33%{transform:translateX(-78%) translateY(5px) rotate(-8deg)}
+42%{transform:translateX(-88%) translateY(8px) rotate(-11deg)}
+50%{transform:translateX(-98%) translateY(10px) rotate(-13deg)}
+58%{transform:translateX(-105%) translateY(11px) rotate(-14deg)}
+66%{transform:translateX(-108%) translateY(12px) rotate(-13deg)}
+75%{transform:translateX(-106%) translateY(12px) rotate(-11deg)}
+83%{transform:translateX(-101%) translateY(10px) rotate(-8deg)}
+92%{transform:translateX(-98%) translateY(8px) rotate(-4deg)}
+100%{transform:translateX(-96%) translateY(7px) rotate(-2deg)}
+}
+@keyframes keeperRight12{
+0%{transform:translateX(-50%) scale(1)}
+8%{transform:translateX(-48%) translateY(-2px)}
+16%{transform:translateX(-40%) translateY(-1px) rotate(2deg)}
+25%{transform:translateX(-30%) translateY(2px) rotate(5deg)}
+33%{transform:translateX(-20%) translateY(5px) rotate(8deg)}
+42%{transform:translateX(-10%) translateY(8px) rotate(11deg)}
+50%{transform:translateX(0%) translateY(10px) rotate(13deg)}
+58%{transform:translateX(5%) translateY(11px) rotate(14deg)}
+66%{transform:translateX(8%) translateY(12px) rotate(13deg)}
+75%{transform:translateX(6%) translateY(12px) rotate(11deg)}
+83%{transform:translateX(1%) translateY(10px) rotate(8deg)}
+92%{transform:translateX(-3%) translateY(8px) rotate(4deg)}
+100%{transform:translateX(-4%) translateY(7px) rotate(2deg)}
+}
+@keyframes keeperCatch12{
+0%{transform:translateX(-50%) translateY(0) scale(1)}
+8%{transform:translateX(-50%) translateY(-2px)}
+16%{transform:translateX(-50%) translateY(-5px)}
+25%{transform:translateX(-50%) translateY(-9px)}
+33%{transform:translateX(-50%) translateY(-13px)}
+42%{transform:translateX(-50%) translateY(-15px)}
+50%{transform:translateX(-50%) translateY(-16px)}
+58%{transform:translateX(-50%) translateY(-14px)}
+66%{transform:translateX(-50%) translateY(-11px)}
+75%{transform:translateX(-50%) translateY(-7px)}
+83%{transform:translateX(-50%) translateY(-4px)}
+92%{transform:translateX(-50%) translateY(-1px)}
+100%{transform:translateX(-50%) translateY(0)}
+}
+@media(max-width:390px){.pitch .player{width:118px!important;height:118px!important}.pitch .keeper{width:94px!important;height:94px!important}}
+
 </style>
 </head>
 <body>
