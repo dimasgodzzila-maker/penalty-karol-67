@@ -242,6 +242,64 @@ input::placeholder{color:#a9c9df}
  .menu-button{padding:16px 14px}
 }
 
+
+/* PET HUB — full cartoon 3D companion redesign */
+#petHub{padding:14px!important;background:linear-gradient(160deg,#285d8d,#1b3d68 68%,#142e52)!important;border:2px solid #9aeaff!important;border-radius:28px!important}
+.pet-page-head{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;margin-bottom:13px}
+.pet-back{padding:9px 11px;font-size:12px;border-radius:13px}
+.pet-page-title{text-align:center;font-weight:1000;letter-spacing:1px;font-size:14px;line-height:1.2}
+.pet-page-title small{display:block;font-size:8px;color:#c8edff;letter-spacing:1.5px;margin-top:4px}
+.pet-wallet{padding:9px 10px;border-radius:14px;background:linear-gradient(#fff08c,#f6b33d);color:#613c12;font-weight:1000;font-size:12px;box-shadow:0 3px 0 #995c20}
+.pet-showcase{position:relative;isolation:isolate;overflow:hidden;text-align:center;padding:15px 12px 13px;border:3px solid #b8f1ff;border-radius:25px;background:radial-gradient(ellipse at 50% 43%,#82e8ff 0,#409ed0 48%,#28618f 100%);box-shadow:inset 0 4px 0 #ffffff6b,0 7px 0 #123355,0 12px 22px #06182d88}
+.pet-showcase:before,.pet-showcase:after{content:"";position:absolute;z-index:-1;border:2px solid #ffffff50;border-radius:50%;width:180px;height:180px;left:50%;top:48%;transform:translate(-50%,-50%)}
+.pet-showcase:after{width:230px;height:230px;border-style:dashed;opacity:.5}
+.pet-showcase-glow{position:absolute;z-index:-1;width:170px;height:110px;left:50%;top:48%;transform:translate(-50%,-50%);background:#fff8;border-radius:50%;filter:blur(30px)}
+.pet-rarity-chip{display:inline-block;padding:6px 12px;border:1px solid #fff9;border-radius:30px;background:#173e65aa;color:#fff5b0;font-size:10px;font-weight:900;letter-spacing:.7px}
+.pet-art{height:145px;display:grid;place-items:center;margin:5px auto 0;font-size:80px;filter:drop-shadow(0 10px 4px #12375b99)}
+.pet-art img{width:150px!important;height:145px!important;object-fit:contain;filter:drop-shadow(0 9px 4px #12375b99)}
+.pet-nameplate{display:flex;flex-direction:column;gap:3px;color:#fff;text-shadow:0 2px 0 #22517b}
+.pet-nameplate b{font-size:24px;font-weight:1000;letter-spacing:.4px}
+.pet-nameplate span{font-size:11px;color:#e1f8ff;font-weight:800}
+.pet-xp-track,.pet-friend-track{height:9px;max-width:250px;margin:10px auto 0;border-radius:20px;background:#123a5d88;border:1px solid #ffffff55;overflow:hidden}
+.pet-xp-track span,.pet-friend-track span{display:block;width:42%;height:100%;border-radius:20px;background:linear-gradient(90deg,#fff08c,#ffb43d);box-shadow:0 0 9px #fff6}
+.pet-mood{font-size:12px;color:#f0fbff;margin:9px 0 0}
+.pet-collection-panel,.pet-actions-panel{margin-top:14px;padding:13px;border-radius:20px;background:linear-gradient(155deg,#3475a6,#214d79);border:1px solid #8bdcf4;box-shadow:inset 0 2px 0 #ffffff30,0 4px 0 #123355}
+.pet-section-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.pet-section-heading b{font-size:12px;letter-spacing:.8px;color:#fff}
+.pet-section-heading small{font-size:8px;color:#c5eaff;letter-spacing:.7px;text-align:right}
+.pet-collection button{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 6px;background:linear-gradient(#67d7ef,#287db8);font-size:18px}
+.pet-collection button span{font-size:11px}
+#petHub [data-pet].active{background:linear-gradient(#fff08c,#f4ad32)!important;color:#59360f!important;border-color:#fff6c4!important}
+.pet-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:11px}
+.pet-stat-card{padding:13px 11px;border-radius:18px;border:2px solid #a7eaff;background:linear-gradient(160deg,#2b79aa,#1b4c79);box-shadow:inset 0 2px 0 #ffffff35,0 4px 0 #123355;display:flex;flex-direction:column;gap:5px}
+.pet-stat-card span{font-size:10px;font-weight:1000;letter-spacing:.8px;color:#e4f8ff}
+.pet-stat-card b{font-size:23px;color:#fff3a1}
+.pet-stat-card small{font-size:9px;color:#c6eaff}
+.pet-stat-card.water{background:linear-gradient(160deg,#348fc0,#205a8b)}
+.pet-friend-card{margin-top:10px;padding:12px 14px;border-radius:18px;background:linear-gradient(160deg,#7356b2,#49377f);border:2px solid #c7b6ff;box-shadow:inset 0 2px 0 #ffffff35,0 4px 0 #2c2052}
+.pet-friend-card>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.pet-friend-card span{font-size:10px;font-weight:1000;color:#fff0a8}
+.pet-friend-card b{font-size:11px;color:#fff}
+.pet-friend-track{max-width:none;margin:9px 0 6px;background:#2e2159}
+.pet-friend-track span{background:linear-gradient(90deg,#ffdc77,#ff9d6b)}
+.pet-friend-card small{font-size:10px;color:#e6dcff}
+.pet-action-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.pet-action{min-height:93px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:9px 5px;border-radius:18px}
+.pet-action strong{font-size:25px;line-height:1.1}
+.pet-action span{font-size:10px;font-weight:1000;letter-spacing:.5px}
+.pet-action small{font-size:10px;opacity:.9}
+.food-action{background:linear-gradient(#ffe48a,#f2a63a);color:#633b0e;border-color:#fff3b5;box-shadow:inset 0 2px 0 #fff9,0 4px 0 #995b1d}
+.water-action{background:linear-gradient(#8deaff,#369ed2);color:#103f63;border-color:#c8f7ff;box-shadow:inset 0 2px 0 #fff9,0 4px 0 #18577e}
+.stroke-action{background:linear-gradient(#bba6ff,#8063d0);border-color:#ded2ff;box-shadow:inset 0 2px 0 #fff9,0 4px 0 #49317e}
+.play-action{background:linear-gradient(#a7ef91,#55b95e);color:#164a27;border-color:#d5ffca;box-shadow:inset 0 2px 0 #fff9,0 4px 0 #286b35}
+#petHub .hint{color:#d6edff;font-size:11px}
+#petHub #petAbility{margin:11px 2px 0;text-align:center}
+.pet-daily-card{display:flex;flex-direction:column;gap:5px;margin-top:13px;padding:13px 14px;border-radius:18px;background:linear-gradient(130deg,#fff0a1,#ffc85b);color:#65400f;border:2px solid #fff7c8;box-shadow:0 4px 0 #a76521}
+.pet-daily-card span{font-size:10px;font-weight:1000;letter-spacing:1px}
+.pet-daily-card b{font-size:12px;line-height:1.35}
+.pet-footnote{padding:0 5px;text-align:center}
+@media(max-width:370px){.pet-page-title{font-size:12px}.pet-back{font-size:10px;padding:8px}.pet-wallet{font-size:10px;padding:8px}.pet-art{height:128px}}
+
 </style>
 </head>
 <body>
@@ -293,28 +351,50 @@ input::placeholder{color:#a9c9df}
   <button id="startSolo" class="primary" style="width:100%;margin-top:8px">НАЧАТЬ МАТЧ</button>
  </section>
  <section class="card hidden" id="petHub">
-  <button id="petHubBack" style="padding:8px 11px;margin-bottom:12px">← ГЛАВНОЕ МЕНЮ</button>
-  <h1 style="margin:4px 0 8px">МОНЕТЫ И ПИТОМЦЫ</h1>
-  <div class="status" id="coinBalance">🪙 0 монет</div>
-  <div class="card" style="text-align:center">
-   <div id="petEmoji" style="font-size:64px">🐶</div>
-   <b id="petName">Бобик</b>
-   <div class="hint" id="petLevel">Уровень 1 · 0/50 XP</div>
-   <div class="status" id="petRarity" style="margin-top:8px">Редкость: редкая</div>
-   <p class="hint" id="petAbility">Способность: усиленный удар один раз за матч</p>
-   <p class="hint" id="petMood">Твой верный футбольный талисман!</p>
-   <div class="row"><div><small>🍖 Сытость</small><div class="status" id="petFoodStat">100%</div></div><div><small>💧 Вода</small><div class="status" id="petWaterStat">100%</div></div></div>
-   <div class="status" id="petFriendship" style="margin-top:8px">Дружба: 0/100 · Незнакомцы</div>
-   <div class="hint" id="petFriendBonus">Бонус дружбы: 0%</div>
+  <div class="pet-page-head">
+   <button id="petHubBack" class="pet-back">← Назад</button>
+   <div class="pet-page-title"><span>ТВОИ ТАЛИСМАНЫ</span><small>ЗАБОТА • ДРУЖБА • РОСТ</small></div>
+   <div class="pet-wallet" id="coinBalance">🪙 0</div>
   </div>
-  <div class="field">Твоя коллекция</div>
-  <div class="row pet-collection"><button data-pet="dog">🐶 Пёс</button><button data-pet="leopard">🐆 Леопард</button></div>
-  <div class="field" style="margin-top:14px">Забота и дружба</div>
-  <div class="row"><button id="buyFood">🍖 Корм · 5 🪙</button><button id="buyWater">💧 Вода · 3 🪙</button></div>
-  <div class="row" style="margin-top:8px"><button id="petStroke">Погладить · +2</button><button id="petPlay">Поиграть · +5</button></div>
-  <p class="hint">Питомцы получают опыт за матчи: победа +25 XP, поражение +10 XP. Дружба не уменьшается. Прогресс этой версии пока хранится на устройстве.</p>
-  <div class="field">Мотивация дня</div>
-  <div class="status" id="dailyGoal">Забей 3 гола в соло-матче и получи бонус!</div>
+  <div class="pet-showcase">
+   <div class="pet-showcase-glow"></div>
+   <div class="pet-rarity-chip" id="petRarity">Редкость: редкая</div>
+   <div class="pet-art" id="petEmoji">🐶</div>
+   <div class="pet-nameplate"><b id="petName">Бобик</b><span id="petLevel">Уровень 1 · 0/50 XP</span></div>
+   <div class="pet-xp-track"><span></span></div>
+   <p class="pet-mood" id="petMood">Твой верный футбольный талисман!</p>
+  </div>
+  <div class="pet-collection-panel">
+   <div class="pet-section-heading"><b>МОЯ КОЛЛЕКЦИЯ</b><small>ВЫБЕРИ ПИТОМЦА</small></div>
+   <div class="row pet-collection">
+    <button data-pet="dog">🐶 <span>БОБИК</span></button>
+    <button data-pet="leopard">🐆 <span>ЛЕО</span></button>
+   </div>
+  </div>
+  <div class="pet-stats-grid">
+   <div class="pet-stat-card food"><span>🍖 СЫТОСТЬ</span><b id="petFoodStat">100%</b><small>Уровень сытости</small></div>
+   <div class="pet-stat-card water"><span>💧 ВОДА</span><b id="petWaterStat">100%</b><small>Водный баланс</small></div>
+  </div>
+  <div class="pet-friend-card">
+   <div><span>💛 ДРУЖБА</span><b id="petFriendship">Дружба: 0/100 · Незнакомцы</b></div>
+   <div class="pet-friend-track"><span></span></div>
+   <small id="petFriendBonus">Бонус дружбы: 0%</small>
+  </div>
+  <div class="pet-actions-panel">
+   <div class="pet-section-heading"><b>УХОД ЗА ПИТОМЦЕМ</b><small>НЕ ДАВАЙ ЕМУ СКУЧАТЬ</small></div>
+   <div class="pet-action-grid">
+    <button id="buyFood" class="pet-action food-action"><strong>🍖</strong><span>ПОКОРМИТЬ</span><small>5 🪙</small></button>
+    <button id="buyWater" class="pet-action water-action"><strong>💧</strong><span>НАПОИТЬ</span><small>3 🪙</small></button>
+    <button id="petStroke" class="pet-action stroke-action"><strong>🤚</strong><span>ПОГЛАДИТЬ</span><small>+2 дружбы</small></button>
+    <button id="petPlay" class="pet-action play-action"><strong>⚽</strong><span>ПОИГРАТЬ</span><small>+5 дружбы</small></button>
+   </div>
+   <p class="hint" id="petAbility">Способность: усиленный удар один раз за матч</p>
+  </div>
+  <div class="pet-daily-card">
+   <span>🏆 ЗАДАНИЕ ДНЯ</span>
+   <b id="dailyGoal">Забей 3 гола в соло-матче и получи бонус!</b>
+  </div>
+  <p class="hint pet-footnote">Питомцы получают опыт за матчи: победа +25 XP, поражение +10 XP. Дружба не уменьшается. Прогресс этой версии хранится на устройстве.</p>
  </section>
  <section class="card hidden" id="profileHub">
   <button id="profileBack" style="padding:8px 11px;margin-bottom:12px">← ГЛАВНОЕ МЕНЮ</button>
