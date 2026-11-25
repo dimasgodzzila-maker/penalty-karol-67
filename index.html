@@ -1284,12 +1284,25 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
  #mainMenu.main-menu{background-size:100% 100%!important}
 }
 
+
+/* Dedicated compact music and fullscreen controls in the main-menu header */
+.menu-quick-controls{position:absolute;z-index:15;top:3%;right:2.2%;display:flex;gap:10px;align-items:center}
+.menu-quick-controls .quick-control{width:clamp(42px,5vw,62px);height:clamp(42px,5vw,62px);display:flex;align-items:center;justify-content:center;border:2px solid #9cddff;border-radius:15px;background:linear-gradient(145deg,#173d68,#06172e);color:#fff;font-size:clamp(23px,3vw,34px);font-weight:1000;box-shadow:0 4px 0 #041226,0 0 12px #279cff66;padding:0;line-height:1}
+.menu-quick-controls .music-toggle{position:static;top:auto;right:auto;z-index:auto;width:clamp(42px,5vw,62px);height:clamp(42px,5vw,62px);border:2px solid #9cddff;border-radius:15px;background:linear-gradient(145deg,#173d68,#06172e);color:#fff;font-size:clamp(23px,3vw,34px);box-shadow:0 4px 0 #041226,0 0 12px #279cff66}
+.menu-quick-controls .music-toggle.on{background:linear-gradient(145deg,#ffe76a,#e99a00);border-color:#fff1a5;color:#17213a;box-shadow:0 4px 0 #815000,0 0 15px #ffcf35}
+.menu-quick-controls .quick-control:active{transform:translateY(2px);box-shadow:0 2px 0 #041226}
+@media(orientation:landscape) and (min-width:600px){
+ #mainMenu .menu-quick-controls{top:2.5%;right:2.2%;gap:10px;opacity:1!important;pointer-events:auto!important}
+ #mainMenu #fullscreenToggle,#mainMenu #musicToggle{position:static!important;display:flex!important;opacity:1!important;pointer-events:auto!important}
+ #mainMenu #fullscreenToggle{left:auto!important;top:auto!important;z-index:auto!important;padding:0!important;min-height:0!important;background:linear-gradient(145deg,#173d68,#06172e)!important;color:#fff!important;border:2px solid #9cddff!important;box-shadow:0 4px 0 #041226,0 0 12px #279cff66!important;font:1000 clamp(23px,3vw,34px) system-ui!important;line-height:1!important}
+}
+@media(orientation:portrait){.menu-quick-controls{position:fixed;top:10px;right:10px}}
+
 </style>
 </head>
 <body>
 <div id="orientationNotice" role="status"><div class="rotate-phone">↻</div><strong>ПОВЕРНИ ТЕЛЕФОН</strong><span>Игра работает только в горизонтальном режиме</span></div>
-<button id="fullscreenToggle" type="button" aria-label="Полный экран">⛶ ЭКРАН</button>
-<button id="musicToggle" class="music-toggle" type="button" aria-pressed="false">♫ ФОНК: ВЫКЛ</button>
+
 <div id="splash" class="splash" aria-label="Загрузка игры">
   <img src="loading_screen.png" alt="ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ — экран загрузки">
   <div class="splash-skip">Нажми, чтобы пропустить</div>
@@ -1317,6 +1330,10 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
   <button id="menuCoinHit" class="menu-hit" aria-label="Магазин монет"></button>
   <button id="menuGemHit" class="menu-hit" aria-label="Награды и кристаллы"></button>
   <button id="menuSettingsHit" class="menu-hit" aria-label="Настройки профиля"></button>
+  <div class="menu-quick-controls" aria-label="Управление игрой">
+   <button id="musicToggle" class="quick-control music-toggle" type="button" aria-pressed="false" aria-label="Включить или выключить музыку" title="Музыка">♫</button>
+   <button id="fullscreenToggle" class="quick-control" type="button" aria-label="Полный экран" title="Полный экран">⛶</button>
+  </div>
   <section class="team-picker-overlay hidden" id="teamPickerOverlay" aria-label="Выбор сборной"><div class="team-picker-panel"><button id="closeTeamPicker" class="team-picker-close">✕</button><h2>ВЫБЕРИ СВОЮ СБОРНУЮ</h2><p>Твоя команда будет сохранена и останется выбранной перед всеми матчами</p><div id="mainTeamCards" class="main-team-grid"></div></div></section>
 </section>
 <div class="wrap hidden" id="gameWrap">
