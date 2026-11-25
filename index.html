@@ -8,6 +8,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preload" as="image" href="loading_screen.png" fetchpriority="high">
+<link rel="preload" as="image" href="assets/main-menu.jpg">
+<link rel="preload" as="image" href="player_sprites.png">
+<link rel="preload" as="image" href="keeper_sprites.png">
 <title>ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ</title>
 <style>
 :root{--bg:#071b16;--panel:#102a22;--lime:#b7f34a;--white:#f4f7ef;--muted:#a8b8ae}
@@ -1298,6 +1302,15 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
 }
 @media(orientation:portrait){.menu-quick-controls{position:fixed;top:10px;right:10px}}
 
+
+/* Performance and accessibility tuning for mobile WebViews */
+img{max-width:100%;height:auto}
+button{touch-action:manipulation}
+#mainMenu,#gameWrap,.card,.hub-item,.hub-quest,.hub-reward,.hub-event{contain:layout style}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
 </style>
 </head>
 <body>
@@ -1601,14 +1614,14 @@ function schedulePhonkStep(i,t){
 }
 function phonkTick(){
  if(!musicOn||!musicCtx)return;
- const horizon=musicCtx.currentTime+0.12;
+ const horizon=musicCtx.currentTime+0.20;
  while(nextBeat<horizon){schedulePhonkStep(step,nextBeat);step++;nextBeat+=STEP;}
 }
 async function toggleMusic(){
  try{
   if(!musicCtx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw new Error('Audio не поддерживается');musicCtx=new AC();}
   if(musicOn){musicOn=false;clearInterval(musicTimer);musicTimer=null;await musicCtx.suspend();}
-  else{await musicCtx.resume();musicOn=true;nextBeat=musicCtx.currentTime+0.04;phonkTick();musicTimer=setInterval(phonkTick,25);}
+  else{await musicCtx.resume();musicOn=true;nextBeat=musicCtx.currentTime+0.04;phonkTick();musicTimer=setInterval(phonkTick,50);}
   const b=$('musicToggle');b.textContent=musicOn?'♫ ФОНК: ВКЛ':'♫ ФОНК: ВЫКЛ';b.classList.toggle('on',musicOn);b.setAttribute('aria-pressed',String(musicOn));
  }catch(e){const b=$('musicToggle');b.textContent='ЗВУК НЕДОСТУПЕН';b.title=e.message;}
 }
@@ -1770,7 +1783,23 @@ function renderPetHub(){
  const today=new Date().toISOString().slice(0,10);
  $("dailyGoal").textContent=petState.dailyBonusClaimed&&petState.lastDaily===today?"Бонус дня уже получен. Возвращайся завтра!":"Забей 3 гола в одном соло-матче и получи +10 монет!";
 }
-function openPetHub(){mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",false);show("soloSetup",false);show("waiting",false);show("match",false);show("petHub",true);renderPetHub();}
+let petHubRefreshTimer=null;
+let petHubIsOpen=false;
+function setPetHubActive(active){
+ petHubIsOpen=!!active;
+ if(petHubRefreshTimer){clearInterval(petHubRefreshTimer);petHubRefreshTimer=null;}
+ if(petHubIsOpen&&document.visibilityState!=="hidden"){
+  updateFoodButton();
+  petHubRefreshTimer=setInterval(updateFoodButton,60000);
+ }
+}
+document.addEventListener("visibilitychange",()=>{
+ if(petHubIsOpen){
+  if(document.visibilityState==="hidden"){if(petHubRefreshTimer){clearInterval(petHubRefreshTimer);petHubRefreshTimer=null;}}
+  else if(!petHubRefreshTimer){updateFoodButton();petHubRefreshTimer=setInterval(updateFoodButton,60000);}
+ }
+});
+function openPetHub(){setPetHubActive(true);mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",false);show("soloSetup",false);show("waiting",false);show("match",false);show("petHub",true);renderPetHub();}
 function awardSoloCoins(goals,won){
  addPetXp(won?25:10);if(won){const p=petRecord(petState.pet);p.friendship=Math.min(100,p.friendship+2);}
  let reward=10+goals*5+(won?15:0),bonus=0;
@@ -1822,12 +1851,12 @@ function renderNationalTeamCards(){
 
 const makeCode=()=>Math.random().toString(36).slice(2,8).toUpperCase();
 const splash=$("splash"),mainMenu=$("mainMenu"),gameWrap=$("gameWrap");
-function showMainMenu(){splash.classList.add("hidden");mainMenu.classList.remove("hidden");gameWrap.classList.add("hidden");}
-function openFriendLobby(){show("petHub",false);mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",true);show("waiting",false);show("match",false);}
+function showMainMenu(){setPetHubActive(false);splash.classList.add("hidden");mainMenu.classList.remove("hidden");gameWrap.classList.add("hidden");}
+function openFriendLobby(){setPetHubActive(false);show("petHub",false);mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",true);show("waiting",false);show("match",false);}
 const splashTimer=setTimeout(showMainMenu,2800);
 splash.addEventListener("click",()=>{clearTimeout(splashTimer);showMainMenu()});
 $("playFriend").addEventListener("click",openFriendLobby);
-function openSoloSetup(){show("petHub",false);$("teamPickerOverlay").classList.add("hidden");$("soloTeam").value=savedNationalTeam;syncMainTeam();mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",false);show("waiting",false);show("match",false);show("soloSetup",true);$("soloSelectedTeamName").textContent=teamNameFromValue($("soloTeam").value).toUpperCase();}
+function openSoloSetup(){setPetHubActive(false);show("petHub",false);$("teamPickerOverlay").classList.add("hidden");$("soloTeam").value=savedNationalTeam;syncMainTeam();mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",false);show("waiting",false);show("match",false);show("soloSetup",true);$("soloSelectedTeamName").textContent=teamNameFromValue($("soloTeam").value).toUpperCase();}
 $("playSolo").addEventListener("click",openSoloSetup);
 renderNationalTeamCards();
 const teamNameFromValue=v=>String(v||"").replace(/^[^ ]+\s*/,"").trim();
@@ -1859,7 +1888,7 @@ renderPetHub();
 renderProfile();
 $("petHubBack").addEventListener("click",()=>{show("petHub",false);showMainMenu();});
 
-function openHubPage(id){mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");["lobby","soloSetup","waiting","match","petHub","profileHub","shopHub","tasksHub","rewardsHub","eventsHub"].forEach(x=>show(x,false));show(id,true);refreshHubPages();}
+function openHubPage(id){setPetHubActive(false);mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");["lobby","soloSetup","waiting","match","petHub","profileHub","shopHub","tasksHub","rewardsHub","eventsHub"].forEach(x=>show(x,false));show(id,true);refreshHubPages();}
 function refreshHubPages(){
  $("shopCoins").textContent=String(petState.coins||0);
  $("taskMatchesStatus").textContent="Прогресс: "+Math.min(10,profile.matches)+"/10";
@@ -1876,7 +1905,6 @@ $("taskPlay").addEventListener("click",openSoloSetup);
 $("eventPlay").addEventListener("click",openSoloSetup);
 $("claimDailyGift").addEventListener("click",()=>{const today=new Date().toISOString().slice(0,10);if(localStorage.getItem("pk67_daily_gift_date")===today)return;petState.coins=(petState.coins||0)+15;profile.totalCoins=(profile.totalCoins||0)+15;localStorage.setItem("pk67_daily_gift_date",today);savePetState();saveProfile();renderPetHub();renderProfile();refreshHubPages();});
 
-setInterval(updateFoodButton,30000);
 document.querySelectorAll("[data-pet]").forEach(b=>b.addEventListener("click",()=>{if(!petState.ownedPets.includes(b.dataset.pet))return;petState.pet=b.dataset.pet;savePetState();renderPetHub();}));
 $("buyFood").addEventListener("click",()=>{const p=petRecord(petState.pet);if(Date.now()-Number(p.lastFedAt||0)<FEED_COOLDOWN_MS){updateFoodButton();return;}if(petState.coins<5){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.food>=100){$("petMood").textContent="Питомец уже сыт!";return;}petState.coins-=5;p.food=Math.min(100,p.food+35);p.lastFedAt=Date.now();p.friendship=Math.min(100,p.friendship+3);savePetState();renderPetHub();petAction("feed");});
 $("buyWater").addEventListener("click",()=>{const p=petRecord(petState.pet);if(petState.coins<3){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.water>=100){$("petMood").textContent="У питомца уже полная миска воды!";return;}petState.coins-=3;p.water=Math.min(100,p.water+40);savePetState();renderPetHub();petAction("water");});
