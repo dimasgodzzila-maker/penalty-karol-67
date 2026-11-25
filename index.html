@@ -922,7 +922,7 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
  height:clamp(420px,56dvh,720px)!important;
  min-height:420px!important;
  border:0!important;border-radius:0!important;
- background:#17652a url("stadium_bg.jpg") center center/100% 100% no-repeat!important;
+ background:#17652a url("stadium_scene.svg") center center/100% 100% no-repeat!important;
  box-shadow:0 10px 0 #06172a,0 18px 28px #020b16aa!important;
  overflow:hidden!important;isolation:isolate!important;
 }
@@ -988,6 +988,35 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
  #match .pitch .keeper{width:clamp(78px,23%,112px)!important;top:32%!important}
  #match .pitch .player{width:clamp(98px,28%,136px)!important;left:23%!important;bottom:8%!important}
  #match .pitch .ball{bottom:31%!important}
+}
+
+
+/* stadium scene aspect and layered character placement */
+#match .pitch{
+ background-image:url("stadium_scene.svg")!important;
+ background-size:100% 100%!important;
+ background-position:center!important;
+ background-repeat:no-repeat!important;
+ height:clamp(520px,68dvh,820px)!important;
+ min-height:520px!important;
+ border:0!important;border-radius:0!important;
+}
+#match .pitch .keeper{
+ width:clamp(90px,24%,158px)!important;
+ aspect-ratio:5/7!important;
+ top:29%!important;
+}
+#match .pitch .player{
+ width:clamp(118px,31%,196px)!important;
+ aspect-ratio:5/7!important;
+ left:23%!important;
+ bottom:7%!important;
+}
+#match .pitch .ball{bottom:25%!important;left:49%!important}
+@media(max-width:430px){
+ #match .pitch{height:clamp(500px,66dvh,700px)!important;min-height:500px!important}
+ #match .pitch .keeper{width:clamp(82px,24%,110px)!important;top:29%!important}
+ #match .pitch .player{width:clamp(106px,31%,142px)!important;left:23%!important;bottom:7%!important}
 }
 
 </style>
