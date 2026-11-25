@@ -1721,6 +1721,11 @@ $("playSolo").addEventListener("click",openSoloSetup);
 renderNationalTeamCards();
 $("openPetHub").addEventListener("click",openPetHub);
 $("openProfile").addEventListener("click",openProfile);
+
+$("menuTeams").addEventListener("click",openSoloSetup);
+$("menuTournaments").addEventListener("click",openSoloSetup);
+["menuPets","menuShop","menuTasks","menuRewards","menuEvents"].forEach(id=>$(id).addEventListener("click",openPetHub));
+
 $("profileBack").addEventListener("click",()=>{show("profileHub",false);showMainMenu();});
 renderPetHub();
 renderProfile();
