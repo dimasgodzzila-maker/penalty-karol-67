@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" preserveAspectRatio="none">
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#06152e"/><stop offset=".48" stop-color="#10294b"/><stop offset="1" stop-color="#1b3a54"/></linearGradient>
+ <linearGradient id="grass" x2="0" y2="1"><stop stop-color="#246c2b"/><stop offset=".5" stop-color="#176020"/><stop offset="1" stop-color="#0c431a"/></linearGradient>
+ <linearGradient id="board" x2="0" y2="1"><stop stop-color="#12375f"/><stop offset="1" stop-color="#061a35"/></linearGradient>
+ <radialGradient id="lamp"><stop stop-color="#fff" stop-opacity="1"/><stop offset=".3" stop-color="#bdeaff" stop-opacity=".9"/><stop offset="1" stop-color="#4aaaff" stop-opacity="0"/></radialGradient>
+ <pattern id="crowd" width="36" height="42" patternUnits="userSpaceOnUse">
+  <rect width="36" height="42" fill="#102746"/>
+  <g>
+   <circle cx="7" cy="10" r="4" fill="#c88e62"/><path d="M2 15h10l3 16H0z" fill="#1e5c9b"/>
+   <circle cx="25" cy="8" r="4" fill="#d8a477"/><path d="M19 13h12l4 18H17z" fill="#b33b32"/>
+   <path d="M5 5l3-4 3 4M23 3l3-3 3 4" fill="none" stroke="#e9d7aa" stroke-width="2"/>
+  </g>
+ </pattern>
+ <pattern id="turf" width="24" height="24" patternUnits="userSpaceOnUse">
+  <path d="M2 2l4 1M14 8l3-2M6 19l4-2M19 21l2-3" stroke="#b3dc7b" stroke-opacity=".18" stroke-width="2"/>
+  <circle cx="11" cy="13" r="1" fill="#d7ed9b" opacity=".2"/>
+ </pattern>
+ <pattern id="net" width="18" height="18" patternUnits="userSpaceOnUse">
+  <path d="M0 0H18V18" fill="none" stroke="#f7fbff" stroke-width="2" opacity=".85"/>
+ </pattern>
+ <filter id="glow"><feGaussianBlur stdDeviation="12"/></filter>
+ <filter id="shadow"><feGaussianBlur stdDeviation="8"/></filter>
+</defs>
+<rect width="900" height="1200" fill="url(#sky)"/>
+<!-- floodlit night sky -->
+<path d="M0 0H900V405H0Z" fill="#07152b"/>
+<path d="M0 175Q450 80 900 175V430H0Z" fill="#102744"/>
+<g opacity=".45" fill="#d8eaff"><circle cx="90" cy="175" r="2"/><circle cx="180" cy="125" r="2"/><circle cx="700" cy="120" r="2"/><circle cx="820" cy="185" r="2"/></g>
+<!-- stands -->
+<path d="M0 210Q450 140 900 210V465H0Z" fill="#0b1d35"/>
+<path d="M0 220Q450 158 900 220V450H0Z" fill="url(#crowd)"/>
+<path d="M0 220Q450 158 900 220" fill="none" stroke="#d3eaff" stroke-opacity=".22" stroke-width="6"/>
+<path d="M0 350H900V465H0Z" fill="url(#board)" stroke="#4d91c5" stroke-width="5"/>
+<g fill="#fff6d9" font-family="Georgia,serif" font-weight="bold" text-anchor="middle">
+ <text x="140" y="402" font-size="24">♛ ФУТБОЛЬНАЯ</text><text x="140" y="432" font-size="24">ДИНАСТИИИИЯ</text>
+ <text x="760" y="402" font-size="24">♛ ФУТБОЛЬНАЯ</text><text x="760" y="432" font-size="24">ДИНАСТИИИИЯ</text>
+</g>
+<!-- floodlights -->
+<g>
+ <ellipse cx="76" cy="176" rx="95" ry="90" fill="url(#lamp)" filter="url(#glow)"/>
+ <ellipse cx="824" cy="176" rx="95" ry="90" fill="url(#lamp)" filter="url(#glow)"/>
+ <g fill="#eaf8ff"><rect x="24" y="150" width="82" height="24" rx="5" transform="rotate(18 65 162)"/><rect x="794" y="150" width="82" height="24" rx="5" transform="rotate(-18 835 162)"/></g>
+ <g fill="#fff"><circle cx="38" cy="148" r="7"/><circle cx="59" cy="155" r="7"/><circle cx="80" cy="162" r="7"/><circle cx="101" cy="169" r="7"/><circle cx="799" cy="169" r="7"/><circle cx="820" cy="162" r="7"/><circle cx="841" cy="155" r="7"/><circle cx="862" cy="148" r="7"/></g>
+</g>
+<!-- pitch -->
+<path d="M0 458H900V1200H0Z" fill="url(#grass)"/>
+<path d="M0 458H900V1200H0Z" fill="url(#turf)" opacity=".85"/>
+<path d="M0 458H900V1200H0Z" fill="#0b4c1d" opacity=".12"/>
+<path d="M0 470H450L370 1200H0Z" fill="#70a83a" opacity=".10"/>
+<path d="M450 470H900V1200H530Z" fill="#70a83a" opacity=".10"/>
+<!-- penalty box and goal area -->
+<g fill="none" stroke="#f5f8e9" stroke-width="7" opacity=".9">
+ <path d="M65 640L835 640L900 870H0Z"/>
+ <path d="M245 640L655 640L690 790H210Z"/>
+ <path d="M300 640L600 640L620 720H280Z" opacity=".35"/>
+</g>
+<!-- goal shadow and frame -->
+<path d="M220 340L680 340L710 655L190 655Z" fill="#001126" opacity=".48" filter="url(#shadow)"/>
+<path d="M230 330L670 330L695 650L205 650Z" fill="#0b1a2d" opacity=".18"/>
+<path d="M230 330L670 330L695 650L205 650Z" fill="url(#net)" stroke="#f6f8f1" stroke-width="13" stroke-linejoin="round"/>
+<path d="M230 330L670 330L695 650L205 650Z" fill="none" stroke="#b9d5e6" stroke-width="4"/>
+<path d="M230 330L205 650M670 330L695 650" stroke="#f8fbff" stroke-width="13"/>
+<path d="M230 330H670" stroke="#fff" stroke-width="15"/>
+<path d="M230 340H670M215 640H685" stroke="#a9d4e9" stroke-width="3" opacity=".8"/>
+<!-- subtle grass perspective -->
+<g stroke="#d6efb1" stroke-opacity=".17" stroke-width="3">
+ <path d="M450 650L90 1200M450 650L280 1200M450 650L620 1200M450 650L810 1200"/>
+ <path d="M0 900H900M0 1060H900" />
+</g>
+</svg>
