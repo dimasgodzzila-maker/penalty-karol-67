@@ -10,8 +10,6 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preload" as="image" href="loading_screen.png" fetchpriority="high">
 <link rel="preload" as="image" href="assets/main-menu.jpg">
-<link rel="preload" as="image" href="player_sprites.png">
-<link rel="preload" as="image" href="keeper_sprites.png">
 <title>ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ</title>
 <style>
 :root{--bg:#071b16;--panel:#102a22;--lime:#b7f34a;--white:#f4f7ef;--muted:#a8b8ae}
@@ -1306,7 +1304,7 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
 /* Performance and accessibility tuning for mobile WebViews */
 img{max-width:100%;height:auto}
 button{touch-action:manipulation}
-#mainMenu,#gameWrap,.card,.hub-item,.hub-quest,.hub-reward,.hub-event{contain:layout style}
+.card,.hub-item,.hub-quest,.hub-reward,.hub-event{contain:layout style}
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
