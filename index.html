@@ -1114,6 +1114,63 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
  .menu-actions{margin:0 auto!important}
 }
 
+
+/* REBUILT LANDSCAPE HOME SCREEN — fixed-fit layout, no clipped controls */
+@media (orientation:landscape) and (min-width:600px){
+ .main-menu{
+  position:fixed!important;inset:0!important;width:100vw;height:100dvh;min-height:0!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(300px,1.15fr) minmax(0,1fr);
+  grid-template-rows:auto auto minmax(90px,1fr) auto;
+  grid-template-areas:"top top top" ". brand ." "hero hero hero" "actions actions actions";
+  align-items:center;justify-items:center;gap:clamp(4px,1.2vh,12px)!important;
+  padding:clamp(7px,1.6vh,15px) clamp(14px,2.4vw,36px)!important;
+  overflow:hidden!important;overscroll-behavior:none;
+  background:
+   radial-gradient(ellipse at 50% 43%,#246a9b 0,#123d68 48%,#071a34 100%)!important;
+  isolation:isolate;
+ }
+ .main-menu:before{
+  opacity:.22!important;
+  background:
+   repeating-linear-gradient(90deg,transparent 0 7.5%,#9bdfff18 7.6% 7.8%),
+   linear-gradient(180deg,transparent 0 70%,#2f9b4d 70% 100%)!important;
+ }
+ .menu-top{grid-area:top;width:100%;font-size:clamp(9px,1.5vh,12px)}
+ .menu-brand{grid-area:brand;margin:0!important;font-size:clamp(27px,5.8vh,48px)!important;line-height:.9!important}
+ .menu-brand small{font-size:8px!important;letter-spacing:3px!important;margin-top:5px!important}
+ .crown{font-size:clamp(18px,3.2vh,28px)!important;margin-bottom:2px!important}
+ .menu-player{
+  grid-area:hero;width:min(48vw,600px)!important;height:100%!important;min-height:0!important;
+  max-height:clamp(100px,28vh,230px);margin:0!important;align-self:center;
+  border-radius:22px;clip-path:none!important;
+  background:linear-gradient(180deg,#163d5b 0 52%,#277b45 52% 100%)!important;
+  box-shadow:0 0 0 3px #b8e7ff,0 12px 28px #0008!important;
+ }
+ .menu-goal{top:8%!important;height:52%!important}
+ .menu-keeper{font-size:clamp(42px,9vh,76px)!important}
+ .menu-striker{font-size:clamp(48px,10vh,84px)!important}
+ .menu-actions{
+  grid-area:actions;width:100%!important;max-width:1200px!important;
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(7px,1.2vw,16px)!important;
+  margin:0!important;align-self:end;
+ }
+ .menu-button{
+  min-width:0;height:clamp(42px,8.5vh,66px)!important;min-height:0!important;
+  padding:7px 9px!important;font-size:clamp(10px,1.7vh,15px)!important;
+  border-radius:13px!important;white-space:normal;line-height:1.15;
+ }
+ .menu-button span{font-size:17px!important;line-height:14px!important}
+ .menu-note,.menu-footer{display:none!important}
+}
+@media (orientation:landscape) and (min-width:600px) and (max-height:430px){
+ .main-menu{grid-template-rows:auto auto minmax(65px,1fr) auto;gap:3px!important;padding:4px 12px!important}
+ .menu-brand{font-size:23px!important}
+ .menu-brand small,.crown{display:none!important}
+ .menu-player{max-height:22vh}
+ .menu-button{height:36px!important;font-size:10px!important}
+}
+
 </style>
 </head>
 <body>
