@@ -1239,6 +1239,20 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
 .main-team-choice.active{border-color:#ffdc48;background:linear-gradient(145deg,#93661a,#392609);box-shadow:0 0 16px #ffc62999}
 @media(max-width:720px){.main-team-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.team-picker-panel{padding:17px 12px}}
 
+
+.hub-back{padding:9px 13px;margin-bottom:12px;border:2px solid #79cfff;border-radius:12px;background:#123a62;color:#fff;font-weight:900}
+.hub-balance{padding:12px;border-radius:12px;background:#102f50;color:#ffe36a;font-weight:900;margin:12px 0}
+.hub-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.hub-item,.hub-quest,.hub-reward,.hub-event{padding:16px;border:2px solid #367cb4;border-radius:16px;background:linear-gradient(145deg,#153d64,#0a203a);margin:12px 0;color:#fff}
+.hub-item{display:flex;flex-direction:column;gap:8px}.hub-item>div,.hub-reward>div{font-size:38px}
+.hub-item small,.hub-quest p,.hub-reward p,.hub-event p{color:#c3d8ea}
+.hub-item strong,.hub-quest>b{color:#ffdf58}
+.hub-item button,.hub-quest button,.hub-reward button,.hub-event button{padding:11px;border:0;border-radius:10px;background:linear-gradient(#ffe86b,#ffb900);color:#25202a;font-weight:1000}
+.hub-quest>span,.hub-event>span{font-size:11px;letter-spacing:1px;color:#7dd4ff;font-weight:1000}
+.hub-quest h2,.hub-reward h2,.hub-event h2{margin:8px 0;font-size:20px}
+.hub-feedback{min-height:24px;color:#ffe36a;font-weight:800}
+@media(max-width:520px){.hub-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -1347,6 +1361,33 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
    <b id="dailyGoal">Забей 3 гола в соло-матче и получи бонус!</b>
   </div>
   <p class="hint pet-footnote">Питомцы получают опыт за матчи: победа +25 XP, поражение +10 XP. Дружба не уменьшается. Прогресс этой версии хранится на устройстве.</p>
+ </section>
+ <section class="card hidden" id="shopHub">
+  <button class="hub-back" data-hub-back>← ГЛАВНОЕ МЕНЮ</button>
+  <h1>МАГАЗИН</h1><p class="sub">Покупай предметы ухода за монеты. Купленное сразу доступно в разделе питомцев.</p>
+  <div class="hub-balance">ТВОЙ БАЛАНС: 🪙 <b id="shopCoins">0</b></div>
+  <div class="hub-grid">
+   <article class="hub-item"><div>🍖</div><b>Корм для питомца</b><small>Восстанавливает сытость</small><strong>5 🪙</strong><button id="shopBuyFood">КУПИТЬ</button></article>
+   <article class="hub-item"><div>💧</div><b>Свежая вода</b><small>Восстанавливает водный баланс</small><strong>3 🪙</strong><button id="shopBuyWater">КУПИТЬ</button></article>
+  </div><p class="hub-feedback" id="shopFeedback">Выбери предмет для покупки.</p>
+ </section>
+ <section class="card hidden" id="tasksHub">
+  <button class="hub-back" data-hub-back>← ГЛАВНОЕ МЕНЮ</button>
+  <h1>ЗАДАНИЯ</h1><p class="sub">Выполняй задания в матчах и получай монеты.</p>
+  <article class="hub-quest"><span>ЕЖЕДНЕВНОЕ ЗАДАНИЕ</span><h2>Забей 3 гола за один матч</h2><p id="taskDailyStatus">Награда начисляется автоматически после завершения матча.</p><b>НАГРАДА: +10 🪙</b><button id="taskPlay">ИГРАТЬ</button></article>
+  <article class="hub-quest"><span>ПОСТОЯННОЕ ЗАДАНИЕ</span><h2>Сыграй 10 матчей</h2><p id="taskMatchesStatus">Прогресс: 0/10</p><b>НАГРАДА: достижение в профиле</b></article>
+ </section>
+ <section class="card hidden" id="rewardsHub">
+  <button class="hub-back" data-hub-back>← ГЛАВНОЕ МЕНЮ</button>
+  <h1>НАГРАДЫ</h1><p class="sub">Ежедневный подарок и награды за достижения.</p>
+  <article class="hub-reward"><div>🎁</div><h2>Ежедневный подарок</h2><p>Забирай 15 монет один раз в день.</p><button id="claimDailyGift">ПОЛУЧИТЬ +15 🪙</button><small id="giftStatus"></small></article>
+  <article class="hub-quest"><span>ТВОИ ДОСТИЖЕНИЯ</span><p id="rewardAchievements">Пока нет открытых достижений.</p></article>
+ </section>
+ <section class="card hidden" id="eventsHub">
+  <button class="hub-back" data-hub-back>← ГЛАВНОЕ МЕНЮ</button>
+  <h1>СОБЫТИЯ</h1><p class="sub">Активные игровые испытания.</p>
+  <article class="hub-event"><span>⚽ СОБЫТИЕ ДНЯ</span><h2>Король пенальти</h2><p>Забей минимум 3 гола в серии из пяти ударов. Получи бонус за матч и опыт питомцу.</p><button id="eventPlay">ПРИНЯТЬ ВЫЗОВ</button></article>
+  <p class="hint">Событие доступно постоянно. Новые сезонные турниры появятся в следующих обновлениях.</p>
  </section>
  <section class="card hidden" id="profileHub">
   <button id="profileBack" style="padding:8px 11px;margin-bottom:12px">← ГЛАВНОЕ МЕНЮ</button>
@@ -1754,15 +1795,33 @@ $("openProfile").addEventListener("click",openProfile);
 
 $("menuTournaments").addEventListener("click",openSoloSetup);
 $("menuPets").addEventListener("click",openPetHub);
-$("menuShop").addEventListener("click",()=>{openPetHub();setTimeout(()=> $("buyFood").scrollIntoView({behavior:"smooth",block:"center"}),80);});
-$("menuTasks").addEventListener("click",()=>{openPetHub();setTimeout(()=> $("dailyGoal").scrollIntoView({behavior:"smooth",block:"center"}),80);});
-$("menuRewards").addEventListener("click",()=>{openPetHub();setTimeout(()=> $("dailyGoal").scrollIntoView({behavior:"smooth",block:"center"}),80);});
-$("menuEvents").addEventListener("click",()=>{openPetHub();setTimeout(()=> $("dailyGoal").scrollIntoView({behavior:"smooth",block:"center"}),80);});
+$("menuShop").addEventListener("click",()=>openHubPage("shopHub"));
+$("menuTasks").addEventListener("click",()=>openHubPage("tasksHub"));
+$("menuRewards").addEventListener("click",()=>openHubPage("rewardsHub"));
+$("menuEvents").addEventListener("click",()=>openHubPage("eventsHub"));
 
 $("profileBack").addEventListener("click",()=>{show("profileHub",false);showMainMenu();});
 renderPetHub();
 renderProfile();
 $("petHubBack").addEventListener("click",()=>{show("petHub",false);showMainMenu();});
+
+function openHubPage(id){mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");["lobby","soloSetup","waiting","match","petHub","profileHub","shopHub","tasksHub","rewardsHub","eventsHub"].forEach(x=>show(x,false));show(id,true);refreshHubPages();}
+function refreshHubPages(){
+ $("shopCoins").textContent=String(petState.coins||0);
+ $("taskMatchesStatus").textContent="Прогресс: "+Math.min(10,profile.matches)+"/10";
+ $("taskDailyStatus").textContent="Забей 3 гола в одном соло-матче. Бонус начисляется автоматически после матча.";
+ $("rewardAchievements").textContent=$("achievementList").textContent;
+ const today=new Date().toISOString().slice(0,10),claimed=localStorage.getItem("pk67_daily_gift_date")===today;
+ $("giftStatus").textContent=claimed?"Сегодняшний подарок уже получен.":"Доступен сегодня.";
+ $("claimDailyGift").disabled=claimed;$("claimDailyGift").textContent=claimed?"УЖЕ ПОЛУЧЕНО":"ПОЛУЧИТЬ +15 🪙";
+}
+document.querySelectorAll("[data-hub-back]").forEach(b=>b.addEventListener("click",showMainMenu));
+$("shopBuyFood").addEventListener("click",()=>{$("buyFood").click();$("shopFeedback").textContent=$("petMood").textContent;refreshHubPages();});
+$("shopBuyWater").addEventListener("click",()=>{$("buyWater").click();$("shopFeedback").textContent=$("petMood").textContent;refreshHubPages();});
+$("taskPlay").addEventListener("click",openSoloSetup);
+$("eventPlay").addEventListener("click",openSoloSetup);
+$("claimDailyGift").addEventListener("click",()=>{const today=new Date().toISOString().slice(0,10);if(localStorage.getItem("pk67_daily_gift_date")===today)return;petState.coins=(petState.coins||0)+15;profile.totalCoins=(profile.totalCoins||0)+15;localStorage.setItem("pk67_daily_gift_date",today);savePetState();saveProfile();renderPetHub();renderProfile();refreshHubPages();});
+
 setInterval(updateFoodButton,30000);
 document.querySelectorAll("[data-pet]").forEach(b=>b.addEventListener("click",()=>{if(!petState.ownedPets.includes(b.dataset.pet))return;petState.pet=b.dataset.pet;savePetState();renderPetHub();}));
 $("buyFood").addEventListener("click",()=>{const p=petRecord(petState.pet);if(Date.now()-Number(p.lastFedAt||0)<FEED_COOLDOWN_MS){updateFoodButton();return;}if(petState.coins<5){$("petMood").textContent="Не хватает монет. Сыграй ещё матч!";return;}if(p.food>=100){$("petMood").textContent="Питомец уже сыт!";return;}petState.coins-=5;p.food=Math.min(100,p.food+35);p.lastFedAt=Date.now();p.friendship=Math.min(100,p.friendship+3);savePetState();renderPetHub();petAction("feed");});
