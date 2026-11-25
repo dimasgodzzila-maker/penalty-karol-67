@@ -728,6 +728,41 @@ body{padding:0!important}
 #fullscreenToggle{position:fixed;z-index:1201;top:calc(12px + env(safe-area-inset-top));left:12px;padding:9px 12px;min-height:39px;background:#124c9b;color:#fff8df;border:3px solid #a8d7ff;box-shadow:4px 4px 0 #030b1c;font:900 13px system-ui;line-height:1}
 @media(orientation:landscape){#match .pitch{height:54dvh!important;min-height:220px!important;max-height:420px!important}}
 
+
+/* SPRITE PROPORTION FIX — show complete characters without cropping */
+#match .pitch .keeper{
+ width:clamp(76px,18%,104px)!important;
+ height:auto!important;
+ aspect-ratio:5 / 7!important;
+ left:50%!important;right:auto!important;
+ top:26%!important;bottom:auto!important;
+ transform:translateX(-50%)!important;
+ background-size:400% 100%!important;
+ background-position:0% 50%!important;
+ background-repeat:no-repeat!important;
+ object-fit:contain!important;
+}
+#match .pitch .player{
+ width:clamp(88px,22%,126px)!important;
+ height:auto!important;
+ aspect-ratio:5 / 7!important;
+ left:24%!important;right:auto!important;
+ top:auto!important;bottom:1%!important;
+ transform:none!important;
+ background-size:400% 100%!important;
+ background-position:0% 50%!important;
+ background-repeat:no-repeat!important;
+ object-fit:contain!important;
+}
+#match .pitch .keeper.dive-left{background-position:33.333% 50%!important}
+#match .pitch .keeper.dive-right{background-position:66.666% 50%!important}
+#match .pitch .keeper.catch{background-position:100% 50%!important}
+#match .pitch .player.kick{background-position:0% 50%!important}
+@media(max-width:390px){
+ #match .pitch .keeper{width:clamp(72px,19%,88px)!important;aspect-ratio:5 / 7!important}
+ #match .pitch .player{width:clamp(84px,23%,106px)!important;aspect-ratio:5 / 7!important;left:24%!important}
+}
+
 /* STADIUM VISUAL V2 — polished illustrated 2D match scene */
 html,body{background:#07172b!important}
 body{background:radial-gradient(ellipse at 50% -8%,#315f85 0,#102d4c 46%,#07172b 100%)!important}
