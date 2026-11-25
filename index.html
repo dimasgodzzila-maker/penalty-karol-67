@@ -1615,13 +1615,27 @@ function phonkTick(){
  const horizon=musicCtx.currentTime+0.20;
  while(nextBeat<horizon){schedulePhonkStep(step,nextBeat);step++;nextBeat+=STEP;}
 }
-async function toggleMusic(){
- try{
-  if(!musicCtx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw new Error('Audio не поддерживается');musicCtx=new AC();}
-  if(musicOn){musicOn=false;clearInterval(musicTimer);musicTimer=null;await musicCtx.suspend();}
-  else{await musicCtx.resume();musicOn=true;nextBeat=musicCtx.currentTime+0.04;phonkTick();musicTimer=setInterval(phonkTick,50);}
-  const b=$('musicToggle');b.textContent=musicOn?'♫ ФОНК: ВКЛ':'♫ ФОНК: ВЫКЛ';b.classList.toggle('on',musicOn);b.setAttribute('aria-pressed',String(musicOn));
- }catch(e){const b=$('musicToggle');b.textContent='ЗВУК НЕДОСТУПЕН';b.title=e.message;}
+let originalTrackFrame=null;
+function toggleMusic(){
+ const b=$('musicToggle');
+ if(musicOn){
+  musicOn=false;
+  if(originalTrackFrame){originalTrackFrame.remove();originalTrackFrame=null;}
+  b.textContent='♫ МУЗЫКА: ВЫКЛ';
+ }else{
+  musicOn=true;
+  const frame=document.createElement('iframe');
+  frame.title='VILLIAN — ДИНАСТИЯ';
+  frame.allow='autoplay; encrypted-media; picture-in-picture';
+  frame.referrerPolicy='strict-origin-when-cross-origin';
+  frame.src='https://www.youtube.com/embed/p-LBiCtzXu0?autoplay=1&loop=1&playlist=p-LBiCtzXu0&controls=0&playsinline=1';
+  frame.style.cssText='position:fixed;width:1px;height:1px;left:-10px;bottom:-10px;border:0;opacity:0;pointer-events:none';
+  document.body.appendChild(frame);
+  originalTrackFrame=frame;
+  b.textContent='♫ МУЗЫКА: ВКЛ';
+ }
+ b.classList.toggle('on',musicOn);
+ b.setAttribute('aria-pressed',String(musicOn));
 }
 $('musicToggle').addEventListener('click',toggleMusic);
 let uid=null,roomId=null,roomListener=null,currentRoom=null,busy=false,selectedDir="center",lastAnimatedTurn=-1,lastSoundTurn=-1;
