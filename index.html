@@ -1220,6 +1220,25 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
  .menu-actions{display:grid;grid-template-columns:1fr}
 }
 
+
+/* Main-menu profile, wallet and permanent national team selection */
+.menu-user{cursor:pointer;display:flex;align-items:center;gap:9px;color:#fff;font:900 15px system-ui;background:linear-gradient(145deg,#174d83,#092344);border:2px solid #8dd8ff;border-radius:13px;padding:8px 13px;box-shadow:0 4px 0 #061329}
+.menu-user small{color:#b9e9ff;font-size:10px}
+.menu-wallet{position:absolute;right:clamp(60px,7vw,110px);top:clamp(10px,1.5vh,18px);display:flex;gap:8px;z-index:3}
+.menu-wallet span{padding:7px 12px;border-radius:12px;background:#092448;border:2px solid #54baff;color:#fff;font-weight:1000;box-shadow:0 4px 0 #04152b}
+.menu-profile{display:none!important}
+.team-picker-overlay{position:absolute;inset:0;z-index:20;background:#020b19eF;display:flex;align-items:center;justify-content:center;padding:12px;backdrop-filter:blur(7px)}
+.team-picker-overlay.hidden{display:none!important}
+.team-picker-panel{position:relative;width:min(980px,96%);max-height:92%;overflow:auto;padding:22px;border:3px solid #56c7ff;border-radius:22px;background:linear-gradient(145deg,#123c68,#07182e);box-shadow:0 0 35px #168bff88;color:white}
+.team-picker-panel h2{text-align:center;margin:0 36px 5px;font-size:clamp(18px,3vh,28px)}
+.team-picker-panel p{text-align:center;color:#c3dff5;margin:0 0 14px;font-size:13px}
+.team-picker-close{position:absolute;right:12px;top:12px;width:38px;height:38px;border-radius:50%;border:2px solid #fff;background:#a82738;color:white;font-size:19px;font-weight:1000}
+.main-team-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.main-team-choice{min-width:0;min-height:95px;border:2px solid #5bbdff;border-radius:14px;background:linear-gradient(145deg,#194e7d,#081e3a);color:white;padding:10px 5px;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.main-team-choice span{font-size:27px}.main-team-choice small{font-size:11px}
+.main-team-choice.active{border-color:#ffdc48;background:linear-gradient(145deg,#93661a,#392609);box-shadow:0 0 16px #ffc62999}
+@media(max-width:720px){.main-team-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.team-picker-panel{padding:17px 12px}}
+
 </style>
 </head>
 <body>
@@ -1231,7 +1250,7 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
   <div class="splash-skip">Нажми, чтобы пропустить</div>
 </div>
 <section id="mainMenu" class="main-menu hidden">
-  <div class="menu-top"><span class="menu-user">♙ ИГРОК 67 <small>УР. 1</small></span><span class="menu-online">ONLINE 1×1</span></div>
+  <div class="menu-top"><button class="menu-user" id="openProfile">♙ МОЙ ПРОФИЛЬ <small>УР. 1</small></button><span class="menu-online">ONLINE 1×1</span></div>
   <div class="menu-brand"><div class="crown">♛</div><div>ФУТБОЛЬНАЯ</div><strong>ДИНАСТИИИИИЯ</strong><small>8-BIT FOOTBALL • MINI APP</small></div>
   <div class="menu-player" aria-hidden="true"><div class="menu-goal"></div><div class="menu-keeper">🧤</div><div class="menu-striker">⚽</div></div>
   <nav class="menu-side menu-side-left">
@@ -1249,7 +1268,8 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
     <button id="playFriend" class="menu-button"><span>👥</span> ИГРА С ДРУГОМ</button>
     <button id="menuTournaments" class="menu-button menu-tournament"><span>🏆</span> ТУРНИРЫ</button>
   </div>
-  <button id="openProfile" class="menu-profile">⚙ НАСТРОЙКИ</button>
+  <div class="menu-wallet"><span>🪙 <b id="menuCoinBalance">0</b></span><span>💎 <b id="menuGemBalance">0</b></span></div>
+  <section class="team-picker-overlay hidden" id="teamPickerOverlay" aria-label="Выбор сборной"><div class="team-picker-panel"><button id="closeTeamPicker" class="team-picker-close">✕</button><h2>ВЫБЕРИ СВОЮ СБОРНУЮ</h2><p>Твоя команда будет сохранена и останется выбранной перед всеми матчами</p><div id="mainTeamCards" class="main-team-grid"></div></div></section>
 </section>
 <div class="wrap hidden" id="gameWrap">
  <div class="top"><div class="logo">⚽ ФУТБОЛЬНАЯ<br><span>ДИНАСТИИИИИЯ</span></div><div class="pill">ONLINE 1×1</div></div>
@@ -1266,12 +1286,11 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
   <button id="soloBack" style="padding:8px 11px;margin-bottom:12px">← ГЛАВНОЕ МЕНЮ</button>
   <h1 style="margin:4px 0 8px">ОДИНОЧНАЯ ИГРА</h1>
   <p class="sub">Пять пенальти против компьютерного вратаря</p>
-  <div class="team-select-hero"><div class="team-select-kicker">НАЦИОНАЛЬНЫЕ СБОРНЫЕ</div><h2>ВЫБЕРИ СВОЮ СБОРНУЮ</h2><p>Звёзды команды выходят на поле вместе с тобой</p></div>
-  <div class="field">ТВОЯ СБОРНАЯ</div><div class="national-team-grid" id="soloTeamCards"></div>
+  <div class="team-select-hero"><div class="team-select-kicker">НАЦИОНАЛЬНЫЕ СБОРНЫЕ</div><h2>ТВОЯ СБОРНАЯ: <span id="soloSelectedTeamName">УКРАИНА</span></h2><p>Сборная выбирается только в главном меню</p></div>
   <div class="field opponent-heading">СБОРНАЯ СОПЕРНИКА</div><div class="national-team-grid opponent-grid" id="soloOpponentCards"></div>
   <div class="field">Твой игровой ник</div><input id="soloPlayerName" maxlength="16" placeholder="Например, Dima67" autocomplete="nickname">
-  <div class="field">Выбери свою команду</div>
-  <select id="soloTeam"><optgroup label="Сборные"><option>🇺🇦 Украина</option><option>🇦🇷 Аргентина</option><option>🇧🇷 Бразилия</option><option>🇫🇷 Франция</option><option>🇵🇹 Португалия</option><option>🇪🇸 Испания</option><option>🏴 Англия</option><option>🇩🇪 Германия</option><option>🇮🇹 Италия</option><option>🇳🇱 Нидерланды</option></optgroup></select><div class="team-preview"><img id="soloTeamFlag" src="ukraine.png" alt="Флаг твоей сборной"><span id="soloTeamLabel">Украина</span></div>
+  <div class="field" style="display:none">Выбери свою команду</div>
+  <select id="soloTeam" style="display:none"><optgroup label="Сборные"><option>🇺🇦 Украина</option><option>🇦🇷 Аргентина</option><option>🇧🇷 Бразилия</option><option>🇫🇷 Франция</option><option>🇵🇹 Португалия</option><option>🇪🇸 Испания</option><option>🏴 Англия</option><option>🇩🇪 Германия</option><option>🇮🇹 Италия</option><option>🇳🇱 Нидерланды</option></optgroup></select><div class="team-preview"><img id="soloTeamFlag" src="ukraine.png" alt="Флаг твоей сборной"><span id="soloTeamLabel">Украина</span></div>
   <div class="field">Команда соперника</div>
   <select id="soloOpponent"><optgroup label="Сборные"><option>🇺🇦 Украина</option><option>🇦🇷 Аргентина</option><option>🇧🇷 Бразилия</option><option>🇫🇷 Франция</option><option>🇵🇹 Португалия</option><option>🇪🇸 Испания</option><option>🏴 Англия</option><option>🇩🇪 Германия</option><option>🇮🇹 Италия</option><option>🇳🇱 Нидерланды</option></optgroup></select><div class="team-preview"><img id="soloOpponentFlag" src="argentina.png" alt="Флаг сборной соперника"><span id="soloOpponentLabel">Аргентина</span></div>
   <div class="field">Сложность соперника</div>
@@ -1716,9 +1735,20 @@ function openFriendLobby(){show("petHub",false);mainMenu.classList.add("hidden")
 const splashTimer=setTimeout(showMainMenu,2800);
 splash.addEventListener("click",()=>{clearTimeout(splashTimer);showMainMenu()});
 $("playFriend").addEventListener("click",openFriendLobby);
-function openSoloSetup(){show("petHub",false);mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",false);show("waiting",false);show("match",false);show("soloSetup",true);}
+function openSoloSetup(){show("petHub",false);$("teamPickerOverlay").classList.add("hidden");$("soloTeam").value=savedNationalTeam;syncMainTeam();mainMenu.classList.add("hidden");gameWrap.classList.remove("hidden");show("lobby",false);show("waiting",false);show("match",false);show("soloSetup",true);$("soloSelectedTeamName").textContent=teamNameFromValue($("soloTeam").value).toUpperCase();}
 $("playSolo").addEventListener("click",openSoloSetup);
 renderNationalTeamCards();
+const teamNameFromValue=v=>String(v||"").replace(/^[^ ]+\s*/,"").trim();
+let savedNationalTeam="🇺🇦 Украина";
+try{savedNationalTeam=localStorage.getItem("pk67_selected_national_team")||savedNationalTeam;}catch{}
+if(!$("soloTeam").value.includes(teamNameFromValue(savedNationalTeam)))$("soloTeam").value=savedNationalTeam;
+function syncMainTeam(){const v=$("soloTeam").value;try{localStorage.setItem("pk67_selected_national_team",v);}catch{};$("menuTeams").innerHTML='<span>👕</span>КОМАНДА<br><small>'+escapeHtml(teamNameFromValue(v))+'</small>';$("menuCoinBalance").textContent=String(petState.coins||0);$("menuGemBalance").textContent="0";}
+function openTeamPicker(){const root=$("mainTeamCards");root.innerHTML=nationalTeamCards.map(t=>{const v=[...$("soloTeam").options].find(o=>teamNameFromValue(o.value)===t.name)?.value||t.flag+" "+t.name;const active=teamNameFromValue($("soloTeam").value)===t.name;return '<button type="button" class="main-team-choice'+(active?' active':'')+'" data-team-choice="'+escapeHtml(v)+'"><span>'+t.flag+'</span><small>'+escapeHtml(t.name)+'</small>'+(active?'<b>✓ ВЫБРАНА</b>':'')+'</button>';}).join("");$("teamPickerOverlay").classList.remove("hidden");}
+$("menuTeams").addEventListener("click",openTeamPicker);
+$("closeTeamPicker").addEventListener("click",()=>$("teamPickerOverlay").classList.add("hidden"));
+$("mainTeamCards").addEventListener("click",e=>{const b=e.target.closest("[data-team-choice]");if(!b)return;$("soloTeam").value=b.dataset.teamChoice;updateTeamPreview("soloTeam","soloTeamFlag","soloTeamLabel");syncMainTeam();openTeamPicker();});
+syncMainTeam();
+$("soloTeam").addEventListener("change",syncMainTeam);
 $("openPetHub").addEventListener("click",openPetHub);
 $("openProfile").addEventListener("click",openProfile);
 
