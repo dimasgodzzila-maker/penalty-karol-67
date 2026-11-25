@@ -1742,7 +1742,7 @@ const teamNameFromValue=v=>String(v||"").replace(/^[^ ]+\s*/,"").trim();
 let savedNationalTeam="🇺🇦 Украина";
 try{savedNationalTeam=localStorage.getItem("pk67_selected_national_team")||savedNationalTeam;}catch{}
 if(!$("soloTeam").value.includes(teamNameFromValue(savedNationalTeam)))$("soloTeam").value=savedNationalTeam;
-function syncMainTeam(){const v=$("soloTeam").value;try{localStorage.setItem("pk67_selected_national_team",v);}catch{};$("menuTeams").innerHTML='<span>👕</span>КОМАНДА<br><small>'+escapeHtml(teamNameFromValue(v))+'</small>';$("menuCoinBalance").textContent=String(petState.coins||0);$("menuGemBalance").textContent="0";}
+function syncMainTeam(){const v=$("soloTeam").value;savedNationalTeam=v;try{localStorage.setItem("pk67_selected_national_team",v);}catch{};$("menuTeams").innerHTML='<span>👕</span>КОМАНДА<br><small>'+escapeHtml(teamNameFromValue(v))+'</small>';$("menuCoinBalance").textContent=String(petState.coins||0);$("menuGemBalance").textContent="0";}
 function openTeamPicker(){const root=$("mainTeamCards");root.innerHTML=nationalTeamCards.map(t=>{const v=[...$("soloTeam").options].find(o=>teamNameFromValue(o.value)===t.name)?.value||t.flag+" "+t.name;const active=teamNameFromValue($("soloTeam").value)===t.name;return '<button type="button" class="main-team-choice'+(active?' active':'')+'" data-team-choice="'+escapeHtml(v)+'"><span>'+t.flag+'</span><small>'+escapeHtml(t.name)+'</small>'+(active?'<b>✓ ВЫБРАНА</b>':'')+'</button>';}).join("");$("teamPickerOverlay").classList.remove("hidden");}
 $("menuTeams").addEventListener("click",openTeamPicker);
 $("closeTeamPicker").addEventListener("click",()=>$("teamPickerOverlay").classList.add("hidden"));
@@ -1752,9 +1752,12 @@ $("soloTeam").addEventListener("change",syncMainTeam);
 $("openPetHub").addEventListener("click",openPetHub);
 $("openProfile").addEventListener("click",openProfile);
 
-$("menuTeams").addEventListener("click",openSoloSetup);
 $("menuTournaments").addEventListener("click",openSoloSetup);
-["menuPets","menuShop","menuTasks","menuRewards","menuEvents"].forEach(id=>$(id).addEventListener("click",openPetHub));
+$("menuPets").addEventListener("click",openPetHub);
+$("menuShop").addEventListener("click",()=>{openPetHub();setTimeout(()=> $("buyFood").scrollIntoView({behavior:"smooth",block:"center"}),80);});
+$("menuTasks").addEventListener("click",()=>{openPetHub();setTimeout(()=> $("dailyGoal").scrollIntoView({behavior:"smooth",block:"center"}),80);});
+$("menuRewards").addEventListener("click",()=>{openPetHub();setTimeout(()=> $("dailyGoal").scrollIntoView({behavior:"smooth",block:"center"}),80);});
+$("menuEvents").addEventListener("click",()=>{openPetHub();setTimeout(()=> $("dailyGoal").scrollIntoView({behavior:"smooth",block:"center"}),80);});
 
 $("profileBack").addEventListener("click",()=>{show("profileHub",false);showMainMenu();});
 renderPetHub();
