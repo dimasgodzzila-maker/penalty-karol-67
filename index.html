@@ -1256,6 +1256,30 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
 @media(max-width:520px){.hub-grid{grid-template-columns:1fr}}
 
 
+
+/* TELEGRAM LANDSCAPE FIX: fill the whole mini-app viewport and keep controls clear */
+@media (orientation:landscape) and (min-width:600px){
+ #mainMenu.main-menu:not(.hidden){
+  height:100vh!important;height:100dvh!important;
+  background-size:100% 200%!important;
+  background-position:center top!important;
+ }
+ #mainMenu .menu-quick-controls{
+  position:fixed!important;top:calc(10px + env(safe-area-inset-top))!important;
+  right:calc(12px + env(safe-area-inset-right))!important;
+  left:auto!important;z-index:1300!important;
+  display:flex!important;align-items:center!important;gap:10px!important;
+  width:auto!important;height:auto!important;
+ }
+ #mainMenu #musicToggle,#mainMenu #fullscreenToggle{
+  position:static!important;display:flex!important;align-items:center!important;
+  justify-content:center!important;opacity:1!important;pointer-events:auto!important;
+  width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;
+  padding:0!important;border-radius:12px!important;box-sizing:border-box!important;
+  font:900 25px/1 system-ui!important;white-space:nowrap!important;
+ }
+ #mainMenu #fullscreenToggle{font-size:27px!important}
+}
 /* TRUE ARTWORK-BASED LANDSCAPE MENU */
 @media (orientation:landscape) and (min-width:600px){
  #mainMenu.main-menu:not(.hidden){position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;min-height:0!important;padding:0!important;margin:0!important;display:block!important;overflow:hidden!important;background:#071a31 url("assets/main-menu.jpg") center center/100% 100% no-repeat!important;color:transparent!important}
