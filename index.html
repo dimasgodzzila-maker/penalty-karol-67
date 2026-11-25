@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#071b16">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -718,9 +718,19 @@ input,select{border:3px solid #6aa7e8!important;border-radius:2px!important;back
   transform:translateZ(0)!important;
   backface-visibility:hidden!important;
 }
+
+/* FULL-VIEWPORT GAME LAYOUT */
+html,body{width:100%;min-height:100%;min-height:100dvh}
+body{padding:0!important}
+.wrap{width:100%!important;max-width:none!important;min-height:100dvh;margin:0!important;padding: max(8px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))!important}
+#match{width:100%;margin:0!important;min-height:calc(100dvh - 16px)}
+#match .pitch{height:clamp(320px,48dvh,560px)!important}
+#fullscreenToggle{position:fixed;z-index:1201;top:calc(12px + env(safe-area-inset-top));left:12px;padding:9px 12px;min-height:39px;background:#124c9b;color:#fff8df;border:3px solid #a8d7ff;box-shadow:4px 4px 0 #030b1c;font:900 13px system-ui;line-height:1}
+@media(orientation:landscape){#match .pitch{height:54dvh!important;min-height:220px!important;max-height:420px!important}}
 </style>
 </head>
 <body>
+<button id="fullscreenToggle" type="button" aria-label="Полный экран">⛶ ЭКРАН</button>
 <button id="musicToggle" class="music-toggle" type="button" aria-pressed="false">♫ ФОНК: ВЫКЛ</button>
 <div id="splash" class="splash" aria-label="Загрузка игры">
   <img src="loading_screen.png" alt="ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ — экран загрузки">
@@ -856,6 +866,21 @@ input,select{border:3px solid #6aa7e8!important;border-radius:2px!important;back
 // secure account linking requires server-side validation of initData.
 const telegramApp = window.Telegram?.WebApp || null;
 const telegramUser = telegramApp?.initDataUnsafe?.user || null;
+
+const fullscreenButton = document.getElementById('fullscreenToggle');
+fullscreenButton?.addEventListener('click', async () => {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
+    else if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen();
+    else if (telegramApp?.expand) telegramApp.expand();
+    else fullscreenButton.textContent = 'ДОБАВЬ НА ЭКРАН «ДОМОЙ»';
+  } catch {
+    if (telegramApp?.expand) telegramApp.expand();
+    else fullscreenButton.textContent = 'НЕДОСТУПНО В ЭТОМ БРАУЗЕРЕ';
+  }
+});
+
 if (telegramApp) {
   telegramApp.ready();
   telegramApp.expand();
