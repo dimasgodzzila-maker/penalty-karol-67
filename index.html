@@ -1064,6 +1064,8 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
  .main-menu{min-height:100dvh}
 }
 
+#fullscreenToggle{min-width:138px;white-space:nowrap;touch-action:manipulation}
+@media(orientation:landscape) and (max-height:600px){#fullscreenToggle{top:8px;left:8px;padding:8px 10px;font-size:12px}}
 </style>
 </head>
 <body>
@@ -1209,18 +1211,40 @@ const telegramApp = window.Telegram?.WebApp || null;
 const telegramUser = telegramApp?.initDataUnsafe?.user || null;
 
 const fullscreenButton = document.getElementById('fullscreenToggle');
+function syncFullscreenButton(){
+  const active=!!(document.fullscreenElement||document.webkitFullscreenElement||telegramApp?.isFullscreen);
+  if(fullscreenButton){fullscreenButton.textContent=active?'⤢ ВЫЙТИ':'⛶ НА ВЕСЬ ЭКРАН';fullscreenButton.setAttribute('aria-pressed',String(active));}
+}
 fullscreenButton?.addEventListener('click', async () => {
+  fullscreenButton.disabled=true;
   try {
-    if (document.fullscreenElement) await document.exitFullscreen();
-    else if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
-    else if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen();
-    else if (telegramApp?.expand) telegramApp.expand();
-    else fullscreenButton.textContent = 'ДОБАВЬ НА ЭКРАН «ДОМОЙ»';
+    if(telegramApp?.isFullscreen && telegramApp.exitFullscreen){telegramApp.exitFullscreen();}
+    else if(telegramApp?.requestFullscreen){telegramApp.requestFullscreen();}
+    else if(document.fullscreenElement||document.webkitFullscreenElement){
+      if(document.exitFullscreen) await document.exitFullscreen();
+      else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+    } else if(document.documentElement.requestFullscreen){
+      await document.documentElement.requestFullscreen();
+    } else if(document.documentElement.webkitRequestFullscreen){
+      document.documentElement.webkitRequestFullscreen();
+    } else if(telegramApp?.expand){
+      telegramApp.expand();
+      fullscreenButton.textContent='РАЗВЕРНУТО В TELEGRAM';
+    } else {
+      fullscreenButton.textContent='ПОЛНЫЙ ЭКРАН НЕДОСТУПЕН';
+    }
   } catch {
-    if (telegramApp?.expand) telegramApp.expand();
-    else fullscreenButton.textContent = 'НЕДОСТУПНО В ЭТОМ БРАУЗЕРЕ';
-  }
+    if(telegramApp?.expand){telegramApp.expand();fullscreenButton.textContent='РАЗВЕРНУТО В TELEGRAM';}
+    else fullscreenButton.textContent='ПОЛНЫЙ ЭКРАН НЕДОСТУПЕН';
+  } finally {fullscreenButton.disabled=false;syncFullscreenButton();}
 });
+document.addEventListener('fullscreenchange',syncFullscreenButton);
+document.addEventListener('webkitfullscreenchange',syncFullscreenButton);
+if(telegramApp?.onEvent){
+  telegramApp.onEvent('fullscreenChanged',syncFullscreenButton);
+  telegramApp.onEvent('fullscreenFailed',()=>{if(fullscreenButton)fullscreenButton.textContent='ПОЛНЫЙ ЭКРАН НЕДОСТУПЕН';});
+}
+syncFullscreenButton();
 
 if (telegramApp) {
   telegramApp.ready();
