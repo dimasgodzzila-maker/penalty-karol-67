@@ -704,6 +704,20 @@ input,select{border:3px solid #6aa7e8!important;border-radius:2px!important;back
 #match .power-heading #powerValue{color:#ffd52e!important}
 @media(max-width:390px){.pitch{height:340px!important}.pitch .player{image-rendering:pixelated!important}.pitch .keeper{image-rendering:pixelated!important}}
 
+
+/* FIX: prevent doubled/ghosted label on the fixed music button (especially iOS Safari) */
+#musicToggle{
+  text-shadow:none!important;
+  -webkit-text-stroke:0!important;
+  -webkit-font-smoothing:antialiased!important;
+  text-rendering:geometricPrecision!important;
+  font-family:system-ui,-apple-system,Arial,sans-serif!important;
+  font-weight:800!important;
+  letter-spacing:0!important;
+  line-height:1.2!important;
+  transform:translateZ(0)!important;
+  backface-visibility:hidden!important;
+}
 </style>
 </head>
 <body>
