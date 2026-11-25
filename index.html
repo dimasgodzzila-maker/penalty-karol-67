@@ -1261,8 +1261,8 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
 @media (orientation:landscape) and (min-width:600px){
  #mainMenu.main-menu:not(.hidden){
   height:100vh!important;height:100dvh!important;
-  background-size:100% 200%!important;
-  background-position:center top!important;
+  background-size:100% 100%!important;
+  background-position:center center!important;
  }
  #mainMenu .menu-quick-controls{
   position:fixed!important;top:calc(10px + env(safe-area-inset-top))!important;
@@ -1284,8 +1284,10 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
 @media (orientation:landscape) and (min-width:600px){
  #mainMenu.main-menu:not(.hidden){position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;min-height:0!important;padding:0!important;margin:0!important;display:block!important;overflow:hidden!important;background:#071a31 url("assets/main-menu.jpg") center center/100% 100% no-repeat!important;color:transparent!important}
  #mainMenu.main-menu:before{display:none!important}
- #mainMenu.main-menu.hidden{display:none!important}\n #mainMenu .menu-top,#mainMenu .menu-brand,#mainMenu .menu-player,#mainMenu .menu-wallet{position:absolute!important;display:block!important;margin:0!important;padding:0!important;inset:auto!important;width:auto!important;height:auto!important;max-width:none!important;background:none!important;border:0!important;box-shadow:none!important;opacity:0!important;pointer-events:none!important}
- #mainMenu .menu-top,#mainMenu .menu-side,#mainMenu .menu-actions{display:contents!important;opacity:1!important;pointer-events:none!important}\n #mainMenu .menu-profile{display:none!important}
+ #mainMenu.main-menu.hidden{display:none!important}
+ #mainMenu .menu-top,#mainMenu .menu-brand,#mainMenu .menu-player,#mainMenu .menu-wallet{position:absolute!important;display:block!important;margin:0!important;padding:0!important;inset:auto!important;width:auto!important;height:auto!important;max-width:none!important;background:none!important;border:0!important;box-shadow:none!important;opacity:0!important;pointer-events:none!important}
+ #mainMenu .menu-top,#mainMenu .menu-side,#mainMenu .menu-actions{display:contents!important;opacity:1!important;pointer-events:none!important}
+ #mainMenu .menu-profile{display:none!important}
  #mainMenu .menu-user,#mainMenu .menu-online,#mainMenu .menu-brand *{display:none!important}
  #mainMenu .menu-side-left,#mainMenu .menu-side-right{display:none!important}
  #mainMenu .menu-actions{display:none!important}
