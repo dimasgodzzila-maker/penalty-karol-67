@@ -1019,6 +1019,28 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
 #soloSetup #startSolo{background:linear-gradient(180deg,#e3ff83,#9bdf3e)!important;color:#18220f!important;border:2px solid #f4ffbd!important;box-shadow:0 6px 0 #557a23!important}
 @media(max-width:360px){.national-team-grid{gap:7px}.national-team-card{min-height:132px;padding:8px!important}.national-team-card .team-country{font-size:14px}.national-team-card .team-stars{font-size:9px}}
 
+
+/* COMIC NATIONAL TEAM POSTERS */
+.national-team-card{min-height:264px!important;padding:9px 9px 8px!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;background:linear-gradient(155deg,var(--team-a),var(--team-b) 72%,#090d28)!important;border:2px solid #ffffff8c!important}
+.poster-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+.poster-top .team-flag{font-size:27px}
+.poster-edition{font-size:7px;font-weight:1000;letter-spacing:1.1px;color:#fffbdc;background:#080c2c80;border:1px solid #ffffff45;border-radius:20px;padding:4px 6px}
+.poster-art{height:96px;position:relative;display:flex;align-items:flex-end;justify-content:center;margin:2px -3px 4px;overflow:hidden;background:radial-gradient(ellipse at 50% 100%,#fff7 0,transparent 64%);border-bottom:1px solid #ffffff65}
+.poster-art:before{content:"";position:absolute;left:12%;right:12%;bottom:-23px;height:88px;border:2px solid #ffffff75;border-bottom:0;border-radius:90px 90px 0 0;transform:perspective(80px) rotateX(7deg)}
+.poster-glow{position:absolute;width:70px;height:70px;border-radius:50%;background:#ffffff38;filter:blur(8px);top:7px}
+.poster-player{position:relative;z-index:1;display:grid;place-items:center;width:65px;height:75px;border-radius:42% 42% 10% 10%;font-size:29px;border:2px solid #ffffff9c;box-shadow:0 5px 0 #07102c88,0 0 16px #ffffff38;text-shadow:0 2px 3px #0008}
+.striker-art{background:linear-gradient(160deg,#fff8,#ffffff22);transform:rotate(-5deg) translateY(2px)}
+.keeper-art{width:58px;height:67px;margin-left:-8px;background:linear-gradient(160deg,#ffe78d,#b97825);transform:rotate(5deg) translateY(5px)}
+.poster-burst{position:absolute;right:13%;top:5px;font-size:23px;color:#fff1a6;text-shadow:0 2px #8b4e1c}
+.national-team-card .team-country{position:relative;z-index:1;font-size:19px!important;letter-spacing:.5px;margin:5px 0 6px!important;text-transform:uppercase}
+.poster-cast{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:5px;text-align:left}
+.poster-cast span{min-width:0;background:#07102bbd;border:1px solid #ffffff55;border-radius:6px;padding:5px 5px 6px}
+.poster-cast small{display:block;font-size:7px;letter-spacing:.7px;color:#ffe99b;font-weight:1000}
+.poster-cast strong{display:block;font-size:9px;line-height:1.15;margin-top:3px;color:#fff;overflow-wrap:anywhere}
+.poster-bottom{position:relative;z-index:1;margin-top:auto;padding-top:7px;font-size:7px;letter-spacing:1.2px;font-weight:1000;color:#ffffffbd;text-align:center}
+.national-team-card.active{transform:translateY(-2px) scale(1.015)!important}
+@media(max-width:360px){.national-team-card{min-height:246px!important}.poster-art{height:82px}.poster-player{height:66px;width:57px}.keeper-art{height:59px;width:52px}}
+
 </style>
 </head>
 <body>
@@ -1471,7 +1493,7 @@ function renderNationalTeamCards(){
  const build=(targetId,selectId)=>{
   const root=$(targetId),select=$(selectId);if(!root||!select)return;
   const selected=select.value.replace(/^[^ ]+\s*/,'');
-  root.innerHTML=nationalTeamCards.map(t=>{const active=selected===t.name;return '<button type="button" class="national-team-card'+(active?' active':'')+'" data-national="'+escapeHtml(t.name)+'" style="--team-a:'+t.a+';--team-b:'+t.b+'"><span class="team-check">'+(active?'✓':'＋')+'</span><span class="team-flag">'+t.flag+'</span><b class="team-country">'+t.name+'</b><span class="team-stars">★ '+t.star+'</span><div class="team-roles"><em>⚽ Исполнитель</em><em>🧤 '+t.keeper+'</em></div></button>';}).join('');
+  root.innerHTML=nationalTeamCards.map(t=>{const active=selected===t.name;return '<button type="button" class="national-team-card'+(active?' active':'')+'" data-national="'+escapeHtml(t.name)+'" style="--team-a:'+t.a+';--team-b:'+t.b+'"><span class="team-check">'+(active?'✓':'＋')+'</span><div class="poster-top"><span class="team-flag">'+t.flag+'</span><span class="poster-edition">NATIONAL HEROES</span></div><div class="poster-art"><span class="poster-glow"></span><span class="poster-player striker-art">⚽</span><span class="poster-player keeper-art">🧤</span><span class="poster-burst">★</span></div><b class="team-country">'+t.name+'</b><div class="poster-cast"><span><small>ИСПОЛНИТЕЛЬ</small><strong>'+t.star+'</strong></span><span><small>ВРАТАРЬ</small><strong>'+t.keeper+'</strong></span></div><span class="poster-bottom">ФУТБОЛЬНАЯ ДИНАСТИИИ</span></button>';}).join('');
   root.querySelectorAll('[data-national]').forEach(btn=>btn.addEventListener('click',()=>{const t=nationalTeamCards.find(x=>x.name===btn.dataset.national);const option=[...select.options].find(o=>o.textContent.includes(t.name));if(option){select.value=option.value;select.dispatchEvent(new Event('change',{bubbles:true}));renderNationalTeamCards();}}));
  };
  build('soloTeamCards','soloTeam');build('soloOpponentCards','soloOpponent');
