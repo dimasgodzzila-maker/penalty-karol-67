@@ -79,7 +79,7 @@ input,select{width:100%;border:1px solid #426b4e;border-radius:12px;background:#
 .solo-difficulties button.active{background:var(--lime);color:#142417;border-color:var(--lime)}
 @media(max-width:390px){.pitch{height:285px}.player{width:118px;height:118px}.keeper{width:94px;height:94px}.goal{left:17%;width:66%}}
 
-/* CARTOON 3D UPDATE V1 — visual polish and match animation layer */
+/* 8-BIT PIXEL ART UPDATE V1 — visual polish and match animation layer */
 :root{--bg:#160d2b;--panel:#28194a;--lime:#c7ff55;--white:#fff8ee;--muted:#c5b9df}
 body{background:radial-gradient(ellipse at 50% -10%,#6542a4 0,#24133f 43%,#100a20 100%)}
 .card{background:linear-gradient(150deg,#39245f,#21153e);border:2px solid #7656a8;box-shadow:0 7px 0 #130b26,0 14px 28px #0005}
@@ -119,7 +119,7 @@ button.primary,.menu-button{border:2px solid #efffb5;box-shadow:0 5px 0 #537d20,
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
 
 
-/* CARTOON 3D REDESIGN */
+/* 8-BIT PIXEL ART REDESIGN */
 :root{
  --bg:#102b4c;--panel:#24527a;--lime:#ffe36e;--white:#fffdf5;--muted:#d5e7f6;
  --cartoon-blue:#45c4e8;--cartoon-purple:#7354c8;--cartoon-orange:#ff9850;
@@ -649,6 +649,61 @@ input::placeholder{color:#8faac5}
 }
 @media(max-width:390px){.pitch .player{width:118px!important;height:118px!important}.pitch .keeper{width:94px!important;height:94px!important}}
 
+
+/* 8-BIT PIXEL ART UPDATE — keeps gameplay and controls intact */
+:root{--bg:#07152f;--panel:#102b57;--lime:#ffd52e;--white:#fff8df;--muted:#b9cbe8}
+html,body{background:#07152f!important;color:#fff8df!important;font-family:"Courier New",monospace!important}
+body{background:repeating-linear-gradient(0deg,#07152f 0 7px,#0a1d3d 7px 8px)!important}
+.wrap{max-width:520px}
+.card,.status,.team-preview,.pet-showcase,.pet-collection-panel,.pet-friend-card,.pet-actions-panel,.pet-daily-card{
+ border-radius:2px!important;border:3px solid #6aa7e8!important;
+ background:#102b57!important;box-shadow:4px 4px 0 #030b1c!important
+}
+h1,.logo,.field,.sub,.hint,.score,.message{font-family:"Courier New",monospace!important;text-shadow:2px 2px 0 #030b1c}
+.pitch{
+ border:4px solid #d9eaff!important;border-radius:2px!important;
+ background:#217b32 url("pixel_stadium.png") center/100% 100% no-repeat!important;
+ image-rendering:pixelated!important;box-shadow:4px 4px 0 #030b1c!important
+}
+.pitch:before{inset:0 0 58%!important;background:repeating-linear-gradient(90deg,#17345a22 0 5px,#8fcaff18 5px 10px)!important;opacity:.35!important;box-shadow:none!important}
+.pitch:after{top:40%!important;bottom:0!important;background:repeating-linear-gradient(0deg,#ffffff08 0 9px,#001b1608 9px 18px)!important;opacity:.45!important}
+.pitch .goal{top:27%!important;left:19%!important;width:62%!important;height:35%!important;border:4px solid #f5f7e8!important;border-bottom:0!important;border-radius:0!important;background:repeating-linear-gradient(90deg,transparent 0 9px,#f5f7e8a8 9px 11px),repeating-linear-gradient(0deg,transparent 0 9px,#f5f7e8a8 9px 11px),#17345a55!important;box-shadow:3px 3px 0 #07152f!important}
+.pitch .player,.pitch .keeper{image-rendering:pixelated!important;filter:drop-shadow(3px 3px 0 #07152f)!important}
+.pitch .player{background-image:url("player_sprites.png")!important}
+.pitch .keeper{background-image:url("keeper_sprites.png")!important}
+.pitch .ball{font-family:monospace!important;filter:drop-shadow(2px 2px 0 #07152f)!important}
+.pitch .pitch-label{font-family:"Courier New",monospace!important;letter-spacing:1px!important;text-shadow:2px 2px #07152f!important}
+.swipe-hint{border:2px solid #8bc8ff!important;border-radius:0!important;background:#09204b!important;font-family:"Courier New",monospace!important}
+button,.menu-button,.music-toggle{
+ border-radius:2px!important;border:3px solid #a8d7ff!important;
+ background:#124c9b!important;color:#fff8df!important;
+ font-family:"Courier New",monospace!important;font-weight:900!important;
+ text-shadow:2px 2px 0 #061735!important;
+ box-shadow:4px 4px 0 #030b1c!important;transition:none!important
+}
+button:active,.menu-button:active{transform:translate(3px,3px)!important;box-shadow:1px 1px 0 #030b1c!important}
+button.primary,.directions button.active,.menu-button.menu-primary{
+ background:#ffd52e!important;color:#15264a!important;border-color:#fff1a0!important;text-shadow:1px 1px #fff8!important;box-shadow:4px 4px 0 #8d5d0a!important
+}
+.directions{gap:7px!important}
+.directions button{background:#104b9a!important;border:3px solid #8fc8ff!important;border-radius:2px!important}
+.status{background:#09234a!important;color:#fff2a5!important}
+.pill,.menu-online{background:#ffd52e!important;color:#15264a!important;border:3px solid #fff1a0!important;border-radius:2px!important;box-shadow:3px 3px 0 #8d5d0a!important}
+input,select{border:3px solid #6aa7e8!important;border-radius:2px!important;background:#09234a!important;color:#fff!important;box-shadow:3px 3px 0 #030b1c!important;font-family:"Courier New",monospace!important}
+.power{accent-color:#ffd52e!important}
+.music-toggle{background:#ffd52e!important;color:#15264a!important;border-color:#fff1a0!important}
+.main-menu{background:#07152f!important}
+.main-menu:before{opacity:.18!important;background:repeating-linear-gradient(0deg,transparent 0 7px,#8fc8ff 7px 8px),repeating-linear-gradient(90deg,transparent 0 7px,#8fc8ff 7px 8px)!important}
+.menu-brand,.menu-top,.menu-footer{font-family:"Courier New",monospace!important;text-shadow:2px 2px 0 #030b1c!important}
+.menu-player{border:4px solid #d9eaff!important;border-radius:2px!important;box-shadow:4px 4px 0 #030b1c!important;image-rendering:pixelated!important}
+.menu-button{border-radius:2px!important}
+.sprite{image-rendering:pixelated!important}
+.cartoon-burst{font-family:"Courier New",monospace!important;text-shadow:3px 3px 0 #07152f,-2px -2px 0 #07152f!important}
+#match .directions button{background:#124c9b!important;border:3px solid #8fc8ff!important}
+#match .directions button.active{background:#ffd52e!important;color:#15264a!important}
+#match .power-heading #powerValue{color:#ffd52e!important}
+@media(max-width:390px){.pitch{height:340px!important}.pitch .player{image-rendering:pixelated!important}.pitch .keeper{image-rendering:pixelated!important}}
+
 </style>
 </head>
 <body>
@@ -658,17 +713,17 @@ input::placeholder{color:#8faac5}
   <div class="splash-skip">Нажми, чтобы пропустить</div>
 </div>
 <section id="mainMenu" class="main-menu hidden">
-  <div class="menu-top"><span>⚽ CARTOON FOOTBALL</span><span class="menu-online">ONLINE 1×1</span></div>
-  <div class="menu-brand"><div class="crown">♛</div><div>ФУТБОЛЬНАЯ</div><strong>ДИНАСТИИИИИЯ</strong><small>CARTOON FOOTBALL • MINI APP</small></div>
+  <div class="menu-top"><span>⚽ 8-BIT FOOTBALL</span><span class="menu-online">ONLINE 1×1</span></div>
+  <div class="menu-brand"><div class="crown">♛</div><div>ФУТБОЛЬНАЯ</div><strong>ДИНАСТИИИИИЯ</strong><small>8-BIT FOOTBALL • MINI APP</small></div>
   <div class="menu-player" aria-hidden="true"><div class="menu-goal"></div><div class="menu-keeper">🧤</div><div class="menu-striker">⚽</div></div>
   <div class="menu-actions">
     <button id="playSolo" class="menu-button menu-primary">ОДИНОЧНАЯ ИГРА <span>⚽</span></button>
     <button id="playFriend" class="menu-button">ИГРАТЬ С ДРУГОМ <span>➜</span></button>
     <button id="openPetHub" class="menu-button">МОНЕТЫ И ПИТОМЦЫ <span>★</span></button>
     <button id="openProfile" class="menu-button">МОЙ ПРОФИЛЬ <span>♛</span></button>
-    <div class="menu-note">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ • CARTOON 3D</div>
+    <div class="menu-note">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ • 8-BIT PIXEL ART</div>
   </div>
-  <div class="menu-footer">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ • CARTOON 3D</div>
+  <div class="menu-footer">ФУТБОЛЬНАЯ ДИНАСТИИИИИЯ • 8-BIT PIXEL ART</div>
 </section>
 <div class="wrap hidden" id="gameWrap">
  <div class="top"><div class="logo">⚽ ФУТБОЛЬНАЯ<br><span>ДИНАСТИИИИИЯ</span></div><div class="pill">ONLINE 1×1</div></div>
