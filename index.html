@@ -1256,10 +1256,10 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
 
 /* TRUE ARTWORK-BASED LANDSCAPE MENU */
 @media (orientation:landscape) and (min-width:600px){
- #mainMenu.main-menu{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;min-height:0!important;padding:0!important;margin:0!important;display:block!important;overflow:hidden!important;background:#071a31 url("assets/main-menu.jpg") center center/100% 100% no-repeat!important;color:transparent!important}
+ #mainMenu.main-menu:not(.hidden){position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;min-height:0!important;padding:0!important;margin:0!important;display:block!important;overflow:hidden!important;background:#071a31 url("assets/main-menu.jpg") center center/100% 100% no-repeat!important;color:transparent!important}
  #mainMenu.main-menu:before{display:none!important}
- #mainMenu .menu-top,#mainMenu .menu-brand,#mainMenu .menu-player,#mainMenu .menu-side,#mainMenu .menu-actions,#mainMenu .menu-wallet{position:absolute!important;display:block!important;margin:0!important;padding:0!important;inset:auto!important;width:auto!important;height:auto!important;max-width:none!important;background:none!important;border:0!important;box-shadow:none!important;opacity:0!important;pointer-events:none!important}
- #mainMenu .menu-profile{display:none!important}
+ #mainMenu.main-menu.hidden{display:none!important}\n #mainMenu .menu-top,#mainMenu .menu-brand,#mainMenu .menu-player,#mainMenu .menu-wallet{position:absolute!important;display:block!important;margin:0!important;padding:0!important;inset:auto!important;width:auto!important;height:auto!important;max-width:none!important;background:none!important;border:0!important;box-shadow:none!important;opacity:0!important;pointer-events:none!important}
+ #mainMenu .menu-top,#mainMenu .menu-side,#mainMenu .menu-actions{display:contents!important;opacity:1!important;pointer-events:none!important}\n #mainMenu .menu-profile{display:none!important}
  #mainMenu .menu-user,#mainMenu .menu-online,#mainMenu .menu-brand *{display:none!important}
  #mainMenu .menu-side-left,#mainMenu .menu-side-right{display:none!important}
  #mainMenu .menu-actions{display:none!important}
@@ -1295,23 +1295,23 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
   <div class="splash-skip">Нажми, чтобы пропустить</div>
 </div>
 <section id="mainMenu" class="main-menu hidden">
-  <div class="menu-top"><button class="menu-user menu-hit" id="openProfile" menu-hit>♙ МОЙ ПРОФИЛЬ <small>УР. 1</small></button><span class="menu-online">ONLINE 1×1</span></div>
+  <div class="menu-top"><button class="menu-user menu-hit" id="openProfile">♙ МОЙ ПРОФИЛЬ <small>УР. 1</small></button><span class="menu-online">ONLINE 1×1</span></div>
   <div class="menu-brand"><div class="crown">♛</div><div>ФУТБОЛЬНАЯ</div><strong>ДИНАСТИИИИИЯ</strong><small>8-BIT FOOTBALL • MINI APP</small></div>
   <div class="menu-player" aria-hidden="true"><div class="menu-goal"></div><div class="menu-keeper">🧤</div><div class="menu-striker">⚽</div></div>
   <nav class="menu-side menu-side-left">
-   <button class="menu-tile menu-hit" id="menuTeams" menu-hit><span>👕</span>КОМАНДЫ</button>
-   <button class="menu-tile menu-hit" id="menuPets" menu-hit><span>🐼</span>ПИТОМЦЫ</button>
-   <button class="menu-tile menu-hit" id="menuShop" menu-hit><span>🛒</span>МАГАЗИН</button>
+   <button class="menu-tile menu-hit" id="menuTeams"><span>👕</span>КОМАНДЫ</button>
+   <button class="menu-tile menu-hit" id="menuPets"><span>🐼</span>ПИТОМЦЫ</button>
+   <button class="menu-tile menu-hit" id="menuShop"><span>🛒</span>МАГАЗИН</button>
   </nav>
   <nav class="menu-side menu-side-right">
-   <button class="menu-tile menu-hit" id="menuTasks" menu-hit><span>📋</span>ЗАДАНИЯ</button>
-   <button class="menu-tile menu-hit" id="menuRewards" menu-hit><span>🎁</span>НАГРАДЫ</button>
-   <button class="menu-tile menu-hit" id="menuEvents" menu-hit><span>📅</span>СОБЫТИЯ</button>
+   <button class="menu-tile menu-hit" id="menuTasks"><span>📋</span>ЗАДАНИЯ</button>
+   <button class="menu-tile menu-hit" id="menuRewards"><span>🎁</span>НАГРАДЫ</button>
+   <button class="menu-tile menu-hit" id="menuEvents"><span>📅</span>СОБЫТИЯ</button>
   </nav>
   <div class="menu-actions">
-    <button id="playSolo" class="menu-button menu-primary menu-hit" menu-hit><span>⚽</span> ОДИНОЧНАЯ ИГРА <b>›</b></button>
-    <button id="playFriend" class="menu-button menu-hit" menu-hit><span>👥</span> ИГРА С ДРУГОМ</button>
-    <button id="menuTournaments" class="menu-button menu-tournament menu-hit" menu-hit><span>🏆</span> ТУРНИРЫ</button>
+    <button id="playSolo" class="menu-button menu-primary menu-hit"><span>⚽</span> ОДИНОЧНАЯ ИГРА <b>›</b></button>
+    <button id="playFriend" class="menu-button menu-hit"><span>👥</span> ИГРА С ДРУГОМ</button>
+    <button id="menuTournaments" class="menu-button menu-tournament menu-hit"><span>🏆</span> ТУРНИРЫ</button>
   </div>
   <div class="menu-wallet"><span>🪙 <b id="menuCoinBalance">0</b></span><span>💎 <b id="menuGemBalance">0</b></span></div>
   <button id="menuCoinHit" class="menu-hit" aria-label="Магазин монет"></button>
