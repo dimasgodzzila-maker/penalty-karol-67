@@ -795,6 +795,51 @@ body{background:radial-gradient(ellipse at 50% -8%,#315f85 0,#102d4c 46%,#07172b
  #match .pitch .keeper{width:clamp(92px,26%,112px)!important}
  #match .pitch .player{width:clamp(108px,30%,126px)!important}
 }
+
+/* STADIUM VISUAL V2 — shared art direction for menus, hubs and panels */
+.main-menu{
+ background:
+  radial-gradient(ellipse at 50% 28%,#315f83 0,#173b5d 40%,#0b213a 78%,#06172b 100%)!important;
+ color:#f5f7e9!important;
+}
+.main-menu:before{
+ opacity:.35!important;
+ background:
+  radial-gradient(ellipse at 50% 0%,#fff8 0 1px,transparent 3px),
+  repeating-linear-gradient(90deg,transparent 0 17px,#9bc7e51a 18px 20px),
+  linear-gradient(180deg,#071b31aa,#071b3100 55%)!important;
+}
+.menu-player{
+ background:
+  radial-gradient(ellipse at 50% 0%,#e8f7ff77,transparent 44%),
+  repeating-linear-gradient(90deg,#318449 0 12.5%,#28743d 12.5% 25%)!important;
+ border:4px solid #edf6ef!important;border-radius:16px!important;
+ box-shadow:0 0 0 3px #17324d,0 12px 30px #020b16bb!important;
+}
+.menu-player:before{
+ content:"";position:absolute;inset:0 0 47%;pointer-events:none;
+ background:repeating-linear-gradient(90deg,#294966 0 8px,#3c5d7d 8px 16px,#203c59 16px 24px);
+ border-bottom:3px solid #eaf3e9;
+}
+.menu-player:after{z-index:1!important;bottom:18%!important;height:3px!important;background:#eaf3e9!important}
+.menu-goal{z-index:2!important;border-color:#f4f7f2!important;background:repeating-linear-gradient(90deg,transparent 0 13px,#ffffff8c 14px 15px),repeating-linear-gradient(0deg,transparent 0 13px,#ffffff70 14px 15px)!important}
+.menu-button{
+ border:2px solid #fff0b0!important;border-radius:13px!important;
+ background:linear-gradient(180deg,#ffe77a,#f3b52f)!important;color:#47310a!important;
+ box-shadow:0 5px 0 #8d5c19,0 10px 20px #020b16aa!important;
+ text-shadow:0 1px #fff8!important;
+}
+.menu-button:not(.menu-primary){background:linear-gradient(180deg,#3977a8,#194b78)!important;color:#fff!important;border-color:#9dd8f5!important;box-shadow:0 5px 0 #0a2948,0 10px 20px #020b16aa!important}
+.card,#petHub .card,#profileHub .card{
+ background:linear-gradient(155deg,#1c3b58,#102942)!important;
+ border:2px solid #5f91b7!important;border-radius:17px!important;
+ box-shadow:0 6px 0 #061426,0 12px 24px #020b1666!important;
+}
+#petHub,#profileHub{background:linear-gradient(160deg,#173c5e,#0b2541)!important;border-color:#77b8d8!important}
+#petHub button,#profileHub button{border-radius:12px!important}
+#petHub [data-pet].active{background:linear-gradient(180deg,#ffe77a,#f3b52f)!important;color:#47310a!important;border-color:#fff0b0!important}
+input,select,textarea{background:#0b2541!important;color:#f5f7e9!important;border:2px solid #6fa9cc!important;border-radius:10px!important}
+button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius:11px}
 </style>
 </head>
 <body>
