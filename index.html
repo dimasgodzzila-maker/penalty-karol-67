@@ -1041,9 +1041,33 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
 .national-team-card.active{transform:translateY(-2px) scale(1.015)!important}
 @media(max-width:360px){.national-team-card{min-height:246px!important}.poster-art{height:82px}.poster-player{height:66px;width:57px}.keeper-art{height:59px;width:52px}}
 
+
+/* LANDSCAPE-FIRST GAME LAYOUT */
+#orientationNotice{display:none}
+@media (orientation:portrait) and (max-width:900px){
+ body{overflow:hidden}
+ body>*:not(#orientationNotice){visibility:hidden!important}
+ #orientationNotice{visibility:visible;position:fixed;inset:0;z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:28px;text-align:center;background:radial-gradient(ellipse at center,#123b62,#050b18 72%);color:#fff}
+ #orientationNotice strong{font-size:clamp(22px,6vw,34px);letter-spacing:1px}
+ #orientationNotice span{font-size:15px;color:#b9d8f4;max-width:280px;line-height:1.5}
+ .rotate-phone{font-size:66px;line-height:1;transform:rotate(90deg);color:#ffd45c;animation:phoneTurn 1.8s ease-in-out infinite}
+}
+@keyframes phoneTurn{0%,100%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}
+@media (orientation:landscape) and (max-height:600px){
+ body{min-height:100dvh;overflow-x:hidden}
+ .wrap{max-width:1180px;width:100%;padding:8px 18px 14px}
+ h1{margin:8px 0 2px;font-size:clamp(19px,3.5vh,28px)}
+ .sub{margin:0 0 8px;font-size:12px}
+ .card{padding:10px;margin:7px 0;border-radius:14px}
+ .pitch{height:48dvh;min-height:155px;max-height:300px;margin:7px 0}
+ #fullscreenToggle,#musicToggle{transform:scale(.82);transform-origin:top right}
+ .main-menu{min-height:100dvh}
+}
+
 </style>
 </head>
 <body>
+<div id="orientationNotice" role="status"><div class="rotate-phone">↻</div><strong>ПОВЕРНИ ТЕЛЕФОН</strong><span>Игра работает только в горизонтальном режиме</span></div>
 <button id="fullscreenToggle" type="button" aria-label="Полный экран">⛶ ЭКРАН</button>
 <button id="musicToggle" class="music-toggle" type="button" aria-pressed="false">♫ ФОНК: ВЫКЛ</button>
 <div id="splash" class="splash" aria-label="Загрузка игры">
