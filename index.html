@@ -1090,6 +1090,30 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
  .menu-button{height:38px;font-size:10px;padding:5px}
 }
 
+
+/* FIX: allow touch scrolling on the full-screen main menu */
+.main-menu{
+ overflow-x:hidden!important;
+ overflow-y:auto!important;
+ -webkit-overflow-scrolling:touch!important;
+ touch-action:pan-y!important;
+ overscroll-behavior-y:contain;
+ justify-content:flex-start!important;
+ min-height:100dvh;
+ height:100dvh;
+}
+.main-menu>*{flex-shrink:0}
+.menu-top{flex:none}
+.menu-brand{flex:none}
+.menu-player{flex:none}
+.menu-actions{flex:none;padding-bottom:12px}
+.menu-footer{flex:none;padding-bottom:8px}
+@media (orientation:landscape) and (min-width:600px) and (max-height:900px){
+ .main-menu{justify-content:flex-start!important;gap:10px!important}
+ .menu-player{margin:0 auto!important}
+ .menu-actions{margin:0 auto!important}
+}
+
 </style>
 </head>
 <body>
