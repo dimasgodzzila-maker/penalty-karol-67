@@ -1253,6 +1253,37 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
 .hub-feedback{min-height:24px;color:#ffe36a;font-weight:800}
 @media(max-width:520px){.hub-grid{grid-template-columns:1fr}}
 
+
+/* TRUE ARTWORK-BASED LANDSCAPE MENU */
+@media (orientation:landscape) and (min-width:600px){
+ #mainMenu.main-menu{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;min-height:0!important;padding:0!important;margin:0!important;display:block!important;overflow:hidden!important;background:#071a31 url("assets/main-menu.jpg") center center/100% 100% no-repeat!important;color:transparent!important}
+ #mainMenu.main-menu:before{display:none!important}
+ #mainMenu .menu-top,#mainMenu .menu-brand,#mainMenu .menu-player,#mainMenu .menu-side,#mainMenu .menu-actions,#mainMenu .menu-wallet{position:absolute!important;display:block!important;margin:0!important;padding:0!important;inset:auto!important;width:auto!important;height:auto!important;max-width:none!important;background:none!important;border:0!important;box-shadow:none!important;opacity:0!important;pointer-events:none!important}
+ #mainMenu .menu-profile{display:none!important}
+ #mainMenu .menu-user,#mainMenu .menu-online,#mainMenu .menu-brand *{display:none!important}
+ #mainMenu .menu-side-left,#mainMenu .menu-side-right{display:none!important}
+ #mainMenu .menu-actions{display:none!important}
+ #mainMenu .menu-hit{position:absolute!important;display:block!important;z-index:5!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:rgba(255,255,255,.001)!important;box-shadow:none!important;color:transparent!important;opacity:1!important;pointer-events:auto!important;min-width:0!important;min-height:0!important;transform:none!important}
+ #mainMenu .menu-hit:focus-visible{outline:3px solid #fff!important;outline-offset:-4px}
+ #mainMenu #openProfile{left:1.2%;top:1%;width:22%;height:23%;z-index:6!important;opacity:.001!important}
+ #mainMenu #menuTeams{left:1.2%;top:22%;width:16%;height:22%}
+ #mainMenu #menuPets{left:1.2%;top:45%;width:16%;height:22%}
+ #mainMenu #menuShop{left:1.2%;top:68%;width:16%;height:22%}
+ #mainMenu #menuTasks{right:1.2%;top:22%;width:16%;height:22%}
+ #mainMenu #menuRewards{right:1.2%;top:45%;width:16%;height:22%}
+ #mainMenu #menuEvents{right:1.2%;top:68%;width:16%;height:22%}
+ #mainMenu #playSolo{left:16%;bottom:1%;width:24%;height:20%}
+ #mainMenu #playFriend{left:40%;bottom:1%;width:24%;height:20%}
+ #mainMenu #menuTournaments{left:64%;bottom:1%;width:23%;height:20%}
+ #mainMenu #menuCoinHit{left:69%;top:1%;width:13%;height:18%}
+ #mainMenu #menuGemHit{left:82%;top:1%;width:13%;height:18%}
+ #mainMenu #menuSettingsHit{right:.5%;top:0;width:7%;height:20%}
+ #mainMenu .team-picker-overlay{position:absolute!important;inset:0!important;z-index:30!important;opacity:1!important;pointer-events:auto!important;background:#020b19ed!important}
+}
+@media (orientation:landscape) and (max-width:599px){
+ #mainMenu.main-menu{background-size:100% 100%!important}
+}
+
 </style>
 </head>
 <body>
@@ -1264,25 +1295,28 @@ button:not(.menu-button):not(.music-toggle):not(#fullscreenToggle){border-radius
   <div class="splash-skip">Нажми, чтобы пропустить</div>
 </div>
 <section id="mainMenu" class="main-menu hidden">
-  <div class="menu-top"><button class="menu-user" id="openProfile">♙ МОЙ ПРОФИЛЬ <small>УР. 1</small></button><span class="menu-online">ONLINE 1×1</span></div>
+  <div class="menu-top"><button class="menu-user" id="openProfile" menu-hit>♙ МОЙ ПРОФИЛЬ <small>УР. 1</small></button><span class="menu-online">ONLINE 1×1</span></div>
   <div class="menu-brand"><div class="crown">♛</div><div>ФУТБОЛЬНАЯ</div><strong>ДИНАСТИИИИИЯ</strong><small>8-BIT FOOTBALL • MINI APP</small></div>
   <div class="menu-player" aria-hidden="true"><div class="menu-goal"></div><div class="menu-keeper">🧤</div><div class="menu-striker">⚽</div></div>
   <nav class="menu-side menu-side-left">
-   <button class="menu-tile" id="menuTeams"><span>👕</span>КОМАНДЫ</button>
-   <button class="menu-tile" id="menuPets"><span>🐼</span>ПИТОМЦЫ</button>
-   <button class="menu-tile" id="menuShop"><span>🛒</span>МАГАЗИН</button>
+   <button class="menu-tile" id="menuTeams" menu-hit><span>👕</span>КОМАНДЫ</button>
+   <button class="menu-tile" id="menuPets" menu-hit><span>🐼</span>ПИТОМЦЫ</button>
+   <button class="menu-tile" id="menuShop" menu-hit><span>🛒</span>МАГАЗИН</button>
   </nav>
   <nav class="menu-side menu-side-right">
-   <button class="menu-tile" id="menuTasks"><span>📋</span>ЗАДАНИЯ</button>
-   <button class="menu-tile" id="menuRewards"><span>🎁</span>НАГРАДЫ</button>
-   <button class="menu-tile" id="menuEvents"><span>📅</span>СОБЫТИЯ</button>
+   <button class="menu-tile" id="menuTasks" menu-hit><span>📋</span>ЗАДАНИЯ</button>
+   <button class="menu-tile" id="menuRewards" menu-hit><span>🎁</span>НАГРАДЫ</button>
+   <button class="menu-tile" id="menuEvents" menu-hit><span>📅</span>СОБЫТИЯ</button>
   </nav>
   <div class="menu-actions">
-    <button id="playSolo" class="menu-button menu-primary"><span>⚽</span> ОДИНОЧНАЯ ИГРА <b>›</b></button>
-    <button id="playFriend" class="menu-button"><span>👥</span> ИГРА С ДРУГОМ</button>
-    <button id="menuTournaments" class="menu-button menu-tournament"><span>🏆</span> ТУРНИРЫ</button>
+    <button id="playSolo" class="menu-button menu-primary" menu-hit><span>⚽</span> ОДИНОЧНАЯ ИГРА <b>›</b></button>
+    <button id="playFriend" class="menu-button" menu-hit><span>👥</span> ИГРА С ДРУГОМ</button>
+    <button id="menuTournaments" class="menu-button menu-tournament" menu-hit><span>🏆</span> ТУРНИРЫ</button>
   </div>
   <div class="menu-wallet"><span>🪙 <b id="menuCoinBalance">0</b></span><span>💎 <b id="menuGemBalance">0</b></span></div>
+  <button id="menuCoinHit" class="menu-hit" aria-label="Магазин монет"></button>
+  <button id="menuGemHit" class="menu-hit" aria-label="Награды и кристаллы"></button>
+  <button id="menuSettingsHit" class="menu-hit" aria-label="Настройки профиля"></button>
   <section class="team-picker-overlay hidden" id="teamPickerOverlay" aria-label="Выбор сборной"><div class="team-picker-panel"><button id="closeTeamPicker" class="team-picker-close">✕</button><h2>ВЫБЕРИ СВОЮ СБОРНУЮ</h2><p>Твоя команда будет сохранена и останется выбранной перед всеми матчами</p><div id="mainTeamCards" class="main-team-grid"></div></div></section>
 </section>
 <div class="wrap hidden" id="gameWrap">
@@ -1795,6 +1829,9 @@ $("openProfile").addEventListener("click",openProfile);
 
 $("menuTournaments").addEventListener("click",openSoloSetup);
 $("menuPets").addEventListener("click",openPetHub);
+$("menuCoinHit").addEventListener("click",()=>openHubPage("shopHub"));
+$("menuGemHit").addEventListener("click",()=>openHubPage("rewardsHub"));
+$("menuSettingsHit").addEventListener("click",openProfile);
 $("menuShop").addEventListener("click",()=>openHubPage("shopHub"));
 $("menuTasks").addEventListener("click",()=>openHubPage("tasksHub"));
 $("menuRewards").addEventListener("click",()=>openHubPage("rewardsHub"));
